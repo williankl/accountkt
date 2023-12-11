@@ -1,0 +1,67 @@
+[versions]
+
+android-compileSdk = "34"
+android-targetSdk = "34"
+android-minSdk = "26"
+android-versionCode = "000000001"
+android-versionName = "0.0.1"
+
+plugin-ktlint = "3.10.0"
+plugin-detekt = "1.22.0"
+plugin-ksp = "1.9.10-1.0.13"
+plugin-android = "8.0.2"
+plugin-buildKonfig = "0.13.3"
+
+kotlin = "1.9.10"
+compose = "1.5.3"
+
+cashApp-sqlDelight = "2.0.1"
+voyager = "1.0.0-rc07"
+lyricist = "1.4.1"
+ktor = "2.3.5"
+kodein = "7.20.2"
+
+[libraries]
+
+plugin-ksp = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "plugin-ksp" }
+plugin-android = { module = "com.android.tools.build:gradle", version.ref = "plugin-android" }
+plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+plugin-kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
+plugin-multiplatform-compose = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "compose" }
+plugin-buildKonfig = { module = "com.codingfeline.buildkonfig:buildkonfig-gradle-plugin", version.ref = "plugin-buildKonfig" }
+plugin-cashApp-SqlDelight = { module = "app.cash.sqldelight:gradle-plugin", version.ref = "cashApp-sqlDelight" }
+plugin-ktlint = { module = "org.jmailen.gradle:kotlinter-gradle", version.ref = "plugin-ktlint" }
+plugin-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "plugin-detekt" }
+
+# CashApp
+
+cashapp-sqLiteAndroid = { module = "app.cash.sqldelight:android-driver", version.ref = "cashApp-sqlDelight" }
+cashapp-sqLiteNativeDriver = { module = "app.cash.sqldelight:native-driver", version.ref = "cashApp-sqlDelight" }
+
+# Ktor
+
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-okHttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+ktor-client-contentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-jsonSerialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+
+# Kodein
+
+kodein-core = { module = "org.kodein.di:kodein-di", version.ref = "kodein" }
+kodein-android = { module = "org.kodein.di:kodein-di-framework-android-x", version.ref = "kodein" }
+kodein-compose = { module = "org.kodein.di:kodein-di-framework-compose", version.ref = "kodein" }
+
+# Voyager
+
+voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+voyager-bottomSheetNavigator = { module = "cafe.adriel.voyager:voyager-bottom-sheet-navigator", version.ref = "voyager" }
+voyager-tabNavigator = { module = "cafe.adriel.voyager:voyager-tab-navigator", version.ref = "voyager" }
+voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyager" }
+voyager-kodein = { module = "cafe.adriel.voyager:voyager-kodein", version.ref = "voyager" }
+
+# Lyricist
+
+lyricist-core = { module = "cafe.adriel.lyricist:lyricist", version.ref = "lyricist" }
+lyricist-ksp = { module = "cafe.adriel.lyricist:lyricist-processor", version.ref = "lyricist" }
