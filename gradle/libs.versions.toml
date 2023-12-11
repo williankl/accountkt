@@ -37,6 +37,7 @@ plugin-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", v
 
 cashapp-sqLiteAndroid = { module = "app.cash.sqldelight:android-driver", version.ref = "cashApp-sqlDelight" }
 cashapp-sqLiteNativeDriver = { module = "app.cash.sqldelight:native-driver", version.ref = "cashApp-sqlDelight" }
+cashApp-postgresDialict = { module = "app.cash.sqldelight:postgresql-dialect", version.ref = "cashApp-sqlDelight" }
 
 # Ktor
 

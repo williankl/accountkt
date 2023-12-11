@@ -20,5 +20,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "accountkt"
-include(":android")
+include(":app:android")
 include(":data:currency-service")
+include(":data:currency-storage")

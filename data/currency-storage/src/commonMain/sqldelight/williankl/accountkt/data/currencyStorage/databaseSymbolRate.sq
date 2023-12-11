@@ -1,0 +1,26 @@
+createTableIfNeeded:
+CREATE TABLE IF NOT EXISTS databaseSymbolRate (
+  base TEXT PRIMARY KEY NOT NULL,
+  timestamp INTEGER NOT NULL,
+  rates TEXT NOT NULL
+);
+
+selectAll:
+SELECT *
+FROM databaseSymbolRate;
+
+selectForBaseSymbol:
+SELECT *
+FROM databaseSymbolRate
+WHERE databaseSymbolRate.base = :base;
+
+insert:
+INSERT INTO databaseSymbolRate(base, timestamp, rates)
+VALUES (:base, :timestamp, :rates);
+
+dropForSymbol:
+DELETE FROM databaseSymbolRate
+WHERE databaseSymbolRate.base = :symbol;
+
+dropAll:
+DELETE FROM databaseSymbolRate WHERE TRUE;
