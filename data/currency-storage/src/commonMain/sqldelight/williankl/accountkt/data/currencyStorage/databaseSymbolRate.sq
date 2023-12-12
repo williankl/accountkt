@@ -1,7 +1,7 @@
 createTableIfNeeded:
 CREATE TABLE IF NOT EXISTS databaseSymbolRate (
   base TEXT PRIMARY KEY NOT NULL,
-  timestamp INTEGER NOT NULL,
+  nextUpdateAt INTEGER NOT NULL,
   rates TEXT NOT NULL
 );
 
@@ -15,8 +15,8 @@ FROM databaseSymbolRate
 WHERE databaseSymbolRate.base = :base;
 
 insert:
-INSERT INTO databaseSymbolRate(base, timestamp, rates)
-VALUES (:base, :timestamp, :rates);
+INSERT INTO databaseSymbolRate(base, nextUpdateAt, rates)
+VALUES (:base, :nextUpdateAt, :rates);
 
 dropForSymbol:
 DELETE FROM databaseSymbolRate

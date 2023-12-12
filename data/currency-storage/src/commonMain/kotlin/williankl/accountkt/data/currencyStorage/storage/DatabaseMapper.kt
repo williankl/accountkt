@@ -8,9 +8,9 @@ internal object DatabaseMapper {
     fun mapToDomain(storageModel: DatabaseSymbolRate): SymbolRate {
         return with(storageModel) {
             SymbolRate(
-                timestamp = timestamp,
                 base = base,
                 rates = stringToRates(rates),
+                nextUpdateAt = nextUpdateAt,
             )
         }
     }
@@ -18,17 +18,17 @@ internal object DatabaseMapper {
     fun mapToDatabaseModel(rate: SymbolRate): DatabaseSymbolRate {
         return with(rate) {
             DatabaseSymbolRate(
-                timestamp = timestamp,
                 base = base,
                 rates = ratesToString(rates),
+                nextUpdateAt = nextUpdateAt,
             )
         }
     }
 
     private fun stringToRates(str: String): Map<Symbol, Double> {
         return str.split("|").associate { rawString ->
-            val label = rawString.substringBefore(",")
-            val value = rawString.substringAfter(",").toDouble()
+            val label = rawString.substringBefore("-")
+            val value = rawString.substringAfter("-").toDouble()
             label to value
         }
     }

@@ -3,11 +3,12 @@ package williankl.accountkt.data.currencyStorage
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
 import org.kodein.di.instance
-import williankl.accountkt.data.currencyStorage.storage.CurrencyStorageImplementation
+import williankl.accountkt.data.currencyStorage.storage.CurrencyDataStorageImplementation
+import williankl.accountkt.data.currencyStorage.storage.CurrencyRateStorageImplementation
 
 internal expect fun platformCurrencyStorageDI(): DI.Module
 
-public val currencyStorageDI: DI.Module =
+public val currencyRateStorageDI: DI.Module =
     DI.Module("williankl.accountkt.data.currencyStorage") {
         import(platformCurrencyStorageDI())
 
@@ -17,8 +18,14 @@ public val currencyStorageDI: DI.Module =
             )
         }
 
-        bindSingleton<CurrencyStorage> {
-            CurrencyStorageImplementation(
+        bindSingleton<CurrencyRateStorage> {
+            CurrencyRateStorageImplementation(
+                currencyDatabase = instance(),
+            )
+        }
+
+        bindSingleton<CurrencyDataStorage> {
+            CurrencyDataStorageImplementation(
                 currencyDatabase = instance(),
             )
         }

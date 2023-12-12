@@ -1,15 +1,13 @@
 package williankl.accountkt.data.currencyStorage.storage
 
-import app.cash.sqldelight.db.SqlDriver
 import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.data.currencyService.models.SymbolRate
 import williankl.accountkt.data.currencyStorage.CurrencyDatabase
-import williankl.accountkt.data.currencyStorage.CurrencyStorage
-import williankl.accountkt.data.currencyStorage.DatabaseSymbolRate
+import williankl.accountkt.data.currencyStorage.CurrencyRateStorage
 
-internal class CurrencyStorageImplementation(
+internal class CurrencyRateStorageImplementation(
     private val currencyDatabase: CurrencyDatabase,
-) : CurrencyStorage {
+) : CurrencyRateStorage {
 
     init {
         currencyDatabase.databaseSymbolRateQueries.createTableIfNeeded()
@@ -32,7 +30,7 @@ internal class CurrencyStorageImplementation(
     override suspend fun insertSymbolRate(symbolRate: SymbolRate) {
         with(DatabaseMapper.mapToDatabaseModel(symbolRate)) {
             currencyDatabase.databaseSymbolRateQueries
-                .insert(base, timestamp, rates)
+                .insert(base, nextUpdateAt, rates)
         }
     }
 

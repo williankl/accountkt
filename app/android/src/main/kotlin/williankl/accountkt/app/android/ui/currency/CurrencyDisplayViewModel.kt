@@ -9,11 +9,11 @@ import kotlinx.coroutines.launch
 import williankl.accountkt.data.currencyService.CurrencyService
 import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.data.currencyService.models.SymbolRate
-import williankl.accountkt.data.currencyStorage.CurrencyStorage
+import williankl.accountkt.data.currencyStorage.CurrencyRateStorage
 
 internal class CurrencyDisplayViewModel(
     private val currencyService: CurrencyService,
-    private val currencyStorage: CurrencyStorage,
+    private val currencyRateStorage: CurrencyRateStorage,
 ) : ScreenModel {
 
     private val _presentation = MutableStateFlow(CurrencyDisplayPresentation())
@@ -26,11 +26,11 @@ internal class CurrencyDisplayViewModel(
     fun retrieveAllInfoForSymbol(symbol: Symbol) {
         coroutineScope.launch {
             try {
-                val rate = currencyStorage.rateForSymbol(symbol)
+                val rate = currencyRateStorage.rateForSymbol(symbol)
                     ?: currencyService.retrieveRates(symbol)
                         .also { rate ->
-                            currencyStorage.dropInfoForSymbol(symbol)
-                            currencyStorage.insertSymbolRate(rate)
+                            currencyRateStorage.dropInfoForSymbol(symbol)
+                            currencyRateStorage.insertSymbolRate(rate)
                         }
 
                 _presentation.update {

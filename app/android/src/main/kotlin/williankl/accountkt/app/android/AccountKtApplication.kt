@@ -9,12 +9,12 @@ import org.kodein.di.android.x.androidXModule
 import org.kodein.di.bindSingleton
 import williankl.accountkt.app.android.ui.applicationUiDI
 import williankl.accountkt.data.currencyService.currencyServiceDI
-import williankl.accountkt.data.currencyStorage.currencyStorageDI
+import williankl.accountkt.data.currencyStorage.currencyRateStorageDI
 
 internal class AccountKtApplication : Application(), DIAware {
     override val di: DI = DI {
         import(currencyServiceDI)
-        import(currencyStorageDI)
+        import(currencyRateStorageDI)
         import(applicationUiDI)
         import(androidCoreModule(this@AccountKtApplication))
         import(androidXModule(this@AccountKtApplication))

@@ -1,0 +1,25 @@
+createTableIfNeeded:
+CREATE TABLE IF NOT EXISTS databaseSymbolData (
+  base TEXT PRIMARY KEY NOT NULL,
+  name TEXT NOT NULL
+);
+
+selectAll:
+SELECT *
+FROM databaseSymbolData;
+
+selectForBaseSymbol:
+SELECT *
+FROM databaseSymbolData
+WHERE databaseSymbolData.base = :base;
+
+insert:
+INSERT INTO databaseSymbolData(base, name)
+VALUES (:base, :name);
+
+dropForSymbol:
+DELETE FROM databaseSymbolData
+WHERE databaseSymbolData.base = :symbol;
+
+dropAll:
+DELETE FROM databaseSymbolData WHERE TRUE;
