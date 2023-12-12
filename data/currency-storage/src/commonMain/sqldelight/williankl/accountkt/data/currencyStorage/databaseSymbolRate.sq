@@ -14,6 +14,11 @@ SELECT *
 FROM databaseSymbolRate
 WHERE databaseSymbolRate.base = :base;
 
+updateSymbolValue:
+UPDATE databaseSymbolRate
+SET rates = :newRates
+WHERE base = :symbol;
+
 insert:
 INSERT INTO databaseSymbolRate(base, nextUpdateAt, rates)
 VALUES (:base, :nextUpdateAt, :rates);

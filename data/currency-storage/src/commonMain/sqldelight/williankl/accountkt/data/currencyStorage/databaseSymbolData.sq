@@ -1,21 +1,27 @@
 createTableIfNeeded:
 CREATE TABLE IF NOT EXISTS databaseSymbolData (
   base TEXT PRIMARY KEY NOT NULL,
-  name TEXT NOT NULL
+  name TEXT NOT NULL,
+  is_favourite INTEGER NOT NULL
 );
 
 selectAll:
 SELECT *
 FROM databaseSymbolData;
 
-selectForBaseSymbol:
+selectAllFavourites:
 SELECT *
 FROM databaseSymbolData
-WHERE databaseSymbolData.base = :base;
+WHERE databaseSymbolData.is_favourite = 1;
+
+selectAllNotFavourites:
+SELECT *
+FROM databaseSymbolData
+WHERE databaseSymbolData.is_favourite = 0;
 
 insert:
-INSERT INTO databaseSymbolData(base, name)
-VALUES (:base, :name);
+INSERT INTO databaseSymbolData(base, name, is_favourite)
+VALUES (:base, :name, 0);
 
 dropForSymbol:
 DELETE FROM databaseSymbolData

@@ -24,6 +24,24 @@ internal class CurrencyDataStorageImplementation(
             }
     }
 
+    override suspend fun favouriteSymbols(): Map<Symbol, SymbolName> {
+        return currencyDatabase.databaseSymbolDataQueries
+            .selectAllFavourites()
+            .executeAsList()
+            .associate { databaseSymbolData ->
+                databaseSymbolData.base to databaseSymbolData.name
+            }
+    }
+
+    override suspend fun nonFavouriteSymbols(): Map<Symbol, SymbolName> {
+        return currencyDatabase.databaseSymbolDataQueries
+            .selectAllNotFavourites()
+            .executeAsList()
+            .associate { databaseSymbolData ->
+                databaseSymbolData.base to databaseSymbolData.name
+            }
+    }
+
     override suspend fun insertSymbolData(
         symbol: Symbol,
         name: SymbolName,

@@ -83,7 +83,8 @@ internal class CurrencyDisplayScreen : Screen {
 
             items(rates) { (symbol, value) ->
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(8.dp
+                    verticalArrangement = Arrangement.spacedBy(
+                        8.dp
                     ),
                     modifier = Modifier
                         .fillMaxWidth()
@@ -104,7 +105,10 @@ internal class CurrencyDisplayScreen : Screen {
                         )
 
                         Text(
-                            text = presentation.symbolData[symbol].orEmpty() + " ($symbol)",
+                            text = (
+                                    presentation.favouriteCurrencies[symbol]
+                                        ?: presentation.nonFavouriteCurrencies[symbol]
+                                    ).orEmpty() + " ($symbol)",
                         )
                     }
 

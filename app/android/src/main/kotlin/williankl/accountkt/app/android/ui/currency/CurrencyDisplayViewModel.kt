@@ -24,19 +24,23 @@ internal class CurrencyDisplayViewModel(
 
     data class CurrencyDisplayPresentation(
         val symbolRate: SymbolRate? = null,
-        val symbolData: Map<Symbol, SymbolName> = emptyMap()
+        val favouriteCurrencies: Map<Symbol, SymbolName> = emptyMap(),
+        val nonFavouriteCurrencies: Map<Symbol, SymbolName> = emptyMap(),
     )
 
     fun retrieveAllInfoForSymbol(symbol: Symbol) {
         coroutineScope.launch {
             try {
-                val availableCurrencies = retrieveOrUpdateCurrencyDataList()
+                checkForUpdates()
+                val favouriteCurrencies = currencyDataStorage.favouriteSymbols()
+                val nonFavouriteCurrencies = currencyDataStorage.favouriteSymbols()
                 val rate = retrieveOrUpdateCurrencyRates(symbol)
 
                 _presentation.update {
                     CurrencyDisplayPresentation(
                         symbolRate = rate,
-                        symbolData = availableCurrencies
+                        favouriteCurrencies = favouriteCurrencies,
+                        nonFavouriteCurrencies = nonFavouriteCurrencies,
                     )
                 }
             } catch (error: Throwable) {
@@ -45,7 +49,7 @@ internal class CurrencyDisplayViewModel(
         }
     }
 
-    private suspend fun retrieveOrUpdateCurrencyDataList(): Map<Symbol, SymbolName> {
+    private suspend fun checkForUpdates(): Map<Symbol, SymbolName> {
         return currencyDataStorage.selectAllSymbolsData()
             .ifEmpty {
                 currencyService.validSymbols()
@@ -63,7 +67,7 @@ internal class CurrencyDisplayViewModel(
             ?: currencyService.retrieveRates(symbol)
                 .also { rate ->
                     currencyRateStorage.dropInfoForSymbol(symbol)
-                    currencyRateStorage.insertSymbolRate(rate)
+                    currencyRateStorage.updateSymbolRate(rate)
                 }
     }
 
