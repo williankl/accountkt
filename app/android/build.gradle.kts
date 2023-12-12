@@ -19,6 +19,7 @@ dependencies {
     implementation(libs.voyager.navigator)
     implementation(libs.voyager.transitions)
     implementation(libs.voyager.kodein)
+    implementation(libs.kamelMedia)
 
     implementation(compose.runtime)
     implementation(compose.foundation)

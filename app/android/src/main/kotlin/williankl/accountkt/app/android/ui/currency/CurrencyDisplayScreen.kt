@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
@@ -27,6 +28,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.kodein.rememberScreenModel
+import io.kamel.image.KamelImage
+import io.kamel.image.asyncPainterResource
+import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants
+import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants.currencyImageUrl
 
 internal class CurrencyDisplayScreen : Screen {
     @Composable
@@ -34,7 +39,7 @@ internal class CurrencyDisplayScreen : Screen {
         val viewModel = rememberScreenModel<CurrencyDisplayViewModel>()
         val presentation by viewModel.presentation.collectAsState()
 
-        LaunchedEffect(Unit){
+        LaunchedEffect(Unit) {
             viewModel.retrieveAllInfoForSymbol("BRL")
         }
 
@@ -77,18 +82,31 @@ internal class CurrencyDisplayScreen : Screen {
             }
 
             items(rates) { (symbol, value) ->
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically,
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(8.dp
+                    ),
                     modifier = Modifier
+                        .fillMaxWidth()
                         .padding(
                             horizontal = 20.dp,
                             vertical = 12.dp,
                         )
                 ) {
-                    Text(
-                        text = presentation.symbolData[symbol].orEmpty() + " ($symbol)",
-                    )
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        val resource = asyncPainterResource(currencyImageUrl(symbol))
+                        KamelImage(
+                            resource = resource,
+                            contentDescription = null,
+                            modifier = Modifier.size(24.dp)
+                        )
+
+                        Text(
+                            text = presentation.symbolData[symbol].orEmpty() + " ($symbol)",
+                        )
+                    }
 
                     Text(
                         text = (ratioForBaseSymbol * value).toString()
