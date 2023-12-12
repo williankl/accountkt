@@ -24,7 +24,7 @@ internal class CurrencyDataStorageImplementation(
             }
     }
 
-    override suspend fun insertSymbolRate(
+    override suspend fun insertSymbolData(
         symbol: Symbol,
         name: SymbolName,
     ) {
@@ -37,7 +37,7 @@ internal class CurrencyDataStorageImplementation(
             .dropForSymbol(symbol)
     }
 
-    override suspend fun dropAll(symbol: Symbol) {
+    override suspend fun dropAll() {
         currencyDatabase.databaseSymbolDataQueries
             .dropAll()
     }

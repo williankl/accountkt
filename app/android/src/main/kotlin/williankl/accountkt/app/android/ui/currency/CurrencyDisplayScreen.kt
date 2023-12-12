@@ -87,7 +87,7 @@ internal class CurrencyDisplayScreen : Screen {
                         )
                 ) {
                     Text(
-                        text = symbol,
+                        text = presentation.symbolData[symbol].orEmpty() + " ($symbol)",
                     )
 
                     Text(

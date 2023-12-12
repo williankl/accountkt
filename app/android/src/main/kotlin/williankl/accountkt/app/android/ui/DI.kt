@@ -11,6 +11,7 @@ public val applicationUiDI: DI.Module =
             CurrencyDisplayViewModel(
                 currencyService = instance(),
                 currencyRateStorage = instance(),
+                currencyDataStorage = instance(),
             )
         }
     }
