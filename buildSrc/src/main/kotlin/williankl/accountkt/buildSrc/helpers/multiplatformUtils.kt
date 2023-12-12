@@ -72,7 +72,9 @@ private fun Project.applyJvmTarget() {
 
 private fun Project.applyIOSTarget() {
     extensions.configure<KotlinMultiplatformExtension>() {
-        ios()
+        applyDefaultHierarchyTemplate()
+        iosX64()
+        iosArm64()
     }
 }
 

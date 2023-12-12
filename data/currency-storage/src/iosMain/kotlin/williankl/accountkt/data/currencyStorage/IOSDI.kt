@@ -8,5 +8,6 @@ internal actual fun platformCurrencyStorageDI() =
     DI.Module("williankl.accountkt.data.currencyStorage.ios") {
         bindSingleton {
             DriverProvider()
+                .provide()
         }
     }

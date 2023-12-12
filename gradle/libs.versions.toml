@@ -8,18 +8,26 @@ android-versionName = "0.0.1"
 
 plugin-ktlint = "3.10.0"
 plugin-detekt = "1.22.0"
-plugin-ksp = "1.9.10-1.0.13"
-plugin-android = "8.0.2"
+plugin-ksp = "1.9.21-1.0.15"
+plugin-android = "8.2.0"
 plugin-buildKonfig = "0.13.3"
 
-kotlin = "1.9.10"
-compose = "1.5.3"
+kotlin = "1.9.21"
+compose = "1.5.11"
 
 cashApp-sqlDelight = "2.0.1"
 voyager = "1.0.0-rc07"
 lyricist = "1.4.1"
 ktor = "2.3.5"
 kodein = "7.20.2"
+slf4j = "1.7.21"
+
+android-splashScreen = "1.0.1"
+android-compose-activity = "1.8.1"
+
+kotlinx-serialization = "1.6.0"
+kotlinx-coroutines = "1.7.3"
+kotlinx-datetime = "0.4.1"
 
 [libraries]
 
@@ -33,6 +41,18 @@ plugin-cashApp-SqlDelight = { module = "app.cash.sqldelight:gradle-plugin", vers
 plugin-ktlint = { module = "org.jmailen.gradle:kotlinter-gradle", version.ref = "plugin-ktlint" }
 plugin-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "plugin-detekt" }
 
+# Android
+
+android-compose-activity = { module = "androidx.activity:activity-compose", version.ref = "android-compose-activity" }
+android-splashScreen = { module = "androidx.core:core-splashscreen", version.ref = "android-splashScreen" }
+
+# Kotlinx
+
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
+kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+
 # CashApp
 
 cashapp-sqLiteAndroid = { module = "app.cash.sqldelight:android-driver", version.ref = "cashApp-sqlDelight" }
@@ -45,6 +65,7 @@ ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-okHttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+ktor-client-androidLogger = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
 ktor-client-contentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-jsonSerialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 

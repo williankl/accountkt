@@ -4,6 +4,7 @@ import williankl.accountkt.buildSrc.helpers.fromLocalProperties
 plugins {
     id("accoutkt.multiplatform")
     id("com.codingfeline.buildkonfig")
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -17,6 +18,7 @@ dependencies {
     commonMainImplementation(libs.ktor.client.jsonSerialization)
     commonMainImplementation(libs.ktor.client.logging)
 
+    androidMainImplementation(libs.ktor.client.androidLogger)
     androidMainImplementation(libs.ktor.client.okHttp)
     iosMainImplementation(libs.ktor.client.darwin)
 }

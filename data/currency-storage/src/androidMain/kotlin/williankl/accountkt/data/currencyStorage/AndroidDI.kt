@@ -10,6 +10,6 @@ internal actual fun platformCurrencyStorageDI() =
         bindSingleton {
             DriverProvider(
                 context = instance(),
-            )
+            ).provide()
         }
     }

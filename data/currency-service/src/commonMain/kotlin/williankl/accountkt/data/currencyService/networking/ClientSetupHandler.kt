@@ -4,6 +4,7 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.http.parameters
 import io.ktor.serialization.kotlinx.json.json
@@ -16,7 +17,9 @@ internal class ClientSetupHandler(
     private val json: Json,
 ) {
     fun HttpClientConfig<*>.configure() {
-        install(Logging)
+        install(Logging) {
+            level = LogLevel.ALL
+        }
 
         install(ContentNegotiation) {
             json(json)
