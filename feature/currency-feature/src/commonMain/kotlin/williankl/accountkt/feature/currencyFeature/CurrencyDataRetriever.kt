@@ -5,4 +5,9 @@ import williankl.accountkt.feature.currencyFeature.models.CurrencyData
 
 public interface CurrencyDataRetriever {
     public suspend fun currencyDataForSymbol(symbol: Symbol): CurrencyData
+
+    public suspend fun updateFavouriteFor(
+        symbol: Symbol,
+        setTo: Boolean,
+    ): CurrencyData
 }

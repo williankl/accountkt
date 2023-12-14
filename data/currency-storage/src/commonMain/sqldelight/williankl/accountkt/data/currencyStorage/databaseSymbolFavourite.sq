@@ -1,0 +1,19 @@
+createTableIfNeeded:
+CREATE TABLE IF NOT EXISTS databaseSymbolFavourite (
+  symbol TEXT PRIMARY KEY NOT NULL,
+  is_favourite INTEGER NOT NULL
+);
+
+updateIsFavourite:
+UPDATE databaseSymbolFavourite
+SET is_favourite = :setTo
+WHERE databaseSymbolFavourite.symbol = :symbol;
+
+insertItem:
+INSERT INTO databaseSymbolFavourite(symbol, is_favourite)
+VALUES (:symbol, :isFavourite);
+
+retrieveItem:
+SELECT * FROM databaseSymbolFavourite
+WHERE databaseSymbolFavourite.symbol = :symbol;
+
