@@ -37,4 +37,21 @@ internal class CurrencyDisplayViewModel(
         }
     }
 
+    fun toggleFavourite(
+        symbol: Symbol,
+        setTo: Boolean,
+    ) {
+        coroutineScope.launch {
+            try {
+                _presentation.update {
+                    CurrencyDisplayPresentation(
+                        currencyData = currencyDataRetriever.updateFavouriteFor(symbol, setTo),
+                    )
+                }
+            } catch (error: Throwable) {
+                error.printStackTrace()
+            }
+        }
+    }
+
 }

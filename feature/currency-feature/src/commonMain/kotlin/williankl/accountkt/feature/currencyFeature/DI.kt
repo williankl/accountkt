@@ -12,6 +12,7 @@ public val currencyFeatureStorageDI: DI.Module =
                 currencyService = instance(),
                 currencyDataStorage = instance(),
                 currencyRateStorage = instance(),
+                currencyFavouriteStorage = instance(),
             )
         }
     }

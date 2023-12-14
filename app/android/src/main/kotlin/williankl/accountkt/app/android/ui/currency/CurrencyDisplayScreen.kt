@@ -4,18 +4,23 @@ import android.graphics.Paint.Align
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -48,6 +53,7 @@ internal class CurrencyDisplayScreen : Screen {
 
         CurrencyDisplayContent(
             presentation = presentation,
+            onFavouriteToggle = viewModel::toggleFavourite,
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -56,6 +62,7 @@ internal class CurrencyDisplayScreen : Screen {
     @Composable
     private fun CurrencyDisplayContent(
         presentation: CurrencyDisplayViewModel.CurrencyDisplayPresentation,
+        onFavouriteToggle: (Symbol, Boolean) -> Unit,
         modifier: Modifier = Modifier,
     ) {
         var ratioStringForBaseSymbol by remember {
@@ -66,12 +73,9 @@ internal class CurrencyDisplayScreen : Screen {
             mutableFloatStateOf(1f)
         }
 
-        val rates = remember(presentation.currencyData) {
+        val rates = remember(presentation) {
             presentation.currencyData?.rates.orEmpty()
-        }
-
-        val (favouriteRates, nonFavouriteRates) = remember(rates) {
-            rates.partition { rate -> rate.isFavourite }
+                .sortedBy { rate -> !rate.isFavourite }
         }
 
         LazyColumn(
@@ -93,7 +97,10 @@ internal class CurrencyDisplayScreen : Screen {
                 )
             }
 
-            items(favouriteRates) { rate ->
+            items(
+                key = { rate -> rate.symbol },
+                items = rates,
+            ) { rate ->
                 val animatedValue by animateFloatAsState(
                     label = "${rate.symbol}-value-animation",
                     targetValue = (ratioForBaseSymbol * rate.rate).toFloat()
@@ -104,21 +111,11 @@ internal class CurrencyDisplayScreen : Screen {
                     name = rate.name,
                     symbol = rate.symbol,
                     parsedValue = animatedValue,
-                )
-            }
-
-            items(nonFavouriteRates) { rate ->
-                val animatedValue by animateFloatAsState(
-                    label = "${rate.symbol}-value-animation",
-                    targetValue = (ratioForBaseSymbol * rate.rate).toFloat()
-                )
-
-                CurrencyRateItem(
-                    iconUrl = currencyImageUrl(rate.symbol),
-                    name = rate.name,
-                    symbol = rate.symbol,
-                    parsedValue = animatedValue,
-                    modifier = Modifier.fillMaxWidth(),
+                    isFavourite = rate.isFavourite,
+                    modifier = Modifier
+                        .animateItemPlacement()
+                        .clickable { onFavouriteToggle(rate.symbol, !rate.isFavourite) }
+                        .fillMaxWidth(),
                 )
             }
         }
@@ -130,6 +127,7 @@ internal class CurrencyDisplayScreen : Screen {
         symbol: Symbol,
         name: SymbolName,
         parsedValue: Float,
+        isFavourite: Boolean,
         modifier: Modifier = Modifier,
     ) {
         Column(
@@ -154,6 +152,18 @@ internal class CurrencyDisplayScreen : Screen {
                 Text(
                     text = "$name ($symbol)"
                 )
+
+                Spacer(
+                    modifier = Modifier.weight(1f)
+                )
+
+                if (isFavourite) {
+                    Icon(
+                        imageVector = Icons.Default.Favorite,
+                        contentDescription = null,
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
             }
 
             Text(
