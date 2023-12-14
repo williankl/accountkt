@@ -48,7 +48,7 @@ internal class CurrencyRateStorageImplementation(
             .dropForSymbol(symbol)
     }
 
-    override suspend fun dropAll(symbol: Symbol) {
+    override suspend fun dropAll() {
         currencyDatabase.databaseSymbolRateQueries
             .dropAll()
     }

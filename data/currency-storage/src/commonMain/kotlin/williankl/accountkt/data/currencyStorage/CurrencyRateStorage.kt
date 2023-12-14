@@ -8,5 +8,5 @@ public interface CurrencyRateStorage {
     public suspend fun rateForSymbol(symbol: Symbol): SymbolRate?
     public suspend fun updateSymbolRate(symbolRate: SymbolRate)
     public suspend fun dropInfoForSymbol(symbol: Symbol)
-    public suspend fun dropAll(symbol: Symbol)
+    public suspend fun dropAll()
 }

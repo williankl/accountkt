@@ -1,6 +1,7 @@
 package williankl.accountkt.app.android.ui.currency
 
 import android.graphics.Paint.Align
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -32,6 +33,8 @@ import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants
 import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants.currencyImageUrl
+import williankl.accountkt.data.currencyService.models.Symbol
+import williankl.accountkt.data.currencyService.models.SymbolName
 
 internal class CurrencyDisplayScreen : Screen {
     @Composable
@@ -55,13 +58,20 @@ internal class CurrencyDisplayScreen : Screen {
         presentation: CurrencyDisplayViewModel.CurrencyDisplayPresentation,
         modifier: Modifier = Modifier,
     ) {
+        var ratioStringForBaseSymbol by remember {
+            mutableStateOf("1.0")
+        }
+
         var ratioForBaseSymbol by remember {
             mutableFloatStateOf(1f)
         }
 
-        val rates = remember(presentation.symbolRate) {
-            presentation.symbolRate?.rates.orEmpty()
-                .map { (symbol, value) -> symbol to value }
+        val rates = remember(presentation.currencyData) {
+            presentation.currencyData?.rates.orEmpty()
+        }
+
+        val (favouriteRates, nonFavouriteRates) = remember(rates) {
+            rates.partition { rate -> rate.isFavourite }
         }
 
         LazyColumn(
@@ -73,50 +83,81 @@ internal class CurrencyDisplayScreen : Screen {
             stickyHeader {
                 TextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = ratioForBaseSymbol.toString(),
+                    value = ratioStringForBaseSymbol,
                     onValueChange = { newValue ->
                         newValue.toFloatOrNull()
                             ?.let { ratioForBaseSymbol = it }
+
+                        ratioStringForBaseSymbol = newValue
                     }
                 )
             }
 
-            items(rates) { (symbol, value) ->
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(
-                        8.dp
-                    ),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            horizontal = 20.dp,
-                            vertical = 12.dp,
-                        )
-                ) {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        val resource = asyncPainterResource(currencyImageUrl(symbol))
-                        KamelImage(
-                            resource = resource,
-                            contentDescription = null,
-                            modifier = Modifier.size(24.dp)
-                        )
+            items(favouriteRates) { rate ->
+                val animatedValue by animateFloatAsState(
+                    label = "${rate.symbol}-value-animation",
+                    targetValue = (ratioForBaseSymbol * rate.rate).toFloat()
+                )
 
-                        Text(
-                            text = (
-                                    presentation.favouriteCurrencies[symbol]
-                                        ?: presentation.nonFavouriteCurrencies[symbol]
-                                    ).orEmpty() + " ($symbol)",
-                        )
-                    }
-
-                    Text(
-                        text = (ratioForBaseSymbol * value).toString()
-                    )
-                }
+                CurrencyRateItem(
+                    iconUrl = currencyImageUrl(rate.symbol),
+                    name = rate.name,
+                    symbol = rate.symbol,
+                    parsedValue = animatedValue,
+                )
             }
+
+            items(nonFavouriteRates) { rate ->
+                val animatedValue by animateFloatAsState(
+                    label = "${rate.symbol}-value-animation",
+                    targetValue = (ratioForBaseSymbol * rate.rate).toFloat()
+                )
+
+                CurrencyRateItem(
+                    iconUrl = currencyImageUrl(rate.symbol),
+                    name = rate.name,
+                    symbol = rate.symbol,
+                    parsedValue = animatedValue,
+                )
+            }
+        }
+    }
+
+    @Composable
+    private fun CurrencyRateItem(
+        iconUrl: String,
+        symbol: Symbol,
+        name: SymbolName,
+        parsedValue: Float,
+    ) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = 20.dp,
+                    vertical = 12.dp,
+                )
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                val resource = asyncPainterResource(iconUrl)
+                KamelImage(
+                    resource = resource,
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp)
+                )
+
+                Text(
+                    text = "$name ($symbol)"
+                )
+            }
+
+            Text(
+                text = parsedValue.toString()
+            )
         }
     }
 }

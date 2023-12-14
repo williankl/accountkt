@@ -23,7 +23,7 @@ internal class CurrencyDataImplementation(
             symbol = symbol,
             name = validSymbols[symbol].orEmpty(),
             rates = validSymbols.mapNotNull { (rateSymbol, name) ->
-                if (rateSymbol == rateSymbol) null
+                if (symbol == rateSymbol) null
                 else CurrencyRate(
                     isFavourite = false, // fixme - use correct relation to check if favourite
                     name = name,

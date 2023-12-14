@@ -5,8 +5,8 @@ import org.kodein.di.bindSingleton
 import org.kodein.di.instance
 import williankl.accountkt.feature.currencyFeature.internal.CurrencyDataImplementation
 
-public val currencyRateStorageDI: DI.Module =
-    DI.Module("williankl.accountkt.data.currencyStorage") {
+public val currencyFeatureStorageDI: DI.Module =
+    DI.Module("williankl.accountkt.feature.currencyFeature") {
         bindSingleton<CurrencyDataRetriever> {
             CurrencyDataImplementation(
                 currencyService = instance(),

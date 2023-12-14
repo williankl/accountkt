@@ -9,9 +9,7 @@ public val applicationUiDI: DI.Module =
     DI.Module("williankl.accountkt.ui.application") {
         bindSingleton {
             CurrencyDisplayViewModel(
-                currencyService = instance(),
-                currencyRateStorage = instance(),
-                currencyDataStorage = instance(),
+                currencyDataRetriever = instance()
             )
         }
     }

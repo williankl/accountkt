@@ -8,6 +8,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.feature.currencyFeature)
     implementation(projects.data.currencyStorage)
     implementation(projects.data.currencyService)
 
