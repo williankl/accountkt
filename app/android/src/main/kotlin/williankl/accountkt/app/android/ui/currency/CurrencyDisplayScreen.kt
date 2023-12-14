@@ -118,6 +118,7 @@ internal class CurrencyDisplayScreen : Screen {
                     name = rate.name,
                     symbol = rate.symbol,
                     parsedValue = animatedValue,
+                    modifier = Modifier.fillMaxWidth(),
                 )
             }
         }
@@ -129,11 +130,11 @@ internal class CurrencyDisplayScreen : Screen {
         symbol: Symbol,
         name: SymbolName,
         parsedValue: Float,
+        modifier: Modifier = Modifier,
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = modifier
                 .padding(
                     horizontal = 20.dp,
                     vertical = 12.dp,
@@ -156,7 +157,7 @@ internal class CurrencyDisplayScreen : Screen {
             }
 
             Text(
-                text = parsedValue.toString()
+                text = "%.2f".format(parsedValue)
             )
         }
     }
