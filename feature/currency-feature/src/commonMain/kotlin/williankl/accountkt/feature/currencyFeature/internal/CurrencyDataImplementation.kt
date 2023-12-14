@@ -40,9 +40,8 @@ internal class CurrencyDataImplementation(
     override suspend fun updateFavouriteFor(
         symbol: Symbol,
         setTo: Boolean,
-    ): CurrencyData {
+    ) {
         currencyFavouriteStorage.toggleFavourite(symbol, setTo)
-        return currencyDataForSymbol(symbol)
     }
 
     private suspend fun retrieveOrUpdateValidSymbols(): Map<Symbol, SymbolName> {

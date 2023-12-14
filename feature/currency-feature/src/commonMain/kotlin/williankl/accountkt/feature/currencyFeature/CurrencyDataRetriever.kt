@@ -9,5 +9,5 @@ public interface CurrencyDataRetriever {
     public suspend fun updateFavouriteFor(
         symbol: Symbol,
         setTo: Boolean,
-    ): CurrencyData
+    )
 }

@@ -7,8 +7,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import williankl.accountkt.data.currencyService.models.Symbol
-import williankl.accountkt.data.currencyService.models.SymbolName
-import williankl.accountkt.data.currencyService.models.SymbolRate
 import williankl.accountkt.feature.currencyFeature.CurrencyDataRetriever
 import williankl.accountkt.feature.currencyFeature.models.CurrencyData
 
@@ -43,10 +41,17 @@ internal class CurrencyDisplayViewModel(
     ) {
         coroutineScope.launch {
             try {
-                _presentation.update {
-                    CurrencyDisplayPresentation(
-                        currencyData = currencyDataRetriever.updateFavouriteFor(symbol, setTo),
-                    )
+                currencyDataRetriever.updateFavouriteFor(symbol, setTo)
+                _presentation.update { presentation ->
+                    presentation.currencyData?.symbol
+                        ?.let { baseSymbol ->
+                            CurrencyDisplayPresentation(
+                                currencyData = currencyDataRetriever.currencyDataForSymbol(
+                                    baseSymbol
+                                ),
+                            )
+                        }
+                        ?: error("No base symbol found")
                 }
             } catch (error: Throwable) {
                 error.printStackTrace()
