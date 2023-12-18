@@ -11,12 +11,14 @@ import williankl.accountkt.app.android.ui.applicationUiDI
 import williankl.accountkt.data.currencyService.currencyServiceDI
 import williankl.accountkt.data.currencyStorage.currencyRateStorageDI
 import williankl.accountkt.feature.currencyFeature.currencyFeatureStorageDI
+import williankl.accountkt.feature.sharedPreferences.sharedPreferencesDI
 
 internal class AccountKtApplication : Application(), DIAware {
     override val di: DI = DI {
         import(currencyServiceDI)
         import(currencyRateStorageDI)
         import(currencyFeatureStorageDI)
+        import(sharedPreferencesDI)
         import(applicationUiDI)
         import(androidCoreModule(this@AccountKtApplication))
         import(androidXModule(this@AccountKtApplication))

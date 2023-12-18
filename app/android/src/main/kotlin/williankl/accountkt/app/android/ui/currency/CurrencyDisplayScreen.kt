@@ -1,9 +1,7 @@
 package williankl.accountkt.app.android.ui.currency
 
-import android.graphics.Paint.Align
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,7 +23,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -36,7 +33,6 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.kodein.rememberScreenModel
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
-import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants
 import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants.currencyImageUrl
 import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.data.currencyService.models.SymbolName
@@ -47,13 +43,27 @@ internal class CurrencyDisplayScreen : Screen {
         val viewModel = rememberScreenModel<CurrencyDisplayViewModel>()
         val presentation by viewModel.presentation.collectAsState()
 
-        LaunchedEffect(Unit) {
-            viewModel.retrieveAllInfoForSymbol("BRL")
+        val stateHandler = remember {
+            with(viewModel.currencyPreferencesOrDefault()) {
+                ConverterStateHandler(
+                    initSymbol = preferredSymbol,
+                    initRatio = defaultAmount,
+                )
+            }
+        }
+
+        LaunchedEffect(stateHandler.symbol) {
+            viewModel.retrieveAllInfoForSymbol(stateHandler.symbol)
+        }
+
+        LaunchedEffect(stateHandler.ratio) {
+            viewModel.saveState(stateHandler)
         }
 
         CurrencyDisplayContent(
             presentation = presentation,
             onFavouriteToggle = viewModel::toggleFavourite,
+            stateHandler = stateHandler,
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -63,14 +73,11 @@ internal class CurrencyDisplayScreen : Screen {
     private fun CurrencyDisplayContent(
         presentation: CurrencyDisplayViewModel.CurrencyDisplayPresentation,
         onFavouriteToggle: (Symbol, Boolean) -> Unit,
+        stateHandler: ConverterStateHandler,
         modifier: Modifier = Modifier,
     ) {
         var ratioStringForBaseSymbol by remember {
-            mutableStateOf("1.0")
-        }
-
-        var ratioForBaseSymbol by remember {
-            mutableFloatStateOf(1f)
+            mutableStateOf(stateHandler.ratio.toString())
         }
 
         val rates = remember(presentation) {
@@ -90,7 +97,7 @@ internal class CurrencyDisplayScreen : Screen {
                     value = ratioStringForBaseSymbol,
                     onValueChange = { newValue ->
                         newValue.toFloatOrNull()
-                            ?.let { ratioForBaseSymbol = it }
+                            ?.let { stateHandler.ratio = it }
 
                         ratioStringForBaseSymbol = newValue
                     }
@@ -103,7 +110,7 @@ internal class CurrencyDisplayScreen : Screen {
             ) { rate ->
                 val animatedValue by animateFloatAsState(
                     label = "${rate.symbol}-value-animation",
-                    targetValue = (ratioForBaseSymbol * rate.rate).toFloat()
+                    targetValue = (stateHandler.ratio * rate.rate).toFloat()
                 )
 
                 CurrencyRateItem(

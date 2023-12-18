@@ -9,9 +9,12 @@ import kotlinx.coroutines.launch
 import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.feature.currencyFeature.CurrencyDataRetriever
 import williankl.accountkt.feature.currencyFeature.models.CurrencyData
+import williankl.accountkt.feature.sharedPreferences.models.CurrencyPreferences
+import williankl.accountkt.feature.sharedPreferences.services.CurrencyPreferencesService
 
 internal class CurrencyDisplayViewModel(
     private val currencyDataRetriever: CurrencyDataRetriever,
+    private val currencyPreferencesService: CurrencyPreferencesService,
 ) : ScreenModel {
 
     private val _presentation = MutableStateFlow(CurrencyDisplayPresentation())
@@ -33,6 +36,25 @@ internal class CurrencyDisplayViewModel(
                 error.printStackTrace()
             }
         }
+    }
+
+    fun saveState(currencyStateHandler: ConverterStateHandler) {
+        currencyPreferencesService.updateCurrencyPreferences {
+            with(currencyStateHandler) {
+                CurrencyPreferences(
+                    preferredSymbol = symbol,
+                    defaultAmount = ratio,
+                )
+            }
+        }
+    }
+
+    fun currencyPreferencesOrDefault(): CurrencyPreferences {
+        return currencyPreferencesService.currencyPreferences
+            ?: CurrencyPreferences(
+                preferredSymbol = "BRL",
+                defaultAmount = 1f,
+            )
     }
 
     fun toggleFavourite(

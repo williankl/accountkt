@@ -22,6 +22,7 @@ ktor = "2.3.5"
 kodein = "7.20.2"
 slf4j = "1.7.21"
 kamel = "0.9.0"
+kmpSettings="1.1.1"
 
 android-splashScreen = "1.0.1"
 android-compose-activity = "1.8.1"
@@ -43,6 +44,7 @@ plugin-ktlint = { module = "org.jmailen.gradle:kotlinter-gradle", version.ref = 
 plugin-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "plugin-detekt" }
 
 kamelMedia = { module = "media.kamel:kamel-image", version.ref = "kamel" }
+kmpSettings = { module = "com.russhwolf:multiplatform-settings", version.ref = "kmpSettings" }
 
 # Android
 
