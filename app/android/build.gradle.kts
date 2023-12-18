@@ -9,6 +9,7 @@ android {
 
 dependencies {
     implementation(projects.feature.currencyFeature)
+    implementation(projects.feature.sharedPreferences)
     implementation(projects.data.currencyStorage)
     implementation(projects.data.currencyService)
 

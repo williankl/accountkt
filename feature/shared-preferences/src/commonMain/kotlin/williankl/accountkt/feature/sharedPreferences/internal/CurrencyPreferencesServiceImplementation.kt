@@ -32,7 +32,7 @@ internal class CurrencyPreferencesServiceImplementation(
 
     private fun retrieveCurrencyPreferencesOrNull(): CurrencyPreferences? {
         val symbol = settings.getStringOrNull(SYMBOL_KEY)
-        val symbolValue = settings.getDoubleOrNull(SYMBOL_VALUE_KEY)
+        val symbolValue = settings.getFloatOrNull(SYMBOL_VALUE_KEY)
 
         return if (symbol != null && symbolValue != null) {
             CurrencyPreferences(
