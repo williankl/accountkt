@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -36,6 +37,7 @@ import io.kamel.image.asyncPainterResource
 import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants.currencyImageUrl
 import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.data.currencyService.models.SymbolName
+import williankl.accountkt.feature.currencyFeature.models.CurrencyRate
 
 internal class CurrencyDisplayScreen : Screen {
     @Composable
@@ -80,9 +82,9 @@ internal class CurrencyDisplayScreen : Screen {
             mutableStateOf(stateHandler.ratio.toString())
         }
 
-        val rates = remember(presentation) {
+        val (favouriteRates, nonFavouriteRates) = remember(presentation) {
             presentation.currencyData?.rates.orEmpty()
-                .sortedBy { rate -> !rate.isFavourite }
+                .partition { rate -> !rate.isFavourite }
         }
 
         LazyColumn(
@@ -104,27 +106,46 @@ internal class CurrencyDisplayScreen : Screen {
                 )
             }
 
-            items(
-                key = { rate -> rate.symbol },
-                items = rates,
-            ) { rate ->
-                val animatedValue by animateFloatAsState(
-                    label = "${rate.symbol}-value-animation",
-                    targetValue = (stateHandler.ratio * rate.rate).toFloat()
-                )
+            currencyItems(
+                rates = favouriteRates,
+                stateHandler = stateHandler,
+                onFavouriteToggle = onFavouriteToggle,
+            )
 
-                CurrencyRateItem(
-                    iconUrl = currencyImageUrl(rate.symbol),
-                    name = rate.name,
-                    symbol = rate.symbol,
-                    parsedValue = animatedValue,
-                    isFavourite = rate.isFavourite,
-                    modifier = Modifier
-                        .animateItemPlacement()
-                        .clickable { onFavouriteToggle(rate.symbol, !rate.isFavourite) }
-                        .fillMaxWidth(),
-                )
-            }
+            currencyItems(
+                rates = nonFavouriteRates,
+                stateHandler = stateHandler,
+                onFavouriteToggle = onFavouriteToggle,
+            )
+        }
+    }
+
+    @OptIn(ExperimentalFoundationApi::class)
+    private fun LazyListScope.currencyItems(
+        rates: List<CurrencyRate>,
+        stateHandler: ConverterStateHandler,
+        onFavouriteToggle: (Symbol, Boolean) -> Unit,
+    ) {
+        items(
+            key = { rate -> rate.symbol },
+            items = rates,
+        ) { rate ->
+            val animatedValue by animateFloatAsState(
+                label = "${rate.symbol}-value-animation",
+                targetValue = (stateHandler.ratio * rate.rate).toFloat()
+            )
+
+            CurrencyRateItem(
+                iconUrl = currencyImageUrl(rate.symbol),
+                name = rate.name,
+                symbol = rate.symbol,
+                parsedValue = animatedValue,
+                isFavourite = rate.isFavourite,
+                modifier = Modifier
+                    .animateItemPlacement()
+                    .clickable { onFavouriteToggle(rate.symbol, !rate.isFavourite) }
+                    .fillMaxWidth(),
+            )
         }
     }
 

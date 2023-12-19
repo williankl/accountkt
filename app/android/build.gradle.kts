@@ -19,6 +19,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.core)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.voyager.navigator)
+    implementation(libs.voyager.bottomSheetNavigator)
     implementation(libs.voyager.transitions)
     implementation(libs.voyager.kodein)
     implementation(libs.kamelMedia)
