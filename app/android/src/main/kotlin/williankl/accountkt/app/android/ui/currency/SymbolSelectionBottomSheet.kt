@@ -22,6 +22,7 @@ import io.kamel.image.asyncPainterResource
 import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants.currencyImageUrl
 import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.feature.currencyFeature.models.CurrencyRate
+import williankl.accountkt.ui.design.core.text.CoreText
 
 internal class SymbolSelectionBottomSheet(
     private val onSymbolSelected: (Symbol) -> Unit,
@@ -99,7 +100,7 @@ internal class SymbolSelectionBottomSheet(
                 modifier = Modifier.size(24.dp)
             )
 
-            Text(
+            CoreText(
                 text = "${rate.name} (${rate.symbol})"
             )
         }

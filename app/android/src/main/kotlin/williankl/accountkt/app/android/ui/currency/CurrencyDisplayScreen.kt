@@ -15,9 +15,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
@@ -39,6 +36,9 @@ import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants.cu
 import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.data.currencyService.models.SymbolName
 import williankl.accountkt.feature.currencyFeature.models.CurrencyRate
+import williankl.accountkt.ui.design.core.icons.CoreIcon
+import williankl.accountkt.ui.design.core.input.CoreTextInput
+import williankl.accountkt.ui.design.core.text.CoreText
 
 internal class CurrencyDisplayScreen : Screen {
     @Composable
@@ -139,7 +139,7 @@ internal class CurrencyDisplayScreen : Screen {
             verticalAlignment = Alignment.CenterVertically,
             modifier = modifier,
         ) {
-            TextField(
+            CoreTextInput(
                 modifier = Modifier.weight(1f),
                 value = ratioStringForBaseSymbol,
                 onValueChange = { newValue ->
@@ -150,7 +150,7 @@ internal class CurrencyDisplayScreen : Screen {
                 }
             )
 
-            Text(
+            CoreText(
                 text = stateHandler.symbol,
                 modifier = Modifier
                     .clickable { onSymbolChangeRequested() }
@@ -216,7 +216,7 @@ internal class CurrencyDisplayScreen : Screen {
                     modifier = Modifier.size(24.dp)
                 )
 
-                Text(
+                CoreText(
                     text = "$name ($symbol)"
                 )
 
@@ -225,7 +225,7 @@ internal class CurrencyDisplayScreen : Screen {
                 )
 
                 if (isFavourite) {
-                    Icon(
+                    CoreIcon(
                         imageVector = Icons.Default.Favorite,
                         contentDescription = null,
                         modifier = Modifier.size(24.dp)
@@ -233,7 +233,7 @@ internal class CurrencyDisplayScreen : Screen {
                 }
             }
 
-            Text(
+            CoreText(
                 text = "%.2f".format(parsedValue)
             )
         }

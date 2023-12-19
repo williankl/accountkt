@@ -10,10 +10,10 @@ android {
 dependencies {
     commonMainApi(compose.runtime)
     commonMainApi(compose.foundation)
-    commonMainImplementation(compose.ui)
-    commonMainImplementation(compose.animation)
-    commonMainImplementation(compose.material)
-    commonMainImplementation(compose.material3)
+    commonMainApi(compose.ui)
+    commonMainApi(compose.animation)
+    commonMainApi(compose.material)
+    commonMainApi(compose.material3)
 
     commonMainApi(libs.kamelMedia)
 }

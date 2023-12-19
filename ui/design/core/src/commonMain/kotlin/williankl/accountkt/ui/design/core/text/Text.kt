@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.ColorProducer
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
@@ -65,6 +66,7 @@ public fun CoreText(
             fontWeight = weight,
             color = textColor,
             fontSize = size,
+            fontFamily = FontFamily.Monospace,
         ),
         onTextLayout = onTextLayout,
         overflow = overflow,
