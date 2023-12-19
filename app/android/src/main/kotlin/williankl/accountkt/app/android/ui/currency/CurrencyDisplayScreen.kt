@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.kodein.rememberScreenModel
+import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants.currencyImageUrl
@@ -44,6 +45,7 @@ internal class CurrencyDisplayScreen : Screen {
     override fun Content() {
         val viewModel = rememberScreenModel<CurrencyDisplayViewModel>()
         val presentation by viewModel.presentation.collectAsState()
+        val bottomSheetNavigator = LocalBottomSheetNavigator.current
 
         val stateHandler = remember {
             with(viewModel.currencyPreferencesOrDefault()) {
@@ -58,13 +60,24 @@ internal class CurrencyDisplayScreen : Screen {
             viewModel.retrieveAllInfoForSymbol(stateHandler.symbol)
         }
 
-        LaunchedEffect(stateHandler.ratio) {
+        LaunchedEffect(stateHandler.symbol, stateHandler.ratio) {
             viewModel.saveState(stateHandler)
         }
 
         CurrencyDisplayContent(
             presentation = presentation,
             onFavouriteToggle = viewModel::toggleFavourite,
+            onSymbolChangeRequested = {
+                bottomSheetNavigator.show(
+                    SymbolSelectionBottomSheet(
+                        onSymbolSelected = { selected ->
+                            bottomSheetNavigator.hide()
+                            stateHandler.symbol = selected
+                        },
+                        supportedRates = presentation.currencyData?.rates.orEmpty(),
+                    )
+                )
+            },
             stateHandler = stateHandler,
             modifier = Modifier.fillMaxSize()
         )
@@ -75,16 +88,13 @@ internal class CurrencyDisplayScreen : Screen {
     private fun CurrencyDisplayContent(
         presentation: CurrencyDisplayViewModel.CurrencyDisplayPresentation,
         onFavouriteToggle: (Symbol, Boolean) -> Unit,
+        onSymbolChangeRequested: () -> Unit,
         stateHandler: ConverterStateHandler,
         modifier: Modifier = Modifier,
     ) {
-        var ratioStringForBaseSymbol by remember {
-            mutableStateOf(stateHandler.ratio.toString())
-        }
-
         val (favouriteRates, nonFavouriteRates) = remember(presentation) {
             presentation.currencyData?.rates.orEmpty()
-                .partition { rate -> !rate.isFavourite }
+                .partition { rate -> rate.isFavourite }
         }
 
         LazyColumn(
@@ -94,15 +104,10 @@ internal class CurrencyDisplayScreen : Screen {
             modifier = modifier,
         ) {
             stickyHeader {
-                TextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = ratioStringForBaseSymbol,
-                    onValueChange = { newValue ->
-                        newValue.toFloatOrNull()
-                            ?.let { stateHandler.ratio = it }
-
-                        ratioStringForBaseSymbol = newValue
-                    }
+                SymbolConfigItem(
+                    onSymbolChangeRequested = onSymbolChangeRequested,
+                    stateHandler = stateHandler,
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
 
@@ -116,6 +121,40 @@ internal class CurrencyDisplayScreen : Screen {
                 rates = nonFavouriteRates,
                 stateHandler = stateHandler,
                 onFavouriteToggle = onFavouriteToggle,
+            )
+        }
+    }
+
+    @Composable
+    private fun SymbolConfigItem(
+        onSymbolChangeRequested: () -> Unit,
+        stateHandler: ConverterStateHandler,
+        modifier: Modifier = Modifier,
+    ) {
+        var ratioStringForBaseSymbol by remember {
+            mutableStateOf(stateHandler.ratio.toString())
+        }
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = modifier,
+        ) {
+            TextField(
+                modifier = Modifier.weight(1f),
+                value = ratioStringForBaseSymbol,
+                onValueChange = { newValue ->
+                    newValue.toFloatOrNull()
+                        ?.let { stateHandler.ratio = it }
+
+                    ratioStringForBaseSymbol = newValue
+                }
+            )
+
+            Text(
+                text = stateHandler.symbol,
+                modifier = Modifier
+                    .clickable { onSymbolChangeRequested() }
+                    .weight(1f)
             )
         }
     }

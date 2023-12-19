@@ -26,8 +26,8 @@ internal class MainActivity : ComponentActivity() {
     @Composable
     private fun AppContent() {
         BottomSheetNavigator(
-            sheetBackgroundColor = Color.Black.copy(alpha = 0.25f),
-            sheetContentColor = Color.White,
+            sheetBackgroundColor = Color.White,
+            scrimColor = Color.Black.copy(alpha = 0.25f),
             sheetShape = RoundedCornerShape(
                 topStart = 16.dp,
                 topEnd = 16.dp,
