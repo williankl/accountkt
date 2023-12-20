@@ -12,6 +12,7 @@ dependencies {
     implementation(projects.feature.sharedPreferences)
     implementation(projects.data.currencyStorage)
     implementation(projects.data.currencyService)
+    implementation(projects.ui.design.components)
 
     implementation(libs.android.compose.activity)
     implementation(libs.kodein.android)
@@ -23,10 +24,4 @@ dependencies {
     implementation(libs.voyager.transitions)
     implementation(libs.voyager.kodein)
     implementation(libs.kamelMedia)
-
-    implementation(compose.runtime)
-    implementation(compose.foundation)
-    implementation(compose.ui)
-    implementation(compose.animation)
-    implementation(compose.material)
 }
