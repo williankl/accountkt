@@ -1,5 +1,6 @@
 package williankl.accountkt.app.android.ui.currency
 
+import android.widget.Space
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -12,12 +13,16 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
@@ -29,6 +34,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
@@ -40,6 +50,7 @@ import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants.cu
 import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.data.currencyService.models.SymbolName
 import williankl.accountkt.feature.currencyFeature.models.CurrencyRate
+import williankl.accountkt.ui.design.core.bottomElevation
 import williankl.accountkt.ui.design.core.button.Button
 import williankl.accountkt.ui.design.core.color.KtColor
 import williankl.accountkt.ui.design.core.color.animatedColor
@@ -107,26 +118,29 @@ internal class CurrencyDisplayScreen : Screen {
         }
 
         LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            contentPadding = PaddingValues(16.dp),
-            modifier = modifier,
+            modifier = modifier.background(KtColor.Background.animatedColor),
         ) {
             stickyHeader {
                 SymbolConfigItem(
                     onSymbolChangeRequested = onSymbolChangeRequested,
                     stateHandler = stateHandler,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .shadow(12.dp)
+                        .background(KtColor.Background.animatedColor)
+                        .fillMaxWidth()
+                        .padding(12.dp)
                 )
             }
 
             currencyItems(
+                label = "Favourites",
                 rates = favouriteRates,
                 stateHandler = stateHandler,
                 onFavouriteToggle = onFavouriteToggle,
             )
 
             currencyItems(
+                label = "Currencies",
                 rates = nonFavouriteRates,
                 stateHandler = stateHandler,
                 onFavouriteToggle = onFavouriteToggle,
@@ -143,6 +157,7 @@ internal class CurrencyDisplayScreen : Screen {
         var ratioStringForBaseSymbol by remember {
             mutableStateOf(stateHandler.ratio.toString())
         }
+
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -169,14 +184,29 @@ internal class CurrencyDisplayScreen : Screen {
 
     @OptIn(ExperimentalFoundationApi::class)
     private fun LazyListScope.currencyItems(
+        label: String,
         rates: List<CurrencyRate>,
         stateHandler: ConverterStateHandler,
         onFavouriteToggle: (Symbol, Boolean) -> Unit,
     ) {
-        items(
-            key = { rate -> rate.symbol },
+        if (rates.isNotEmpty()) {
+            item(
+                key = label,
+            ) {
+                Text(
+                    text = label,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .padding(12.dp)
+                        .animateItemPlacement()
+                )
+            }
+        }
+
+        itemsIndexed(
+            key = { _, rate -> rate.symbol },
             items = rates,
-        ) { rate ->
+        ) { index, rate ->
             val animatedValue by animateFloatAsState(
                 label = "${rate.symbol}-value-animation",
                 targetValue = (stateHandler.ratio * rate.rate).toFloat()
@@ -190,6 +220,11 @@ internal class CurrencyDisplayScreen : Screen {
                 isFavourite = rate.isFavourite,
                 modifier = Modifier
                     .animateItemPlacement()
+                    .composed {
+                        if (index == rates.lastIndex) bottomElevation(10.dp)
+                        else this
+                    }
+                    .background(KtColor.Background.animatedColor)
                     .clickable { onFavouriteToggle(rate.symbol, !rate.isFavourite) }
                     .fillMaxWidth(),
             )

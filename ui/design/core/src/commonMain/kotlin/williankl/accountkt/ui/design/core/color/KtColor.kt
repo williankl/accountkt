@@ -37,6 +37,16 @@ public sealed class KtColor(
         composeLightColor = Color(0xFFD17F40),
     )
 
+    public data object Surface : KtColor(
+        composeDarkColor = Color(0xFFD9D4D4),
+        composeLightColor = Color(0xFFD9D4D4),
+    )
+
+    public data object Background : KtColor(
+        composeDarkColor = Color(0xFFF1F1F1),
+        composeLightColor = Color(0xFFF1F1F1),
+    )
+
     public data object Transparent : KtColor(
         composeDarkColor = Color.Transparent,
         composeLightColor = Color.Transparent,
