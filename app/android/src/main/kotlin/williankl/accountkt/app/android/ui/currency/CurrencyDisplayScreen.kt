@@ -2,6 +2,7 @@ package williankl.accountkt.app.android.ui.currency
 
 import android.widget.Space
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -28,8 +29,11 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.Clear
+import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -123,38 +127,115 @@ internal class CurrencyDisplayScreen : Screen {
         stateHandler: ConverterStateHandler,
         modifier: Modifier = Modifier,
     ) {
-        val (favouriteRates, nonFavouriteRates) = remember(presentation) {
+        var searchQuery by remember {
+            mutableStateOf("")
+        }
+
+        var isSearching by remember {
+            mutableStateOf(false)
+        }
+
+        val (favouriteRates, nonFavouriteRates) = remember(presentation, searchQuery, isSearching) {
             presentation.currencyData?.rates.orEmpty()
+                .filter { rate ->
+                    rate.symbol.contains(searchQuery, ignoreCase = true) ||
+                            rate.name.contains(searchQuery, ignoreCase = true) ||
+                            isSearching.not()
+                }
                 .partition { rate -> rate.isFavourite }
         }
 
-        LazyColumn(
-            modifier = modifier.background(KtColor.Background.animatedColor),
+        Column(
+            modifier = modifier.background(KtColor.Background.animatedColor)
         ) {
-            stickyHeader {
-                SymbolConfigItem(
-                    onSymbolChangeRequested = onSymbolChangeRequested,
-                    stateHandler = stateHandler,
-                    modifier = Modifier
-                        .shadow(12.dp)
-                        .background(KtColor.Background.animatedColor)
-                        .fillMaxWidth()
-                        .padding(12.dp)
-                )
-            }
-
-            currencyItems(
-                label = "Favourites",
-                rates = favouriteRates,
-                stateHandler = stateHandler,
-                onFavouriteToggle = onFavouriteToggle,
+            SearchBar(
+                toggleIsSearching = { isSearching = it },
+                onQueryChanged = { searchQuery = it },
+                query = searchQuery,
+                isSearching = isSearching,
+                modifier = Modifier,
             )
 
-            currencyItems(
-                label = "Currencies",
-                rates = nonFavouriteRates,
-                stateHandler = stateHandler,
-                onFavouriteToggle = onFavouriteToggle,
+            LazyColumn(
+                modifier = Modifier.weight(1f),
+            ) {
+                stickyHeader {
+                    SymbolConfigItem(
+                        onSymbolChangeRequested = onSymbolChangeRequested,
+                        stateHandler = stateHandler,
+                        modifier = Modifier
+                            .shadow(12.dp)
+                            .background(KtColor.Background.animatedColor)
+                            .fillMaxWidth()
+                            .padding(12.dp)
+                    )
+                }
+
+                currencyItems(
+                    label = "Favourites",
+                    rates = favouriteRates,
+                    stateHandler = stateHandler,
+                    onFavouriteToggle = onFavouriteToggle,
+                )
+
+                currencyItems(
+                    label = "Currencies",
+                    rates = nonFavouriteRates,
+                    stateHandler = stateHandler,
+                    onFavouriteToggle = onFavouriteToggle,
+                )
+            }
+        }
+    }
+
+    @Composable
+    private fun SearchBar(
+        toggleIsSearching: (Boolean) -> Unit,
+        onQueryChanged: (String) -> Unit,
+        query: String,
+        isSearching: Boolean,
+        modifier: Modifier = Modifier,
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.End,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = modifier
+                .background(
+                    color = KtColor.Surface.animatedColor,
+                    shape = RoundedCornerShape(
+                        bottomStart = 12.dp,
+                        bottomEnd = 12.dp,
+                    )
+                )
+                .height(60.dp)
+                .padding(12.dp)
+                .fillMaxWidth(),
+        ) {
+            AnimatedVisibility(
+                visible = isSearching,
+                content = {
+                    TextInput(
+                        value = query,
+                        onValueChange = onQueryChanged,
+                        modifier = Modifier.fillMaxWidth(),
+                        trailingIcon = IconData.Vector(
+                            imageVector = Icons.Outlined.Clear,
+                            onClick = { toggleIsSearching(false) }
+                        )
+                    )
+                }
+            )
+
+            AnimatedVisibility(
+                visible = isSearching.not(),
+                content = {
+                    Icon(
+                        iconData = IconData.Vector(
+                            imageVector = Icons.Outlined.Search,
+                            onClick = { toggleIsSearching(true) }
+                        )
+                    )
+                }
             )
         }
     }
