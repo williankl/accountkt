@@ -11,6 +11,8 @@ plugin-detekt = "1.22.0"
 plugin-ksp = "1.9.21-1.0.15"
 plugin-android = "8.2.0"
 plugin-buildKonfig = "0.13.3"
+plugin-google-services = "4.4.0"
+plugin-google-crashlytics = "2.9.9"
 
 kotlin = "1.9.21"
 compose = "1.5.11"
@@ -18,14 +20,15 @@ compose = "1.5.11"
 cashApp-sqlDelight = "2.0.1"
 voyager = "1.0.0-rc07"
 lyricist = "1.4.1"
-ktor = "2.3.5"
+ktor = "2.3.6"
 kodein = "7.20.2"
 slf4j = "1.7.21"
 kamel = "0.9.0"
 kmpSettings="1.1.1"
 
 android-splashScreen = "1.0.1"
-android-compose-activity = "1.8.1"
+android-compose-activity = "1.8.2"
+android-firebase-bom = "32.7.0"
 
 kotlinx-serialization = "1.6.0"
 kotlinx-coroutines = "1.7.3"
@@ -42,9 +45,17 @@ plugin-buildKonfig = { module = "com.codingfeline.buildkonfig:buildkonfig-gradle
 plugin-cashApp-SqlDelight = { module = "app.cash.sqldelight:gradle-plugin", version.ref = "cashApp-sqlDelight" }
 plugin-ktlint = { module = "org.jmailen.gradle:kotlinter-gradle", version.ref = "plugin-ktlint" }
 plugin-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "plugin-detekt" }
+plugin-google-services = { module = "com.google.gms:google-services", version.ref = "plugin-google-services" }
+plugin-google-crashlytics = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "plugin-google-crashlytics" }
 
 kamelMedia = { module = "media.kamel:kamel-image", version.ref = "kamel" }
 kmpSettings = { module = "com.russhwolf:multiplatform-settings", version.ref = "kmpSettings" }
+
+# Firebase
+
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "android-firebase-bom" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx" }
 
 # Android
 
