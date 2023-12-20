@@ -1,6 +1,7 @@
 package williankl.accountkt.app.android.ui.currency
 
 import android.widget.Space
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -25,6 +26,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -218,16 +221,25 @@ internal class CurrencyDisplayScreen : Screen {
                 symbol = rate.symbol,
                 parsedValue = animatedValue,
                 isFavourite = rate.isFavourite,
+                onFavouriteToggleRequested = { onFavouriteToggle(rate.symbol, !rate.isFavourite) },
                 modifier = Modifier
                     .animateItemPlacement()
-                    .composed {
-                        if (index == rates.lastIndex) bottomElevation(10.dp)
-                        else this
-                    }
-                    .background(KtColor.Background.animatedColor)
-                    .clickable { onFavouriteToggle(rate.symbol, !rate.isFavourite) }
+                    .padding(
+                        vertical = 4.dp,
+                        horizontal = 6.dp,
+                    )
                     .fillMaxWidth(),
             )
+
+            if (index == rates.lastIndex) {
+                Spacer(
+                    modifier = Modifier
+                        .bottomElevation(10.dp)
+                        .background(KtColor.Background.animatedColor)
+                        .fillMaxWidth()
+                        .height(6.dp)
+                )
+            }
         }
     }
 
@@ -238,45 +250,52 @@ internal class CurrencyDisplayScreen : Screen {
         name: SymbolName,
         parsedValue: Float,
         isFavourite: Boolean,
+        onFavouriteToggleRequested: () -> Unit,
         modifier: Modifier = Modifier,
     ) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
             modifier = modifier
-                .padding(
-                    horizontal = 20.dp,
-                    vertical = 12.dp,
+                .background(
+                    color = KtColor.Surface.animatedColor,
+                    shape = RoundedCornerShape(4.dp)
                 )
+                .padding(6.dp),
         ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                val resource = asyncPainterResource(iconUrl)
-                KamelImage(
-                    resource = resource,
-                    contentDescription = null,
-                    modifier = Modifier.size(24.dp)
-                )
-
-                CoreText(
-                    text = "$name ($symbol)"
-                )
-
-                Spacer(
-                    modifier = Modifier.weight(1f)
-                )
-
-                if (isFavourite) {
-                    Icon(
-                        iconData = IconData.Vector(Icons.Default.Favorite),
-                        modifier = Modifier.size(24.dp)
-                    )
-                }
-            }
+            val resource = asyncPainterResource(iconUrl)
+            KamelImage(
+                resource = resource,
+                contentDescription = null,
+                modifier = Modifier.size(30.dp)
+            )
 
             CoreText(
-                text = "%.2f".format(parsedValue)
+                text = "$name ($symbol)",
+                modifier = Modifier.weight(2f),
+            )
+
+            CoreText(
+                text = "%.2f".format(parsedValue),
+                weight = FontWeight.SemiBold,
+                modifier = Modifier.weight(1f),
+            )
+
+            AnimatedContent(
+                label = "$symbol-favourite-animation",
+                targetState = isFavourite,
+                content = { favourite ->
+                    val icon =
+                        if (favourite) Icons.Filled.Favorite
+                        else Icons.Outlined.FavoriteBorder
+
+                    Icon(
+                        iconData = IconData.Vector(icon),
+                        modifier = Modifier
+                            .clickable { onFavouriteToggleRequested() }
+                            .size(24.dp),
+                    )
+                }
             )
         }
     }
