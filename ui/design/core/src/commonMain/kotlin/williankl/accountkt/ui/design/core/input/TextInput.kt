@@ -86,6 +86,7 @@ public fun TextInput(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    headingIcon: IconData? = null,
     trailingIcon: IconData? = null,
     enabled: Boolean = true,
     readOnly: Boolean = false,
@@ -133,7 +134,7 @@ public fun TextInput(
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = modifier
+                modifier = Modifier
                     .border(
                         shape = RoundedCornerShape(8.dp),
                         color = borderColor.animatedColor,
@@ -148,6 +149,14 @@ public fun TextInput(
                         horizontal = 12.dp,
                     ),
             ) {
+                headingIcon?.let { iconData ->
+                    Icon(
+                        iconData = iconData,
+                        modifier = Modifier,
+                        tint = color,
+                    )
+                }
+
                 Box(
                     contentAlignment = Alignment.CenterStart,
                     modifier = Modifier.weight(1f),
