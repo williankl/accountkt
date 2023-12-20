@@ -65,7 +65,7 @@ public fun CoreText(
             fontWeight = weight,
             color = textColor,
             fontSize = size,
-            fontFamily = FontFamily.Monospace,
+            fontFamily = retrieveFontFamily(),
         ),
         onTextLayout = onTextLayout,
         overflow = overflow,

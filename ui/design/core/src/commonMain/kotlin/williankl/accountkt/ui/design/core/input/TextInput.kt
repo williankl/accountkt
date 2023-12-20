@@ -31,6 +31,7 @@ import williankl.accountkt.ui.design.core.color.KtColor
 import williankl.accountkt.ui.design.core.color.animatedColor
 import williankl.accountkt.ui.design.core.icons.Icon
 import williankl.accountkt.ui.design.core.icons.IconData
+import williankl.accountkt.ui.design.core.text.retrieveFontFamily
 
 @Composable
 public fun CoreTextInput(
@@ -63,7 +64,7 @@ public fun CoreTextInput(
             color = color.animatedColor,
             fontSize = size,
             fontWeight = weight,
-            fontFamily = FontFamily.Monospace,
+            fontFamily = retrieveFontFamily(),
         ),
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
