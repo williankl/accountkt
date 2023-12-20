@@ -1,4 +1,4 @@
-package williankl.accountkt.app.android.ui.currency
+package williankl.accountkt.ui.application.currency
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
