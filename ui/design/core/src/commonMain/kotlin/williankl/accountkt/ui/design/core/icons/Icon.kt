@@ -1,49 +1,52 @@
 package williankl.accountkt.ui.design.core.icons
 
+import androidx.compose.foundation.clickable
 import androidx.compose.material.Icon
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.LocalContentColor
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.Icons as MaterialIcons
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import williankl.accountkt.ui.design.core.color.KtColor
-import williankl.accountkt.ui.design.core.color.animatedComposeColor
+import williankl.accountkt.ui.design.core.color.animatedColor
+import williankl.accountkt.ui.design.core.color.animatedColorAsState
 
 @Composable
-public fun CoreIcon(
-    painter: Painter,
-    contentDescription: String?,
+public fun Icon(
+    iconData: IconData,
     modifier: Modifier = Modifier,
-    tint: KtColor = KtColor.NeutralHigh,
+    tint: KtColor = KtColor.PrimaryHigh,
 ) {
-    val animatedTint by tint.animatedComposeColor
+    when (iconData) {
+        is IconData.Vector -> {
+            Icon(
+                imageVector = iconData.imageVector,
+                contentDescription = iconData.description,
+                tint = tint.animatedColor,
+                modifier = modifier.composed {
+                    iconData.clickableModifierOrNothing()
+                },
+            )
+        }
 
-    Icon(
-        painter = painter,
-        contentDescription = contentDescription,
-        modifier = modifier,
-        tint = animatedTint,
-    )
+        is IconData.Painter -> {
+            Icon(
+                painter = iconData.painter,
+                contentDescription = iconData.description,
+                tint = tint.animatedColor,
+                modifier = modifier.composed {
+                    iconData.clickableModifierOrNothing()
+                },
+            )
+        }
+    }
 }
 
-@Composable
-public fun CoreIcon(
-    imageVector: ImageVector,
-    contentDescription: String?,
-    modifier: Modifier = Modifier,
-    tint: KtColor = KtColor.NeutralHigh,
-) {
-    val animatedTint by tint.animatedComposeColor
-
-    Icon(
-        imageVector = imageVector,
-        contentDescription = contentDescription,
-        modifier = modifier,
-        tint = animatedTint,
-    )
-}
+context(Modifier)
+private fun IconData.clickableModifierOrNothing(): Modifier =
+    composed {
+        onClick
+            ?.let { action -> clickable { action() } }
+            ?: Modifier
+    }

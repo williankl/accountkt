@@ -2,8 +2,10 @@ package williankl.accountkt.app.android.ui.currency
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -15,6 +17,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
@@ -26,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.kodein.rememberScreenModel
@@ -36,8 +40,13 @@ import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants.cu
 import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.data.currencyService.models.SymbolName
 import williankl.accountkt.feature.currencyFeature.models.CurrencyRate
-import williankl.accountkt.ui.design.core.icons.CoreIcon
+import williankl.accountkt.ui.design.core.button.Button
+import williankl.accountkt.ui.design.core.color.KtColor
+import williankl.accountkt.ui.design.core.color.animatedColor
+import williankl.accountkt.ui.design.core.icons.Icon
+import williankl.accountkt.ui.design.core.icons.IconData
 import williankl.accountkt.ui.design.core.input.CoreTextInput
+import williankl.accountkt.ui.design.core.input.TextInput
 import williankl.accountkt.ui.design.core.text.CoreText
 
 internal class CurrencyDisplayScreen : Screen {
@@ -139,8 +148,8 @@ internal class CurrencyDisplayScreen : Screen {
             verticalAlignment = Alignment.CenterVertically,
             modifier = modifier,
         ) {
-            CoreTextInput(
-                modifier = Modifier.weight(1f),
+            TextInput(
+                modifier = Modifier.weight(2f),
                 value = ratioStringForBaseSymbol,
                 onValueChange = { newValue ->
                     newValue.toFloatOrNull()
@@ -150,11 +159,10 @@ internal class CurrencyDisplayScreen : Screen {
                 }
             )
 
-            CoreText(
-                text = stateHandler.symbol,
-                modifier = Modifier
-                    .clickable { onSymbolChangeRequested() }
-                    .weight(1f)
+            Button(
+                label = stateHandler.symbol,
+                onClick = { onSymbolChangeRequested() },
+                modifier = Modifier.weight(1f),
             )
         }
     }
@@ -225,9 +233,8 @@ internal class CurrencyDisplayScreen : Screen {
                 )
 
                 if (isFavourite) {
-                    CoreIcon(
-                        imageVector = Icons.Default.Favorite,
-                        contentDescription = null,
+                    Icon(
+                        iconData = IconData.Vector(Icons.Default.Favorite),
                         modifier = Modifier.size(24.dp)
                     )
                 }

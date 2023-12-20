@@ -5,7 +5,6 @@ import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorProducer
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
@@ -14,13 +13,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import williankl.accountkt.ui.design.core.color.KtColor
-import williankl.accountkt.ui.design.core.color.animatedComposeColor
+import williankl.accountkt.ui.design.core.color.animatedColorAsState
 
 @Composable
 public fun CoreText(
     text: String,
     modifier: Modifier = Modifier,
-    color: KtColor = KtColor.NeutralHigh,
+    color: KtColor = KtColor.PrimaryHigh,
     size: TextUnit = TextUnit.Unspecified,
     weight: FontWeight = FontWeight.Normal,
     onTextLayout: ((TextLayoutResult) -> Unit)? = null,
@@ -47,7 +46,7 @@ public fun CoreText(
 public fun CoreText(
     text: AnnotatedString,
     modifier: Modifier = Modifier,
-    color: KtColor = KtColor.NeutralHigh,
+    color: KtColor = KtColor.PrimaryHigh,
     size: TextUnit = TextUnit.Unspecified,
     weight: FontWeight = FontWeight.Normal,
     onTextLayout: ((TextLayoutResult) -> Unit)? = null,
@@ -57,7 +56,7 @@ public fun CoreText(
     minLines: Int = 1,
     inlineContent: Map<String, InlineTextContent> = mapOf(),
 ) {
-    val textColor by color.animatedComposeColor
+    val textColor by color.animatedColorAsState
 
     BasicText(
         text = text,
