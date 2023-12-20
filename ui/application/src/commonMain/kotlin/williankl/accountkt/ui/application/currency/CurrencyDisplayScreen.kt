@@ -1,6 +1,5 @@
-package williankl.accountkt.app.android.ui.currency
+package williankl.accountkt.ui.application.currency
 
-import android.widget.Space
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState

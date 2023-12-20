@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "444337964086",
+    "project_id": "kash-kt",
+    "storage_bucket": "kash-kt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:444337964086:android:fc2c052af93efe396ac497",
+        "android_client_info": {
+          "package_name": "williankl.accountkt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXK1a_C3UnKNvysKs_R51Fzy_Dl1ConEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:444337964086:android:8db1f9bf581d45846ac497",
+        "android_client_info": {
+          "package_name": "williankl.accountkt.stg"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXK1a_C3UnKNvysKs_R51Fzy_Dl1ConEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

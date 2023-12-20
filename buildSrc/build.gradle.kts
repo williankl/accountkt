@@ -27,6 +27,8 @@ gradlePlugin {
 dependencies {
     implementation(libs.plugin.android)
     implementation(libs.plugin.cashApp.sqlDelight)
+    implementation(libs.plugin.google.crashlytics)
+    implementation(libs.plugin.google.services)
     implementation(libs.plugin.kotlin)
     implementation(libs.plugin.kotlin.serialization)
     implementation(libs.plugin.multiplatform.compose)

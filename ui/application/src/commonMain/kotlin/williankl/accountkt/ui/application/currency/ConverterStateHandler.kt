@@ -1,4 +1,4 @@
-package williankl.accountkt.app.android.ui.currency
+package williankl.accountkt.ui.application.currency
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
