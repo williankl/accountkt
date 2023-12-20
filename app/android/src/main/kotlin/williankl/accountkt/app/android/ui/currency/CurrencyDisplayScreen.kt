@@ -23,6 +23,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -42,7 +44,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.kodein.rememberScreenModel
@@ -69,6 +75,7 @@ internal class CurrencyDisplayScreen : Screen {
         val viewModel = rememberScreenModel<CurrencyDisplayViewModel>()
         val presentation by viewModel.presentation.collectAsState()
         val bottomSheetNavigator = LocalBottomSheetNavigator.current
+        val focusManager = LocalFocusManager.current
 
         val stateHandler = remember {
             with(viewModel.currencyPreferencesOrDefault()) {
@@ -91,6 +98,7 @@ internal class CurrencyDisplayScreen : Screen {
             presentation = presentation,
             onFavouriteToggle = viewModel::toggleFavourite,
             onSymbolChangeRequested = {
+                focusManager.clearFocus(force = true)
                 bottomSheetNavigator.show(
                     SymbolSelectionBottomSheet(
                         onSymbolSelected = { selected ->
@@ -157,6 +165,7 @@ internal class CurrencyDisplayScreen : Screen {
         stateHandler: ConverterStateHandler,
         modifier: Modifier = Modifier,
     ) {
+        val focusManager = LocalFocusManager.current
         var ratioStringForBaseSymbol by remember {
             mutableStateOf(stateHandler.ratio.toString())
         }
@@ -169,6 +178,15 @@ internal class CurrencyDisplayScreen : Screen {
             TextInput(
                 modifier = Modifier.weight(2f),
                 value = ratioStringForBaseSymbol,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Decimal,
+                    imeAction = ImeAction.Done,
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        focusManager.clearFocus(force = true)
+                    }
+                ),
                 onValueChange = { newValue ->
                     newValue.toFloatOrNull()
                         ?.let { stateHandler.ratio = it }
@@ -278,6 +296,8 @@ internal class CurrencyDisplayScreen : Screen {
             CoreText(
                 text = "%.2f".format(parsedValue),
                 weight = FontWeight.SemiBold,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.weight(1f),
             )
 
