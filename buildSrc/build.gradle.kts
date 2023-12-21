@@ -36,4 +36,5 @@ dependencies {
     implementation(libs.plugin.buildKonfig)
     implementation(libs.plugin.ktlint)
     implementation(libs.plugin.detekt)
+    implementation(libs.plugin.moko.resources)
 }
