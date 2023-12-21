@@ -3,8 +3,8 @@
 android-compileSdk = "34"
 android-targetSdk = "34"
 android-minSdk = "21"
-android-versionCode = "000000002"
-android-versionName = "0.0.2"
+android-versionCode = "000000003"
+android-versionName = "0.0.3"
 
 plugin-ktlint = "3.10.0"
 plugin-detekt = "1.22.0"
@@ -17,6 +17,7 @@ plugin-google-crashlytics = "2.9.9"
 kotlin = "1.9.21"
 compose = "1.5.11"
 
+moko = "0.23.0"
 cashApp-sqlDelight = "2.0.1"
 voyager = "1.0.0-rc07"
 lyricist = "1.4.1"
@@ -47,6 +48,7 @@ plugin-ktlint = { module = "org.jmailen.gradle:kotlinter-gradle", version.ref = 
 plugin-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "plugin-detekt" }
 plugin-google-services = { module = "com.google.gms:google-services", version.ref = "plugin-google-services" }
 plugin-google-crashlytics = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "plugin-google-crashlytics" }
+plugin-moko-resources = { module = "dev.icerock.moko:resources-generator", version.ref = "moko" }
 
 kamelMedia = { module = "media.kamel:kamel-image", version.ref = "kamel" }
 kmpSettings = { module = "com.russhwolf:multiplatform-settings", version.ref = "kmpSettings" }
@@ -103,3 +105,8 @@ voyager-kodein = { module = "cafe.adriel.voyager:voyager-kodein", version.ref = 
 
 lyricist-core = { module = "cafe.adriel.lyricist:lyricist", version.ref = "lyricist" }
 lyricist-ksp = { module = "cafe.adriel.lyricist:lyricist-processor", version.ref = "lyricist" }
+
+# Moko
+
+moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko" }
+moko-resourcesCompose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko" }

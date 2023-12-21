@@ -1,5 +1,6 @@
 plugins {
     id("accoutkt.multiplatform")
+    id("dev.icerock.mobile.multiplatform-resources")
     id("org.jetbrains.compose")
 }
 
@@ -14,6 +15,13 @@ dependencies {
     commonMainApi(compose.animation)
     commonMainApi(compose.material)
     commonMainApi(compose.material3)
-
     commonMainApi(libs.kamelMedia)
+
+    commonMainImplementation(libs.moko.resources)
+    commonMainImplementation(libs.moko.resourcesCompose)
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "williankl.accountkt.ui.design.core"
+    multiplatformResourcesClassName = "SharedResources"
 }

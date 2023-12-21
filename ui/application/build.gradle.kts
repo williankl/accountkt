@@ -21,4 +21,5 @@ dependencies {
     commonMainImplementation(libs.voyager.bottomSheetNavigator)
     commonMainImplementation(libs.voyager.transitions)
     commonMainImplementation(libs.voyager.kodein)
+    commonMainImplementation(libs.moko.resourcesCompose)
 }
