@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -56,12 +57,14 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.kodein.rememberScreenModel
 import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
+import dev.icerock.moko.resources.compose.painterResource
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants.currencyImageUrl
 import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.data.currencyService.models.SymbolName
 import williankl.accountkt.feature.currencyFeature.models.CurrencyRate
+import williankl.accountkt.ui.design.core.SharedResources
 import williankl.accountkt.ui.design.core.bottomElevation
 import williankl.accountkt.ui.design.core.button.Button
 import williankl.accountkt.ui.design.core.color.KtColor
@@ -195,9 +198,7 @@ internal class CurrencyDisplayScreen : Screen {
         isSearching: Boolean,
         modifier: Modifier = Modifier,
     ) {
-        Row(
-            horizontalArrangement = Arrangement.End,
-            verticalAlignment = Alignment.CenterVertically,
+        Column(
             modifier = modifier
                 .background(
                     color = KtColor.Surface.animatedColor,
@@ -206,33 +207,49 @@ internal class CurrencyDisplayScreen : Screen {
                         bottomEnd = 12.dp,
                     )
                 )
-                .height(60.dp)
                 .padding(12.dp)
-                .fillMaxWidth(),
+                .fillMaxWidth()
         ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier,
+            ) {
+                Image(
+                    painter = painterResource(SharedResources.images.ic_labeled_logo),
+                    contentDescription = null,
+                    modifier = Modifier.size(50.dp)
+                )
+
+                Spacer(
+                    modifier = Modifier.weight(1f)
+                )
+
+                AnimatedContent(
+                    targetState = isSearching,
+                    content = { searching ->
+                        Icon(
+                            modifier = Modifier.size(34.dp),
+                            iconData = IconData.Vector(
+                                onClick = { toggleIsSearching(isSearching.not()) },
+                                imageVector =
+                                if (searching) Icons.Outlined.Close
+                                else Icons.Outlined.Search,
+                            )
+                        )
+                    }
+                )
+            }
+
             AnimatedVisibility(
                 visible = isSearching,
                 content = {
                     TextInput(
                         value = query,
                         onValueChange = onQueryChanged,
-                        modifier = Modifier.fillMaxWidth(),
-                        trailingIcon = IconData.Vector(
-                            imageVector = Icons.Outlined.Clear,
-                            onClick = { toggleIsSearching(false) }
-                        )
-                    )
-                }
-            )
-
-            AnimatedVisibility(
-                visible = isSearching.not(),
-                content = {
-                    Icon(
-                        iconData = IconData.Vector(
-                            imageVector = Icons.Outlined.Search,
-                            onClick = { toggleIsSearching(true) }
-                        )
+                        headingIcon = IconData.Vector(Icons.Outlined.Search),
+                        modifier = Modifier
+                            .padding(top = 12.dp)
+                            .fillMaxWidth(),
                     )
                 }
             )
