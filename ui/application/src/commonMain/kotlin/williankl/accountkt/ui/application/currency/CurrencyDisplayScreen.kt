@@ -174,14 +174,14 @@ internal class CurrencyDisplayScreen : Screen {
                 }
 
                 currencyItems(
-                    label = "Favourites",
+                    label = "Favourites", // fixme - add localized label
                     rates = favouriteRates,
                     stateHandler = stateHandler,
                     onFavouriteToggle = onFavouriteToggle,
                 )
 
                 currencyItems(
-                    label = "Currencies",
+                    label = "Currencies", // fixme - add localized label
                     rates = nonFavouriteRates,
                     stateHandler = stateHandler,
                     onFavouriteToggle = onFavouriteToggle,
@@ -231,6 +231,7 @@ internal class CurrencyDisplayScreen : Screen {
                             modifier = Modifier.size(34.dp),
                             iconData = IconData.Vector(
                                 onClick = { toggleIsSearching(isSearching.not()) },
+                                description = null, // fixme - add localized descriptions
                                 imageVector =
                                 if (searching) Icons.Outlined.Close
                                 else Icons.Outlined.Search,
@@ -246,7 +247,10 @@ internal class CurrencyDisplayScreen : Screen {
                     TextInput(
                         value = query,
                         onValueChange = onQueryChanged,
-                        headingIcon = IconData.Vector(Icons.Outlined.Search),
+                        headingIcon = IconData.Vector(
+                            imageVector = Icons.Outlined.Search,
+                            description = null, // fixme - add localized descriptions
+                        ),
                         modifier = Modifier
                             .padding(top = 12.dp)
                             .fillMaxWidth(),
@@ -381,7 +385,7 @@ internal class CurrencyDisplayScreen : Screen {
             val resource = asyncPainterResource(iconUrl)
             KamelImage(
                 resource = resource,
-                contentDescription = null,
+                contentDescription = null, // fixme - add localized descriptions
                 modifier = Modifier.size(30.dp)
             )
 
@@ -407,7 +411,10 @@ internal class CurrencyDisplayScreen : Screen {
                         else Icons.Outlined.FavoriteBorder
 
                     Icon(
-                        iconData = IconData.Vector(icon),
+                        iconData = IconData.Vector(
+                            imageVector = icon,
+                            description = null, // fixme - add localized descriptions
+                        ),
                         modifier = Modifier
                             .clickable { onFavouriteToggleRequested() }
                             .size(24.dp),
