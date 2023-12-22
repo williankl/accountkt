@@ -1,5 +1,6 @@
 package williankl.accountkt.feature.currencyFeature.internal
 
+import kotlinx.datetime.Clock
 import williankl.accountkt.data.currencyService.CurrencyService
 import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.data.currencyService.models.SymbolName
@@ -58,10 +59,13 @@ internal class CurrencyDataImplementation(
     }
 
     private suspend fun retrieveOrUpdateCurrencyRates(symbol: Symbol): SymbolRate {
-        return currencyRateStorage.rateForSymbol(symbol)
-            ?: currencyService.retrieveRates(symbol)
+        val storageRate = currencyRateStorage.rateForSymbol(symbol)
+        val nowInMilliseconds = Clock.System.now().toEpochMilliseconds()
+        return if (storageRate == null || storageRate.nextUpdateAt < nowInMilliseconds) {
+            currencyService.retrieveRates(symbol)
                 .also { rate ->
                     currencyRateStorage.updateSymbolRate(rate)
                 }
+        } else storageRate
     }
 }
