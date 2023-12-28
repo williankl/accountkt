@@ -188,6 +188,7 @@ internal class CurrencyDisplayScreen : Screen {
         isSearching: Boolean,
         modifier: Modifier = Modifier,
     ) {
+        val focusManager = LocalFocusManager.current
         val inputFieldFocusRequester = remember { FocusRequester() }
 
         LaunchedEffect(isSearching) {
@@ -253,6 +254,12 @@ internal class CurrencyDisplayScreen : Screen {
                             onClick = { onQueryChanged("") },
                             imageVector = Icons.Outlined.Close,
                             description = null, // fixme - add localized descriptions
+                        ),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Search,
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onSearch = { focusManager.clearFocus(force = true) }
                         ),
                         modifier = Modifier
                             .focusRequester(inputFieldFocusRequester)
