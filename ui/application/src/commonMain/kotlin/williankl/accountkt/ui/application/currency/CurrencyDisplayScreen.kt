@@ -54,9 +54,11 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.lifecycle.LifecycleEffect
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.kodein.rememberScreenModel
 import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.icerock.moko.resources.compose.painterResource
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
@@ -64,6 +66,7 @@ import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants.cu
 import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.data.currencyService.models.SymbolName
 import williankl.accountkt.feature.currencyFeature.models.CurrencyRate
+import williankl.accountkt.ui.application.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
 import williankl.accountkt.ui.design.core.SharedResources
 import williankl.accountkt.ui.design.core.bottomElevation
 import williankl.accountkt.ui.design.core.button.Button
@@ -82,15 +85,15 @@ internal class CurrencyDisplayScreen : Screen {
         val presentation by viewModel.presentation.collectAsState()
         val bottomSheetNavigator = LocalBottomSheetNavigator.current
         val focusManager = LocalFocusManager.current
+        val stateHandler = LocalConverterStateHandler.currentOrThrow
 
-        val stateHandler = remember {
-            with(viewModel.currencyPreferencesOrDefault()) {
-                ConverterStateHandler(
-                    initSymbol = preferredSymbol,
-                    initRatio = defaultAmount,
-                )
+        LifecycleEffect(
+            onStarted = {
+                val preferences = viewModel.currencyPreferencesOrDefault()
+                stateHandler.symbol = preferences.preferredSymbol
+                stateHandler.ratio = preferences.defaultAmount
             }
-        }
+        )
 
         LaunchedEffect(stateHandler.symbol) {
             viewModel.retrieveAllInfoForSymbol(stateHandler.symbol)
@@ -100,20 +103,16 @@ internal class CurrencyDisplayScreen : Screen {
             viewModel.saveState(stateHandler)
         }
 
+        LaunchedEffect(presentation.currencyData){
+            stateHandler.supportedTargetSymbols = presentation.currencyData?.rates.orEmpty()
+        }
+
         CurrencyDisplayContent(
             presentation = presentation,
             onFavouriteToggle = viewModel::toggleFavourite,
             onSymbolChangeRequested = {
                 focusManager.clearFocus(force = true)
-                bottomSheetNavigator.show(
-                    SymbolSelectionBottomSheet(
-                        onSymbolSelected = { selected ->
-                            bottomSheetNavigator.hide()
-                            stateHandler.symbol = selected
-                        },
-                        supportedRates = presentation.currencyData?.rates.orEmpty(),
-                    )
-                )
+                bottomSheetNavigator.show(SymbolSelectionBottomSheet)
             },
             stateHandler = stateHandler,
             modifier = Modifier.fillMaxSize()
