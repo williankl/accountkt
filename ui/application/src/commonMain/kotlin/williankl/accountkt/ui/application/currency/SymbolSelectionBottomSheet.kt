@@ -83,7 +83,10 @@ internal class SymbolSelectionBottomSheet(
                 TextInput(
                     value = queryStr,
                     onValueChange = { queryStr = it },
-                    headingIcon = IconData.Vector(Icons.Outlined.Search),
+                    headingIcon = IconData.Vector(
+                        imageVector = Icons.Outlined.Search,
+                        description = null, // fixme - add localized descriptions
+                    ),
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Search,
                     ),
