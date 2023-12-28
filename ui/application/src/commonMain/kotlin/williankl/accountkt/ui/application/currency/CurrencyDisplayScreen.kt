@@ -119,7 +119,7 @@ internal class CurrencyDisplayScreen : Screen {
         stateHandler: ConverterStateHandler,
         modifier: Modifier = Modifier,
     ) {
-        var searchQuery by remember {
+        var searchQuery by remember(stateHandler.symbol) {
             mutableStateOf("")
         }
 
@@ -141,7 +141,12 @@ internal class CurrencyDisplayScreen : Screen {
             modifier = modifier.background(KtColor.Background.animatedColor)
         ) {
             SearchBar(
-                toggleIsSearching = { isSearching = it },
+                toggleIsSearching = { searching ->
+                    isSearching = searching
+                    if (searching) {
+                        searchQuery = ""
+                    }
+                },
                 onQueryChanged = { searchQuery = it },
                 query = searchQuery,
                 isSearching = isSearching,
@@ -248,11 +253,6 @@ internal class CurrencyDisplayScreen : Screen {
                         onValueChange = onQueryChanged,
                         headingIcon = IconData.Vector(
                             imageVector = Icons.Outlined.Search,
-                            description = null, // fixme - add localized descriptions
-                        ),
-                        trailingIcon = IconData.Vector(
-                            onClick = { onQueryChanged("") },
-                            imageVector = Icons.Outlined.Close,
                             description = null, // fixme - add localized descriptions
                         ),
                         keyboardOptions = KeyboardOptions(
