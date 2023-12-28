@@ -249,6 +249,11 @@ internal class CurrencyDisplayScreen : Screen {
                             imageVector = Icons.Outlined.Search,
                             description = null, // fixme - add localized descriptions
                         ),
+                        trailingIcon = IconData.Vector(
+                            onClick = { onQueryChanged("") },
+                            imageVector = Icons.Outlined.Close,
+                            description = null, // fixme - add localized descriptions
+                        ),
                         modifier = Modifier
                             .focusRequester(inputFieldFocusRequester)
                             .padding(top = 12.dp)

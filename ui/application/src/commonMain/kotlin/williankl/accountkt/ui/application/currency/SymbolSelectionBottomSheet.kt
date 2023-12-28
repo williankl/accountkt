@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -97,6 +98,11 @@ internal object SymbolSelectionBottomSheet : Screen {
                     onValueChange = { queryStr = it },
                     headingIcon = IconData.Vector(
                         imageVector = Icons.Outlined.Search,
+                        description = null, // fixme - add localized descriptions
+                    ),
+                    trailingIcon = IconData.Vector(
+                        onClick = { queryStr = "" },
+                        imageVector = Icons.Outlined.Close,
                         description = null, // fixme - add localized descriptions
                     ),
                     keyboardOptions = KeyboardOptions(
