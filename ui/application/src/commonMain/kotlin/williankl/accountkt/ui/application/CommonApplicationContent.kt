@@ -19,25 +19,23 @@ import williankl.accountkt.ui.application.currency.CurrencyDisplayScreen
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun CommonApplicationContent() {
-    withDI(applicationDI){
-        MaterialTheme {
-            CompositionLocalProvider(
-                LocalConverterStateHandler provides rememberConverterStateHandler()
-            ) {
-                BottomSheetNavigator(
-                    sheetBackgroundColor = Color.White,
-                    scrimColor = Color.Black.copy(alpha = 0.25f),
-                    sheetShape = RoundedCornerShape(
-                        topStart = 16.dp,
-                        topEnd = 16.dp,
-                    ),
-                    content = {
-                        Navigator(CurrencyDisplayScreen()) {
-                            SlideTransition(it)
-                        }
+    MaterialTheme {
+        CompositionLocalProvider(
+            LocalConverterStateHandler provides rememberConverterStateHandler()
+        ) {
+            BottomSheetNavigator(
+                sheetBackgroundColor = Color.White,
+                scrimColor = Color.Black.copy(alpha = 0.25f),
+                sheetShape = RoundedCornerShape(
+                    topStart = 16.dp,
+                    topEnd = 16.dp,
+                ),
+                content = {
+                    Navigator(CurrencyDisplayScreen()) {
+                        SlideTransition(it)
                     }
-                )
-            }
+                }
+            )
         }
     }
 }
