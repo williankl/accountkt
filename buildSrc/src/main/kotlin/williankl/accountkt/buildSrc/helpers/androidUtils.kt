@@ -9,21 +9,6 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.findByType
 import org.gradle.kotlin.dsl.getByType
 
-public fun Project.applyAndroidCompose(){
-    val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
-    val composeCompilerVersion = libs.findVersion("android-compose-compiler").get().requiredVersion
-
-    configure<BaseExtension> {
-        buildFeatures.apply {
-            compose = true
-        }
-
-        composeOptions {
-            kotlinCompilerExtensionVersion = composeCompilerVersion
-        }
-    }
-}
-
 internal fun Project.setupAndroid(){
     configure<BaseExtension> {
         val (compileSdkVersion, targetSdkVersion, minSdkVersion) = Triple(
@@ -47,8 +32,8 @@ internal fun Project.setupAndroid(){
         }
 
         compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_1_8
-            targetCompatibility = JavaVersion.VERSION_1_8
+            sourceCompatibility = JavaVersion.VERSION_11
+            targetCompatibility = JavaVersion.VERSION_11
         }
     }
 }

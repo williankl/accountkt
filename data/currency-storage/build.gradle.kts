@@ -16,6 +16,7 @@ dependencies {
 }
 
 sqldelight {
+    linkSqlite.set(true)
     databases {
         create("CurrencyDatabase") {
             packageName.set("williankl.accountkt.data.currencyStorage")

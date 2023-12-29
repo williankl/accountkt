@@ -315,6 +315,7 @@
 				OTHER_LDFLAGS = (
 					"\"$(inherited) -framework KtApplication\"",
 					"-ld64",
+					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = williankl.accountkt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -356,6 +357,7 @@
 				OTHER_LDFLAGS = (
 					"\"$(inherited) -framework KtApplication\"",
 					"-ld64",
+					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = williankl.accountkt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
