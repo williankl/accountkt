@@ -25,7 +25,7 @@ public fun Icon(
                 contentDescription = iconData.description,
                 tint = tint.animatedColor,
                 modifier = modifier.composed {
-                    iconData.clickableModifierOrNothing()
+                    clickableModifierOrNothing(iconData)
                 },
             )
         }
@@ -36,17 +36,19 @@ public fun Icon(
                 contentDescription = iconData.description,
                 tint = tint.animatedColor,
                 modifier = modifier.composed {
-                    iconData.clickableModifierOrNothing()
+                    clickableModifierOrNothing(iconData)
                 },
             )
         }
     }
 }
 
-context(Modifier)
-private fun IconData.clickableModifierOrNothing(): Modifier =
+
+private fun Modifier.clickableModifierOrNothing(
+    iconData: IconData,
+): Modifier =
     composed {
-        onClick
+        iconData.onClick
             ?.let { action -> clickable { action() } }
             ?: Modifier
     }

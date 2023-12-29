@@ -406,7 +406,7 @@ internal class CurrencyDisplayScreen : Screen {
             )
 
             CoreText(
-                text = "%.2f".format(parsedValue),
+                text = parsedValue.toString(),
                 weight = FontWeight.SemiBold,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,

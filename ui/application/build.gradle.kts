@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
 plugins {
     id("accoutkt.multiplatform")
     id("org.jetbrains.compose")
@@ -5,6 +7,25 @@ plugins {
 
 android {
     namespace = "williankl.accountkt.ui.application"
+}
+fun KotlinNativeTarget.applyNative(name: String) {
+    binaries {
+        framework {
+            baseName = name
+        }
+    }
+}
+
+kotlin {
+    iosX64 {
+        applyNative("KtApplication")
+    }
+    iosArm64 {
+        applyNative("KtApplication")
+    }
+    iosSimulatorArm64 {
+        applyNative("KtApplication")
+    }
 }
 
 dependencies {

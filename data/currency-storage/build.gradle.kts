@@ -10,8 +10,9 @@ android {
 dependencies {
     commonMainImplementation(projects.data.currencyService)
     commonMainImplementation(libs.kodein.core)
-    androidMainImplementation(libs.cashapp.sqLiteAndroid)
-    iosMainImplementation(libs.cashapp.sqLiteNativeDriver)
+    commonMainImplementation(libs.cashApp.sqLiteRuntime)
+    androidMainImplementation(libs.cashApp.sqLiteAndroid)
+    iosMainImplementation(libs.cashApp.sqLiteNativeDriver)
 }
 
 sqldelight {
