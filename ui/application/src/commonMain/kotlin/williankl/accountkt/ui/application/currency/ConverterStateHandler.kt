@@ -15,16 +15,16 @@ public class ConverterStateHandler(
     initSymbol: Symbol,
     initRatio: Float,
 ) {
-    public companion object {
+    internal companion object {
         @Composable
-        public fun rememberConverterStateHandler(
+        fun rememberConverterStateHandler(
             initSymbol: Symbol = "BRL",
             initRatio: Float = 1.0f,
         ): ConverterStateHandler = remember {
             ConverterStateHandler(initSymbol, initRatio)
         }
 
-        public val LocalConverterStateHandler: ProvidableCompositionLocal<ConverterStateHandler?> =
+        val LocalConverterStateHandler: ProvidableCompositionLocal<ConverterStateHandler?> =
             staticCompositionLocalOf { null }
     }
 
