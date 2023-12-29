@@ -57,16 +57,14 @@ public fun Project.applyNativeWithBaseName(name: String) {
             iosArm64(),
             iosSimulatorArm64(),
         ).forEach { nativeTarget ->
-            nativeTarget.applyNative(name)
-        }
-    }
-}
-
-private fun KotlinNativeTarget.applyNative(name: String) {
-    binaries {
-        framework {
-            baseName = name
-            linkerOpts.add("-lsqlite3")
+            with(nativeTarget){
+                binaries {
+                    framework {
+                        baseName = name
+                        linkerOpts.add("-lsqlite3")
+                    }
+                }
+            }
         }
     }
 }
