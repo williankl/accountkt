@@ -62,6 +62,7 @@ public fun Project.applyNativeWithBaseName(name: String) {
                     framework {
                         baseName = name
                         linkerOpts.add("-lsqlite3")
+                        isStatic = true
                     }
                 }
             }

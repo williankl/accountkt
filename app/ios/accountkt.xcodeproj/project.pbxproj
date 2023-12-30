@@ -78,6 +78,7 @@
 				26008A5F2B3E14E400357B41 /* Sources */,
 				26008A602B3E14E400357B41 /* Frameworks */,
 				26008A612B3E14E400357B41 /* Resources */,
+				26FF85A72B4092740057C79F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -151,6 +152,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\ncd \"$SRCROOT/../..\"\nchmod +x gradlew\n./gradlew :ui:application:embedAndSignAppleFrameworkForXcode\n";
+		};
+		26FF85A72B4092740057C79F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n\"$SRCROOT/../../gradlew\" -p \"$SRCROOT/../../\" :ui:application:copyFrameworkResourcesToApp \\\n    -Pmoko.resources.PLATFORM_NAME=\"$PLATFORM_NAME\" \\\n    -Pmoko.resources.CONFIGURATION=\"$CONFIGURATION\" \\\n    -Pmoko.resources.ARCHS=\"$ARCHS\" \\\n    -Pmoko.resources.BUILT_PRODUCTS_DIR=\"$BUILT_PRODUCTS_DIR\" \\\n    -Pmoko.resources.CONTENTS_FOLDER_PATH=\"$CONTENTS_FOLDER_PATH\" \n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -312,7 +330,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				OTHER_LDFLAGS = "\"$(inherited) -framework KtApplication\"";
+				OTHER_LDFLAGS = (
+					"-lsqlite3",
+					"-ld64",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = williankl.accountkt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -350,7 +371,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				OTHER_LDFLAGS = "\"$(inherited) -framework KtApplication\"";
+				OTHER_LDFLAGS = (
+					"-lsqlite3",
+					"-ld64",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = williankl.accountkt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
