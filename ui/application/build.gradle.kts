@@ -1,7 +1,12 @@
+import williankl.accountkt.buildSrc.helpers.applyNativeWithBaseName
+
 plugins {
     id("accoutkt.multiplatform")
     id("org.jetbrains.compose")
+    id("dev.icerock.mobile.multiplatform-resources")
 }
+
+applyNativeWithBaseName("KtApplication")
 
 android {
     namespace = "williankl.accountkt.ui.application"

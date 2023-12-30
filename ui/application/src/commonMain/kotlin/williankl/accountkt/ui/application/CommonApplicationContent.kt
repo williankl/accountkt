@@ -10,13 +10,15 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.bottomSheet.BottomSheetNavigator
 import cafe.adriel.voyager.transitions.SlideTransition
+import org.kodein.di.compose.withDI
+import williankl.accountkt.ui.application.DI.applicationDI
 import williankl.accountkt.ui.application.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
 import williankl.accountkt.ui.application.currency.ConverterStateHandler.Companion.rememberConverterStateHandler
 import williankl.accountkt.ui.application.currency.CurrencyDisplayScreen
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-public fun ApplicationContent() {
+internal fun CommonApplicationContent() {
     MaterialTheme {
         CompositionLocalProvider(
             LocalConverterStateHandler provides rememberConverterStateHandler()

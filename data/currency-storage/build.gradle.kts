@@ -10,11 +10,13 @@ android {
 dependencies {
     commonMainImplementation(projects.data.currencyService)
     commonMainImplementation(libs.kodein.core)
-    androidMainImplementation(libs.cashapp.sqLiteAndroid)
-    iosMainImplementation(libs.cashapp.sqLiteNativeDriver)
+    commonMainImplementation(libs.cashApp.sqLiteRuntime)
+    androidMainImplementation(libs.cashApp.sqLiteAndroid)
+    iosMainImplementation(libs.cashApp.sqLiteNativeDriver)
 }
 
 sqldelight {
+    linkSqlite.set(true)
     databases {
         create("CurrencyDatabase") {
             packageName.set("williankl.accountkt.data.currencyStorage")

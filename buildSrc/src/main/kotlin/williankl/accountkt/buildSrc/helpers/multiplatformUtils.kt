@@ -7,6 +7,7 @@ import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import williankl.accountkt.buildSrc.helpers.findAndroidExtension
 import williankl.accountkt.buildSrc.helpers.setupAndroid
 
@@ -24,7 +25,9 @@ public fun DependencyHandlerScope.commonMainLyricistImplementation(
     )
 }
 
-public fun Project.applyMultiModuleKsp(packageName: String) {
+public fun Project.applyMultiModuleKsp(
+    packageName: String,
+) {
     configure<KspExtension> {
         arg("lyricist.packageName", packageName)
         arg("lyricist.moduleName", project.name)
@@ -42,6 +45,27 @@ public fun Project.applyCommonMainCodeGeneration() {
     configure<KotlinMultiplatformExtension> {
         sourceSets.getByName("commonMain") {
             kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+        }
+    }
+}
+
+public fun Project.applyNativeWithBaseName(name: String) {
+    extensions.configure<KotlinMultiplatformExtension>() {
+        applyDefaultHierarchyTemplate()
+        listOf(
+            iosX64(),
+            iosArm64(),
+            iosSimulatorArm64(),
+        ).forEach { nativeTarget ->
+            with(nativeTarget){
+                binaries {
+                    framework {
+                        baseName = name
+                        linkerOpts.add("-lsqlite3")
+                        isStatic = true
+                    }
+                }
+            }
         }
     }
 }
@@ -75,6 +99,7 @@ private fun Project.applyIOSTarget() {
         applyDefaultHierarchyTemplate()
         iosX64()
         iosArm64()
+        iosSimulatorArm64()
     }
 }
 
@@ -82,6 +107,9 @@ private fun Project.setDependencies(withJvm: Boolean) {
     extensions.configure<KotlinMultiplatformExtension> {
         sourceSets {
             val commonMain by getting
+            val iosX64Main by getting
+            val iosArm64Main by getting
+            val iosSimulatorArm64Main by getting
 
             if (withJvm) {
                 val jvmMain by getting {
@@ -95,6 +123,9 @@ private fun Project.setDependencies(withJvm: Boolean) {
 
             val iosMain by getting {
                 dependsOn(commonMain)
+                iosX64Main.dependsOn(this)
+                iosArm64Main.dependsOn(this)
+                iosSimulatorArm64Main.dependsOn(this)
             }
         }
     }

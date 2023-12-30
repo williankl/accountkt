@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import williankl.accountkt.ui.design.core.color.KtColor
 import williankl.accountkt.ui.design.core.color.animatedColor
 import williankl.accountkt.ui.design.core.icons.Icon
+import williankl.accountkt.ui.design.core.text.CoreText
 
 @Composable
 public fun Button(
@@ -41,10 +42,10 @@ public fun Button(
                 horizontal = 12.dp,
             ),
     ) {
-        Text(
+        CoreText(
             text = label,
-            fontWeight = FontWeight.SemiBold,
-            textAlign = TextAlign.Center,
+            weight = FontWeight.SemiBold,
+            align = TextAlign.Center,
             modifier = Modifier.weight(1f),
         )
     }
