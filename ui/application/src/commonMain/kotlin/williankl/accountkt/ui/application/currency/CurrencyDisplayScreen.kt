@@ -326,9 +326,9 @@ internal class CurrencyDisplayScreen : Screen {
             item(
                 key = label,
             ) {
-                Text(
+                CoreText(
                     text = label,
-                    fontWeight = FontWeight.Bold,
+                    weight = FontWeight.Bold,
                     modifier = Modifier
                         .padding(12.dp)
                         .animateItemPlacement()
@@ -406,7 +406,7 @@ internal class CurrencyDisplayScreen : Screen {
             )
 
             CoreText(
-                text = parsedValue.toString(),
+                text = parsedValue.parseToFloatingPoint(2),
                 weight = FontWeight.SemiBold,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
@@ -432,6 +432,17 @@ internal class CurrencyDisplayScreen : Screen {
                     )
                 }
             )
+        }
+    }
+
+    private fun Float.parseToFloatingPoint(
+        number: Int,
+        coinSeparator: String = ",",
+    ): String {
+        return with(toString()) {
+            val before = substringBefore(".")
+            val after = substringAfter(".")
+            "$before$coinSeparator${after.take(number)}"
         }
     }
 }

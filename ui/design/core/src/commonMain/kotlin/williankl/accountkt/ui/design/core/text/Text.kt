@@ -10,6 +10,7 @@ import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import williankl.accountkt.ui.design.core.color.KtColor
@@ -22,6 +23,7 @@ public fun CoreText(
     color: KtColor = KtColor.PrimaryHigh,
     size: TextUnit = TextUnit.Unspecified,
     weight: FontWeight = FontWeight.Normal,
+    align: TextAlign = TextAlign.Start,
     onTextLayout: ((TextLayoutResult) -> Unit)? = null,
     overflow: TextOverflow = TextOverflow.Clip,
     softWrap: Boolean = true,
@@ -34,6 +36,7 @@ public fun CoreText(
         color = color,
         size = size,
         weight = weight,
+        align = align,
         onTextLayout = onTextLayout,
         overflow = overflow,
         softWrap = softWrap,
@@ -49,6 +52,7 @@ public fun CoreText(
     color: KtColor = KtColor.PrimaryHigh,
     size: TextUnit = TextUnit.Unspecified,
     weight: FontWeight = FontWeight.Normal,
+    align: TextAlign = TextAlign.Start,
     onTextLayout: ((TextLayoutResult) -> Unit)? = null,
     overflow: TextOverflow = TextOverflow.Clip,
     softWrap: Boolean = true,
@@ -65,6 +69,7 @@ public fun CoreText(
             fontWeight = weight,
             color = textColor,
             fontSize = size,
+            textAlign = align,
             fontFamily = retrieveFontFamily(),
         ),
         onTextLayout = onTextLayout,
