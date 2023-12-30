@@ -28,17 +28,17 @@ internal class CurrencyRateStorageImplementation(
     }
 
     override suspend fun updateSymbolRate(symbolRate: SymbolRate) {
-        with(DatabaseMapper.mapToDatabaseModel(symbolRate)) {
+        DatabaseMapper.mapToDatabaseModel(symbolRate).let { databaseRate ->
             currencyDatabase.databaseSymbolRateQueries
-                .selectForBaseSymbol(base)
+                .selectForBaseSymbol(databaseRate.base)
                 .executeAsOneOrNull()
                 ?.run {
                     currencyDatabase.databaseSymbolRateQueries
-                        .updateSymbolValue(rates, base)
+                        .updateSymbolValue(databaseRate.rates, databaseRate.nextUpdateAt, base)
                 }
                 ?: run {
                     currencyDatabase.databaseSymbolRateQueries
-                        .insert(base, nextUpdateAt, rates)
+                        .insert(databaseRate.base, databaseRate.nextUpdateAt, databaseRate.rates)
                 }
         }
     }

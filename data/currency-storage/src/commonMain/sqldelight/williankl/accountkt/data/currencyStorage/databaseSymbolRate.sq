@@ -16,7 +16,7 @@ WHERE databaseSymbolRate.base = :base;
 
 updateSymbolValue:
 UPDATE databaseSymbolRate
-SET rates = :newRates
+SET rates = :newRates, nextUpdateAt = :nextUpdate
 WHERE base = :symbol;
 
 insert:
