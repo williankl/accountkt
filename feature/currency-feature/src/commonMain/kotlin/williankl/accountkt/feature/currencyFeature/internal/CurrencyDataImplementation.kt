@@ -60,12 +60,26 @@ internal class CurrencyDataImplementation(
 
     private suspend fun retrieveOrUpdateCurrencyRates(symbol: Symbol): SymbolRate {
         val storageRate = currencyRateStorage.rateForSymbol(symbol)
-        val nowInMilliseconds = Clock.System.now().toEpochMilliseconds()
+        val nowInMilliseconds = Clock.System.now().epochSeconds
         return if (storageRate == null || storageRate.nextUpdateAt < nowInMilliseconds) {
-            currencyService.retrieveRates(symbol)
-                .also { rate ->
-                    currencyRateStorage.updateSymbolRate(rate)
-                }
+            retrieveRatesForSymbolOr(symbol, storageRate)
         } else storageRate
+    }
+
+    private suspend fun retrieveRatesForSymbolOr(
+        symbol: Symbol,
+        other: SymbolRate?,
+    ): SymbolRate {
+        return runCatching {
+            currencyService.retrieveRates(symbol)
+        }.fold(
+            onSuccess = { result ->
+                currencyRateStorage.updateSymbolRate(result)
+                result
+            },
+            onFailure = { originalError ->
+                other ?: throw originalError
+            }
+        )
     }
 }
