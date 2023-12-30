@@ -19,7 +19,7 @@ compose = "1.5.11"
 
 moko = "0.23.0"
 cashApp-sqlDelight = "2.0.1"
-voyager = "1.0.0-rc07"
+voyager = "1.1.0-alpha01"
 lyricist = "1.4.1"
 ktor = "2.3.6"
 kodein = "7.20.2"
@@ -97,6 +97,7 @@ kodein-compose = { module = "org.kodein.di:kodein-di-framework-compose", version
 # Voyager
 
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+voyager-screenModel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyager" }
 voyager-bottomSheetNavigator = { module = "cafe.adriel.voyager:voyager-bottom-sheet-navigator", version.ref = "voyager" }
 voyager-tabNavigator = { module = "cafe.adriel.voyager:voyager-tab-navigator", version.ref = "voyager" }
 voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyager" }

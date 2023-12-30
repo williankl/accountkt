@@ -1,7 +1,7 @@
 package williankl.accountkt.ui.application.currency
 
 import cafe.adriel.voyager.core.model.ScreenModel
-import cafe.adriel.voyager.core.model.coroutineScope
+import cafe.adriel.voyager.core.model.screenModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -25,7 +25,7 @@ internal class CurrencyDisplayViewModel(
     )
 
     fun retrieveAllInfoForSymbol(symbol: Symbol) {
-        coroutineScope.launch {
+        screenModelScope.launch {
             try {
                 _presentation.update {
                     CurrencyDisplayPresentation(
@@ -61,7 +61,7 @@ internal class CurrencyDisplayViewModel(
         symbol: Symbol,
         setTo: Boolean,
     ) {
-        coroutineScope.launch {
+        screenModelScope.launch {
             try {
                 currencyDataRetriever.updateFavouriteFor(symbol, setTo)
                 _presentation.update { presentation ->

@@ -23,6 +23,7 @@ dependencies {
     commonMainImplementation(libs.kotlinx.serialization.core)
     commonMainImplementation(libs.kotlinx.serialization.json)
     commonMainImplementation(libs.voyager.navigator)
+    commonMainImplementation(libs.voyager.screenModel)
     commonMainImplementation(libs.voyager.bottomSheetNavigator)
     commonMainImplementation(libs.voyager.transitions)
     commonMainImplementation(libs.voyager.kodein)
