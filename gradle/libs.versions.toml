@@ -3,8 +3,8 @@
 android-compileSdk = "34"
 android-targetSdk = "34"
 android-minSdk = "21"
-versionCode = "000002002"
-versionName = "0.2.2"
+versionCode = "000003000"
+versionName = "0.3.0"
 
 plugin-ktlint = "3.10.0"
 plugin-detekt = "1.22.0"
