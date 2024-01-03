@@ -15,13 +15,16 @@ import williankl.accountkt.ui.application.DI.applicationDI
 import williankl.accountkt.ui.application.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
 import williankl.accountkt.ui.application.currency.ConverterStateHandler.Companion.rememberConverterStateHandler
 import williankl.accountkt.ui.application.currency.CurrencyDisplayScreen
+import williankl.accountkt.ui.application.safeArea.LocalSafeAreaPadding
+import williankl.accountkt.ui.application.safeArea.safeAreaPadding
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun CommonApplicationContent() {
     MaterialTheme {
         CompositionLocalProvider(
-            LocalConverterStateHandler provides rememberConverterStateHandler()
+            LocalConverterStateHandler provides rememberConverterStateHandler(),
+            LocalSafeAreaPadding provides safeAreaPadding,
         ) {
             BottomSheetNavigator(
                 sheetBackgroundColor = Color.White,
