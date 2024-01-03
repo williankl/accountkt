@@ -22,9 +22,9 @@ import cafe.adriel.voyager.navigator.bottomSheet.BottomSheetNavigator
 import cafe.adriel.voyager.transitions.SlideTransition
 import org.kodein.di.compose.withDI
 import williankl.accountkt.ui.application.DI.applicationDI
-import williankl.accountkt.ui.application.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
-import williankl.accountkt.ui.application.currency.ConverterStateHandler.Companion.rememberConverterStateHandler
-import williankl.accountkt.ui.application.currency.CurrencyDisplayScreen
+import williankl.accountkt.ui.application.screens.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
+import williankl.accountkt.ui.application.screens.currency.ConverterStateHandler.Companion.rememberConverterStateHandler
+import williankl.accountkt.ui.application.screens.currency.CurrencyDisplayScreen
 import williankl.accountkt.ui.application.safeArea.LocalSafeAreaPadding
 import williankl.accountkt.ui.application.safeArea.safeAreaPadding
 import williankl.accountkt.ui.design.core.color.KtColor

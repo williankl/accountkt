@@ -1,4 +1,4 @@
-package williankl.accountkt.ui.application.currency
+package williankl.accountkt.ui.application.screens.symbolSelection
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -37,7 +37,7 @@ import io.kamel.image.asyncPainterResource
 import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants.currencyImageUrl
 import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.feature.currencyFeature.models.CurrencyRate
-import williankl.accountkt.ui.application.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
+import williankl.accountkt.ui.application.screens.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
 import williankl.accountkt.ui.design.core.bottomElevation
 import williankl.accountkt.ui.design.core.color.KtColor
 import williankl.accountkt.ui.design.core.color.animatedColor

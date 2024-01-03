@@ -1,4 +1,4 @@
-package williankl.accountkt.ui.application.currency
+package williankl.accountkt.ui.application.screens.currency
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope

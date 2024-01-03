@@ -1,4 +1,4 @@
-package williankl.accountkt.ui.application.currency
+package williankl.accountkt.ui.application.screens.currency
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
@@ -22,7 +22,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.Close
@@ -58,8 +57,9 @@ import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants.cu
 import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.data.currencyService.models.SymbolName
 import williankl.accountkt.feature.currencyFeature.models.CurrencyRate
-import williankl.accountkt.ui.application.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
+import williankl.accountkt.ui.application.screens.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
 import williankl.accountkt.ui.application.safeArea.LocalSafeAreaPadding
+import williankl.accountkt.ui.application.screens.symbolSelection.SymbolSelectionBottomSheet
 import williankl.accountkt.ui.design.core.SharedResources
 import williankl.accountkt.ui.design.core.bottomElevation
 import williankl.accountkt.ui.design.core.button.Button

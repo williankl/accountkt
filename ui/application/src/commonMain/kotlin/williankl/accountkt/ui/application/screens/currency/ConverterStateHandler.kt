@@ -1,4 +1,4 @@
-package williankl.accountkt.ui.application.currency
+package williankl.accountkt.ui.application.screens.currency
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ProvidableCompositionLocal
