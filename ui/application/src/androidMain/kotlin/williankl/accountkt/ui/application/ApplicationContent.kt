@@ -10,9 +10,9 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.bottomSheet.BottomSheetNavigator
 import cafe.adriel.voyager.transitions.SlideTransition
-import williankl.accountkt.ui.application.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
-import williankl.accountkt.ui.application.currency.ConverterStateHandler.Companion.rememberConverterStateHandler
-import williankl.accountkt.ui.application.currency.CurrencyDisplayScreen
+import williankl.accountkt.ui.application.screens.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
+import williankl.accountkt.ui.application.screens.currency.ConverterStateHandler.Companion.rememberConverterStateHandler
+import williankl.accountkt.ui.application.screens.currency.CurrencyDisplayScreen
 
 @Composable
 public fun ApplicationContent() {

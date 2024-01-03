@@ -1,11 +1,13 @@
-package williankl.accountkt.ui.application.currency
+package williankl.accountkt.ui.application.screens.symbolSelection
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -32,12 +34,17 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import compose.icons.EvaIcons
+import compose.icons.evaicons.Outline
+import compose.icons.evaicons.outline.Close
+import compose.icons.evaicons.outline.Search
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants.currencyImageUrl
 import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.feature.currencyFeature.models.CurrencyRate
-import williankl.accountkt.ui.application.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
+import williankl.accountkt.ui.application.safeArea.LocalSafeAreaPadding
+import williankl.accountkt.ui.application.screens.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
 import williankl.accountkt.ui.design.core.bottomElevation
 import williankl.accountkt.ui.design.core.color.KtColor
 import williankl.accountkt.ui.design.core.color.animatedColor
@@ -68,6 +75,7 @@ internal object SymbolSelectionBottomSheet : Screen {
         supportedRates: List<CurrencyRate>,
         modifier: Modifier = Modifier,
     ) {
+        val safeAreaPadding = LocalSafeAreaPadding.current
         val focusManager = LocalFocusManager.current
         val inputFieldFocusRequester = remember { FocusRequester() }
 
@@ -97,12 +105,12 @@ internal object SymbolSelectionBottomSheet : Screen {
                     value = queryStr,
                     onValueChange = { queryStr = it },
                     headingIcon = IconData.Vector(
-                        imageVector = Icons.Outlined.Search,
+                        imageVector = EvaIcons.Outline.Search,
                         description = null, // fixme - add localized descriptions
                     ),
                     trailingIcon = IconData.Vector(
                         onClick = { queryStr = "" },
-                        imageVector = Icons.Outlined.Close,
+                        imageVector = EvaIcons.Outline.Close,
                         description = null, // fixme - add localized descriptions
                     ),
                     keyboardOptions = KeyboardOptions(
@@ -134,6 +142,12 @@ internal object SymbolSelectionBottomSheet : Screen {
                 rates = nonFavouriteItems,
                 onSymbolSelected = onSymbolSelected,
             )
+
+            item {
+                Spacer(
+                    modifier = Modifier.height(safeAreaPadding.bottomPadding)
+                )
+            }
         }
     }
 

@@ -42,8 +42,8 @@ internal class AndroidAppModulePlugin : Plugin<Project> {
 
             defaultConfig {
                 applicationId = "williankl.accountkt"
-                versionCode = retrieveVersionFromCatalogs("android-versionCode").toInt()
-                versionName = retrieveVersionFromCatalogs("android-versionName")
+                versionCode = retrieveVersionFromCatalogs("versionCode").toInt()
+                versionName = retrieveVersionFromCatalogs("versionName")
             }
         }
     }

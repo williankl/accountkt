@@ -1,8 +1,11 @@
-package williankl.accountkt.ui.application.currency
+package williankl.accountkt.ui.application.screens.currency
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -22,7 +25,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.Close
@@ -51,6 +53,14 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.kodein.rememberScreenModel
 import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import compose.icons.EvaIcons
+import compose.icons.evaicons.Fill
+import compose.icons.evaicons.Outline
+import compose.icons.evaicons.fill.Heart
+import compose.icons.evaicons.outline.Close
+import compose.icons.evaicons.outline.Heart
+import compose.icons.evaicons.outline.Search
+import compose.icons.evaicons.outline.Settings
 import dev.icerock.moko.resources.compose.painterResource
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
@@ -58,8 +68,10 @@ import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants.cu
 import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.data.currencyService.models.SymbolName
 import williankl.accountkt.feature.currencyFeature.models.CurrencyRate
-import williankl.accountkt.ui.application.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
+import williankl.accountkt.ui.application.screens.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
 import williankl.accountkt.ui.application.safeArea.LocalSafeAreaPadding
+import williankl.accountkt.ui.application.screens.options.OptionsBottomSheet
+import williankl.accountkt.ui.application.screens.symbolSelection.SymbolSelectionBottomSheet
 import williankl.accountkt.ui.design.core.SharedResources
 import williankl.accountkt.ui.design.core.bottomElevation
 import williankl.accountkt.ui.design.core.button.Button
@@ -102,6 +114,9 @@ internal class CurrencyDisplayScreen : Screen {
         CurrencyDisplayContent(
             presentation = presentation,
             onFavouriteToggle = viewModel::toggleFavourite,
+            onOptionsRequested = {
+                bottomSheetNavigator.show(OptionsBottomSheet)
+            },
             onSymbolChangeRequested = {
                 focusManager.clearFocus(force = true)
                 bottomSheetNavigator.show(SymbolSelectionBottomSheet)
@@ -115,6 +130,7 @@ internal class CurrencyDisplayScreen : Screen {
     @Composable
     private fun CurrencyDisplayContent(
         presentation: CurrencyDisplayViewModel.CurrencyDisplayPresentation,
+        onOptionsRequested: () -> Unit,
         onFavouriteToggle: (Symbol, Boolean) -> Unit,
         onSymbolChangeRequested: () -> Unit,
         stateHandler: ConverterStateHandler,
@@ -142,6 +158,7 @@ internal class CurrencyDisplayScreen : Screen {
             modifier = modifier.background(KtColor.Background.animatedColor)
         ) {
             SearchBar(
+                onOptionsRequested = onOptionsRequested,
                 toggleIsSearching = { searching ->
                     isSearching = searching
                     if (searching) {
@@ -187,8 +204,7 @@ internal class CurrencyDisplayScreen : Screen {
                 item {
                     val safeAreaPadding = LocalSafeAreaPadding.current
                     Spacer(
-                        modifier = Modifier
-                            .padding(bottom = safeAreaPadding.bottomPadding)
+                        modifier = Modifier.height(safeAreaPadding.bottomPadding)
                     )
                 }
             }
@@ -197,6 +213,7 @@ internal class CurrencyDisplayScreen : Screen {
 
     @Composable
     private fun SearchBar(
+        onOptionsRequested: () -> Unit,
         toggleIsSearching: (Boolean) -> Unit,
         onQueryChanged: (String) -> Unit,
         query: String,
@@ -206,6 +223,7 @@ internal class CurrencyDisplayScreen : Screen {
         val safeAreaPadding = LocalSafeAreaPadding.current
         val focusManager = LocalFocusManager.current
         val inputFieldFocusRequester = remember { FocusRequester() }
+        val iconSize = remember { 24.dp }
 
         LaunchedEffect(isSearching) {
             if (isSearching) {
@@ -227,6 +245,7 @@ internal class CurrencyDisplayScreen : Screen {
                 .fillMaxWidth()
         ) {
             Row(
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier,
             ) {
@@ -242,18 +261,28 @@ internal class CurrencyDisplayScreen : Screen {
 
                 AnimatedContent(
                     targetState = isSearching,
+                    transitionSpec = { fadeIn() togetherWith fadeOut() },
                     content = { searching ->
                         Icon(
-                            modifier = Modifier.size(34.dp),
+                            modifier = Modifier.size(iconSize),
                             iconData = IconData.Vector(
                                 onClick = { toggleIsSearching(isSearching.not()) },
                                 description = null, // fixme - add localized descriptions
                                 imageVector =
-                                if (searching) Icons.Outlined.Close
-                                else Icons.Outlined.Search,
+                                if (searching) EvaIcons.Outline.Close
+                                else EvaIcons.Outline.Search,
                             )
                         )
                     }
+                )
+
+                Icon(
+                    modifier = Modifier.size(iconSize),
+                    iconData = IconData.Vector(
+                        onClick = onOptionsRequested,
+                        imageVector = EvaIcons.Outline.Settings,
+                        description = null, // fixme - add localized descriptions
+                    ),
                 )
             }
 
@@ -264,7 +293,7 @@ internal class CurrencyDisplayScreen : Screen {
                         value = query,
                         onValueChange = onQueryChanged,
                         headingIcon = IconData.Vector(
-                            imageVector = Icons.Outlined.Search,
+                            imageVector = EvaIcons.Outline.Search,
                             description = null, // fixme - add localized descriptions
                         ),
                         keyboardOptions = KeyboardOptions(
@@ -431,8 +460,8 @@ internal class CurrencyDisplayScreen : Screen {
                 targetState = isFavourite,
                 content = { favourite ->
                     val icon =
-                        if (favourite) Icons.Filled.Favorite
-                        else Icons.Outlined.FavoriteBorder
+                        if (favourite) EvaIcons.Fill.Heart
+                        else EvaIcons.Outline.Heart
 
                     Icon(
                         iconData = IconData.Vector(

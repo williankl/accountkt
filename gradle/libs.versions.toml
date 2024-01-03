@@ -3,8 +3,8 @@
 android-compileSdk = "34"
 android-targetSdk = "34"
 android-minSdk = "21"
-android-versionCode = "000002002"
-android-versionName = "0.2.2"
+versionCode = "000002002"
+versionName = "0.2.2"
 
 plugin-ktlint = "3.10.0"
 plugin-detekt = "1.22.0"
@@ -26,6 +26,7 @@ kodein = "7.20.2"
 slf4j = "1.7.21"
 kamel = "0.9.0"
 kmpSettings="1.1.1"
+composeIcons="1.1.0"
 
 android-splashScreen = "1.0.1"
 android-compose-activity = "1.8.2"
@@ -107,6 +108,11 @@ voyager-kodein = { module = "cafe.adriel.voyager:voyager-kodein", version.ref = 
 
 lyricist-core = { module = "cafe.adriel.lyricist:lyricist", version.ref = "lyricist" }
 lyricist-ksp = { module = "cafe.adriel.lyricist:lyricist-processor", version.ref = "lyricist" }
+
+# Compose Icons
+
+composeIcons-feather = { module = "br.com.devsrsouza.compose.icons:feather", version.ref = "composeIcons" }
+composeIcons-eva = { module = "br.com.devsrsouza.compose.icons:eva-icons", version.ref = "composeIcons" }
 
 # Moko
 

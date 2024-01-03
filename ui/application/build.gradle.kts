@@ -1,9 +1,12 @@
+import com.codingfeline.buildkonfig.compiler.FieldSpec
 import williankl.accountkt.buildSrc.helpers.applyNativeWithBaseName
+import williankl.accountkt.buildSrc.helpers.retrieveVersionFromCatalogs
 
 plugins {
     id("accoutkt.multiplatform")
     id("org.jetbrains.compose")
     id("dev.icerock.mobile.multiplatform-resources")
+    id("com.codingfeline.buildkonfig")
 }
 
 applyNativeWithBaseName("KtApplication")
@@ -28,4 +31,14 @@ dependencies {
     commonMainImplementation(libs.voyager.transitions)
     commonMainImplementation(libs.voyager.kodein)
     commonMainImplementation(libs.moko.resourcesCompose)
+    commonMainImplementation(libs.composeIcons.eva)
+}
+
+buildkonfig {
+    packageName = "williankl.accountkt.ui.application"
+    defaultConfigs {
+        buildConfigField(
+            FieldSpec.Type.STRING, "appVersion", retrieveVersionFromCatalogs("versionName")
+        )
+    }
 }

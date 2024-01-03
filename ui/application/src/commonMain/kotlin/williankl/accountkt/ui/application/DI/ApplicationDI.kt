@@ -15,6 +15,7 @@ public val applicationDI: DI.Module =
         import(currencyFeatureStorageDI)
         import(sharedPreferencesDI)
         import(internalApplicationUiDI)
+        import(platformDI())
 
         bindSingleton {
             Json {
