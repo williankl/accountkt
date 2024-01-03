@@ -14,7 +14,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		26008A632B3E14E400357B41 /* accountkt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = accountkt.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		26008A632B3E14E400357B41 /* AccountKt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AccountKt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26008A662B3E14E400357B41 /* accountktApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = accountktApp.swift; sourceTree = "<group>"; };
 		26008A682B3E14E400357B41 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		26008A6A2B3E14E500357B41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -43,7 +43,7 @@
 		26008A642B3E14E400357B41 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				26008A632B3E14E400357B41 /* accountkt.app */,
+				26008A632B3E14E400357B41 /* AccountKt.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -86,7 +86,7 @@
 			);
 			name = accountkt;
 			productName = accountkt;
-			productReference = 26008A632B3E14E400357B41 /* accountkt.app */;
+			productReference = 26008A632B3E14E400357B41 /* AccountKt.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -335,7 +335,7 @@
 					"-ld64",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = williankl.accountkt;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AccountKt;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
@@ -376,7 +376,7 @@
 					"-ld64",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = williankl.accountkt;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AccountKt;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
