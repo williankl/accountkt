@@ -1,5 +1,6 @@
 package williankl.accountkt.ui.application.screens.options
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,12 +17,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.kodein.rememberScreenModel
+import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.Github
 import compose.icons.feathericons.Sun
 import williankl.accountkt.ui.application.BuildKonfig
 import williankl.accountkt.ui.application.safeArea.LocalSafeAreaPadding
 import williankl.accountkt.ui.design.core.color.KtColor
+import williankl.accountkt.ui.design.core.color.animatedColor
 import williankl.accountkt.ui.design.core.icons.Icon
 import williankl.accountkt.ui.design.core.icons.IconData
 import williankl.accountkt.ui.design.core.text.CoreText
@@ -30,7 +34,16 @@ internal object OptionsBottomSheet : Screen {
 
     @Composable
     override fun Content() {
-        TODO("Not yet implemented")
+        val bottomSheetNavigator = LocalBottomSheetNavigator.current
+        val viewModel = rememberScreenModel<OptionsBottomSheetViewModel>()
+        OptionsContent(
+            onGithubOpeningRequested = {
+                bottomSheetNavigator.hide()
+                viewModel.redirectToGithubPage()
+            },
+            onThemeToggle = { /* nothing for now */ },
+            modifier = Modifier,
+        )
     }
 
     @Composable
@@ -83,26 +96,37 @@ internal object OptionsBottomSheet : Screen {
         onClick: () -> Unit,
         modifier: Modifier = Modifier,
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            modifier = modifier
-                .clickable { onClick() }
-                .padding(
-                    horizontal = 16.dp,
-                    vertical = 12.dp,
-                )
-                .fillMaxWidth(),
+        Column(
+            modifier = modifier,
         ) {
-            Icon(
-                iconData = icon,
-                modifier = Modifier.size(24.dp),
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier
+                    .clickable { onClick() }
+                    .padding(
+                        horizontal = 16.dp,
+                        vertical = 12.dp,
+                    )
+                    .fillMaxWidth(),
+            ) {
+                Icon(
+                    iconData = icon,
+                    modifier = Modifier.size(24.dp),
+                )
 
-            CoreText(
-                text = label,
-                weight = FontWeight.SemiBold,
-                modifier = Modifier.weight(1f),
+                CoreText(
+                    text = label,
+                    weight = FontWeight.SemiBold,
+                    modifier = Modifier.weight(1f),
+                )
+            }
+
+            Spacer(
+                modifier = Modifier
+                    .background(KtColor.Surface.animatedColor)
+                    .fillMaxWidth()
+                    .height(1.dp)
             )
         }
     }
