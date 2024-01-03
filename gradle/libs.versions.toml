@@ -112,6 +112,7 @@ lyricist-ksp = { module = "cafe.adriel.lyricist:lyricist-processor", version.ref
 # Compose Icons
 
 composeIcons-feather = { module = "br.com.devsrsouza.compose.icons:feather", version.ref = "composeIcons" }
+composeIcons-eva = { module = "br.com.devsrsouza.compose.icons:eva-icons", version.ref = "composeIcons" }
 
 # Moko
 

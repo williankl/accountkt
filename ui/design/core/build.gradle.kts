@@ -19,6 +19,7 @@ dependencies {
 
     commonMainImplementation(libs.moko.resources)
     commonMainImplementation(libs.moko.resourcesCompose)
+    commonMainImplementation(libs.composeIcons.eva)
 }
 
 multiplatformResources {

@@ -2,8 +2,6 @@ package williankl.accountkt.ui.design.core.icons
 
 import androidx.compose.ui.graphics.painter.Painter as ComposePainter
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 
 public sealed class IconData(
     public val description: String?,

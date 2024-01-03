@@ -34,6 +34,10 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import compose.icons.EvaIcons
+import compose.icons.evaicons.Outline
+import compose.icons.evaicons.outline.Close
+import compose.icons.evaicons.outline.Search
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants.currencyImageUrl
@@ -101,12 +105,12 @@ internal object SymbolSelectionBottomSheet : Screen {
                     value = queryStr,
                     onValueChange = { queryStr = it },
                     headingIcon = IconData.Vector(
-                        imageVector = Icons.Outlined.Search,
+                        imageVector = EvaIcons.Outline.Search,
                         description = null, // fixme - add localized descriptions
                     ),
                     trailingIcon = IconData.Vector(
                         onClick = { queryStr = "" },
-                        imageVector = Icons.Outlined.Close,
+                        imageVector = EvaIcons.Outline.Close,
                         description = null, // fixme - add localized descriptions
                     ),
                     keyboardOptions = KeyboardOptions(

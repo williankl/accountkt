@@ -25,16 +25,16 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.kodein.rememberScreenModel
 import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
-import compose.icons.FeatherIcons
-import compose.icons.feathericons.Github
-import compose.icons.feathericons.Moon
-import compose.icons.feathericons.Sun
+import compose.icons.EvaIcons
+import compose.icons.evaicons.Fill
+import compose.icons.evaicons.fill.Github
 import williankl.accountkt.ui.application.BuildKonfig
 import williankl.accountkt.ui.application.safeArea.LocalSafeAreaPadding
 import williankl.accountkt.ui.design.core.color.KtColor
 import williankl.accountkt.ui.design.core.color.animatedColor
-import williankl.accountkt.ui.design.core.color.theme.KtTheme
 import williankl.accountkt.ui.design.core.color.theme.LocalKtTheme
+import williankl.accountkt.ui.design.core.color.theme.iconVector
+import williankl.accountkt.ui.design.core.color.theme.toggleMode
 import williankl.accountkt.ui.design.core.icons.Icon
 import williankl.accountkt.ui.design.core.icons.IconData
 import williankl.accountkt.ui.design.core.text.CoreText
@@ -54,15 +54,7 @@ internal object OptionsBottomSheet : Screen {
                 viewModel.redirectToGithubPage()
             },
             onThemeToggle = {
-                val selectedTheme = when (themeHandler.currentTheme) {
-                    KtTheme.Light -> KtTheme.Dark
-                    KtTheme.Dark -> KtTheme.Light
-                    KtTheme.System -> {
-                        if (isSystemInDarkMode) KtTheme.Light
-                        else KtTheme.Dark
-                    }
-                }
-
+                val selectedTheme = themeHandler.currentTheme.toggleMode(isSystemInDarkMode)
                 themeHandler.setTheme(selectedTheme)
             },
             modifier = Modifier,
@@ -79,13 +71,7 @@ internal object OptionsBottomSheet : Screen {
         val themeHandler = LocalKtTheme.current
         val isSystemInDarkMode = isSystemInDarkTheme()
         val currentThemeIcon = remember(isSystemInDarkMode, themeHandler.currentTheme) {
-            when (themeHandler.currentTheme) {
-                KtTheme.Light -> FeatherIcons.Sun
-                KtTheme.Dark -> FeatherIcons.Moon
-                KtTheme.System ->
-                    if (isSystemInDarkMode) FeatherIcons.Moon
-                    else FeatherIcons.Sun
-            }
+            themeHandler.currentTheme.iconVector(isSystemInDarkMode)
         }
 
         Column(
@@ -95,7 +81,7 @@ internal object OptionsBottomSheet : Screen {
             OptionItem(
                 label = "Application Github", // fixme - localized string
                 icon = IconData.Vector(
-                    imageVector = FeatherIcons.Github,
+                    imageVector = EvaIcons.Fill.Github,
                     description = null, // fixme - localized description
                 ),
                 onClick = onGithubOpeningRequested,

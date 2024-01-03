@@ -53,8 +53,14 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.kodein.rememberScreenModel
 import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import compose.icons.FeatherIcons
-import compose.icons.feathericons.Settings
+import compose.icons.EvaIcons
+import compose.icons.evaicons.Fill
+import compose.icons.evaicons.Outline
+import compose.icons.evaicons.fill.Heart
+import compose.icons.evaicons.outline.Close
+import compose.icons.evaicons.outline.Heart
+import compose.icons.evaicons.outline.Search
+import compose.icons.evaicons.outline.Settings
 import dev.icerock.moko.resources.compose.painterResource
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
@@ -263,8 +269,8 @@ internal class CurrencyDisplayScreen : Screen {
                                 onClick = { toggleIsSearching(isSearching.not()) },
                                 description = null, // fixme - add localized descriptions
                                 imageVector =
-                                if (searching) Icons.Outlined.Close
-                                else Icons.Outlined.Search,
+                                if (searching) EvaIcons.Outline.Close
+                                else EvaIcons.Outline.Search,
                             )
                         )
                     }
@@ -274,7 +280,7 @@ internal class CurrencyDisplayScreen : Screen {
                     modifier = Modifier.size(iconSize),
                     iconData = IconData.Vector(
                         onClick = onOptionsRequested,
-                        imageVector = FeatherIcons.Settings,
+                        imageVector = EvaIcons.Outline.Settings,
                         description = null, // fixme - add localized descriptions
                     ),
                 )
@@ -287,7 +293,7 @@ internal class CurrencyDisplayScreen : Screen {
                         value = query,
                         onValueChange = onQueryChanged,
                         headingIcon = IconData.Vector(
-                            imageVector = Icons.Outlined.Search,
+                            imageVector = EvaIcons.Outline.Search,
                             description = null, // fixme - add localized descriptions
                         ),
                         keyboardOptions = KeyboardOptions(
@@ -454,8 +460,8 @@ internal class CurrencyDisplayScreen : Screen {
                 targetState = isFavourite,
                 content = { favourite ->
                     val icon =
-                        if (favourite) Icons.Filled.Favorite
-                        else Icons.Outlined.FavoriteBorder
+                        if (favourite) EvaIcons.Fill.Heart
+                        else EvaIcons.Outline.Heart
 
                     Icon(
                         iconData = IconData.Vector(

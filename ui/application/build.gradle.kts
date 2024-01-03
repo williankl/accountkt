@@ -32,6 +32,7 @@ dependencies {
     commonMainImplementation(libs.voyager.kodein)
     commonMainImplementation(libs.moko.resourcesCompose)
     commonMainImplementation(libs.composeIcons.feather)
+    commonMainImplementation(libs.composeIcons.eva)
 }
 
 buildkonfig {
