@@ -1,7 +1,12 @@
 package williankl.accountkt.ui.application.screens.options
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -21,11 +27,14 @@ import cafe.adriel.voyager.kodein.rememberScreenModel
 import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.Github
+import compose.icons.feathericons.Moon
 import compose.icons.feathericons.Sun
 import williankl.accountkt.ui.application.BuildKonfig
 import williankl.accountkt.ui.application.safeArea.LocalSafeAreaPadding
 import williankl.accountkt.ui.design.core.color.KtColor
 import williankl.accountkt.ui.design.core.color.animatedColor
+import williankl.accountkt.ui.design.core.color.theme.KtTheme
+import williankl.accountkt.ui.design.core.color.theme.LocalKtTheme
 import williankl.accountkt.ui.design.core.icons.Icon
 import williankl.accountkt.ui.design.core.icons.IconData
 import williankl.accountkt.ui.design.core.text.CoreText
@@ -34,14 +43,28 @@ internal object OptionsBottomSheet : Screen {
 
     @Composable
     override fun Content() {
+        val themeHandler = LocalKtTheme.current
+        val isSystemInDarkMode = isSystemInDarkTheme()
         val bottomSheetNavigator = LocalBottomSheetNavigator.current
         val viewModel = rememberScreenModel<OptionsBottomSheetViewModel>()
+
         OptionsContent(
             onGithubOpeningRequested = {
                 bottomSheetNavigator.hide()
                 viewModel.redirectToGithubPage()
             },
-            onThemeToggle = { /* nothing for now */ },
+            onThemeToggle = {
+                val selectedTheme = when (themeHandler.currentTheme) {
+                    KtTheme.Light -> KtTheme.Dark
+                    KtTheme.Dark -> KtTheme.Light
+                    KtTheme.System -> {
+                        if (isSystemInDarkMode) KtTheme.Light
+                        else KtTheme.Dark
+                    }
+                }
+
+                themeHandler.setTheme(selectedTheme)
+            },
             modifier = Modifier,
         )
     }
@@ -53,6 +76,18 @@ internal object OptionsBottomSheet : Screen {
         modifier: Modifier = Modifier,
     ) {
         val safeAreaPadding = LocalSafeAreaPadding.current
+        val themeHandler = LocalKtTheme.current
+        val isSystemInDarkMode = isSystemInDarkTheme()
+        val currentThemeIcon = remember(isSystemInDarkMode, themeHandler.currentTheme) {
+            when (themeHandler.currentTheme) {
+                KtTheme.Light -> FeatherIcons.Sun
+                KtTheme.Dark -> FeatherIcons.Moon
+                KtTheme.System ->
+                    if (isSystemInDarkMode) FeatherIcons.Moon
+                    else FeatherIcons.Sun
+            }
+        }
+
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier.fillMaxWidth(),
@@ -69,7 +104,7 @@ internal object OptionsBottomSheet : Screen {
             OptionItem(
                 label = "Toggle application theme", // fixme - localized string
                 icon = IconData.Vector(
-                    imageVector = FeatherIcons.Sun,
+                    imageVector = currentThemeIcon,
                     description = null, // fixme - localized description
                 ),
                 onClick = onThemeToggle,
@@ -110,9 +145,15 @@ internal object OptionsBottomSheet : Screen {
                     )
                     .fillMaxWidth(),
             ) {
-                Icon(
-                    iconData = icon,
-                    modifier = Modifier.size(24.dp),
+                AnimatedContent(
+                    targetState = icon,
+                    transitionSpec = { fadeIn() togetherWith fadeOut() },
+                    content = {
+                        Icon(
+                            iconData = icon,
+                            modifier = Modifier.size(24.dp),
+                        )
+                    }
                 )
 
                 CoreText(

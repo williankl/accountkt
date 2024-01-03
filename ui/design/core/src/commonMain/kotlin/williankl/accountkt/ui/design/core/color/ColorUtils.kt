@@ -28,7 +28,7 @@ public fun KtColor.composeColor(
 }
 
 public val KtColor.composeColor: Color
-    @Composable get() = composeColor(LocalKtTheme.current)
+    @Composable get() = composeColor(LocalKtTheme.current.currentTheme)
 
 @Composable
 public fun KtColor.animatedColor(
@@ -41,7 +41,7 @@ public fun KtColor.animatedColor(
 
 public val KtColor.animatedColorAsState: State<Color>
     @Composable get() = animateColorAsState(
-        targetValue = composeColor(LocalKtTheme.current)
+        targetValue = composeColor(LocalKtTheme.current.currentTheme)
     )
 
 @Composable
