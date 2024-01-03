@@ -22,23 +22,17 @@ public fun Project.setupLyricist() {
     }
 }
 
+public fun Project.retrieveVersionFromCatalogs(key: String): String {
+    val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+    return libs.findVersion(key).get().requiredVersion
+}
+
 public fun Project.fromLocalProperties(key: String): String {
     val properties = Properties()
     properties.load(project.rootProject.file("local.properties").inputStream())
     return properties.getProperty(key)
 }
 
-@Suppress("IMPLICIT_CAST_TO_ANY")
-public inline fun <reified ValueT> VariantDimension.buildConfigField(
-    name: String,
-    value: ValueT
-) {
-    val resolvedValue = when (value) {
-        is String -> "\"$value\""
-        else -> value
-    }.toString()
-    buildConfigField(ValueT::class.java.simpleName, name, resolvedValue)
-}
 
 internal fun Project.applyRepositories() {
     repositories.apply {
@@ -70,9 +64,4 @@ internal fun Project.applyKotlinOptions() {
             freeCompilerArgs += "-Xcontext-receivers"
         }
     }
-}
-
-internal fun Project.retrieveVersionFromCatalogs(key: String): String {
-    val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
-    return libs.findVersion(key).get().requiredVersion
 }

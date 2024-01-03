@@ -5,7 +5,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -37,6 +39,7 @@ import io.kamel.image.asyncPainterResource
 import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants.currencyImageUrl
 import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.feature.currencyFeature.models.CurrencyRate
+import williankl.accountkt.ui.application.safeArea.LocalSafeAreaPadding
 import williankl.accountkt.ui.application.screens.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
 import williankl.accountkt.ui.design.core.bottomElevation
 import williankl.accountkt.ui.design.core.color.KtColor
@@ -68,6 +71,7 @@ internal object SymbolSelectionBottomSheet : Screen {
         supportedRates: List<CurrencyRate>,
         modifier: Modifier = Modifier,
     ) {
+        val safeAreaPadding = LocalSafeAreaPadding.current
         val focusManager = LocalFocusManager.current
         val inputFieldFocusRequester = remember { FocusRequester() }
 
@@ -134,6 +138,12 @@ internal object SymbolSelectionBottomSheet : Screen {
                 rates = nonFavouriteItems,
                 onSymbolSelected = onSymbolSelected,
             )
+
+            item {
+                Spacer(
+                    modifier = Modifier.height(safeAreaPadding.bottomPadding)
+                )
+            }
         }
     }
 

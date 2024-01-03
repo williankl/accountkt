@@ -187,8 +187,7 @@ internal class CurrencyDisplayScreen : Screen {
                 item {
                     val safeAreaPadding = LocalSafeAreaPadding.current
                     Spacer(
-                        modifier = Modifier
-                            .padding(bottom = safeAreaPadding.bottomPadding)
+                        modifier = Modifier.height(safeAreaPadding.bottomPadding)
                     )
                 }
             }
