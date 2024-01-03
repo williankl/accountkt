@@ -8,6 +8,7 @@ android {
 
 dependencies {
     commonMainImplementation(projects.data.currencyService)
+    commonMainImplementation(projects.ui.design.core)
 
     commonMainApi(libs.kmpSettings)
     commonMainImplementation(libs.kodein.core)

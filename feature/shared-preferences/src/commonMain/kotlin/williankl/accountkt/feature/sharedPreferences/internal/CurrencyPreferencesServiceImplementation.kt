@@ -4,6 +4,7 @@ import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
 import williankl.accountkt.feature.sharedPreferences.models.CurrencyPreferences
 import williankl.accountkt.feature.sharedPreferences.services.CurrencyPreferencesService
+import williankl.accountkt.ui.design.core.color.theme.KtTheme
 
 internal class CurrencyPreferencesServiceImplementation(
     private val settings: Settings,
