@@ -4,6 +4,6 @@ import androidx.compose.ui.unit.dp
 
 internal actual val safeAreaPadding: SafeAreaPadding =
     SafeAreaPadding(
-        topPadding = 30.dp,
-        bottomPadding = 10.dp,
+        topPadding = 60.dp,
+        bottomPadding = 20.dp,
     )

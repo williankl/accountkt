@@ -59,6 +59,7 @@ import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.data.currencyService.models.SymbolName
 import williankl.accountkt.feature.currencyFeature.models.CurrencyRate
 import williankl.accountkt.ui.application.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
+import williankl.accountkt.ui.application.safeArea.LocalSafeAreaPadding
 import williankl.accountkt.ui.design.core.SharedResources
 import williankl.accountkt.ui.design.core.bottomElevation
 import williankl.accountkt.ui.design.core.button.Button
@@ -180,7 +181,16 @@ internal class CurrencyDisplayScreen : Screen {
                     rates = nonFavouriteRates,
                     stateHandler = stateHandler,
                     onFavouriteToggle = onFavouriteToggle,
+                    shouldShowShadow = false,
                 )
+
+                item {
+                    val safeAreaPadding = LocalSafeAreaPadding.current
+                    Spacer(
+                        modifier = Modifier
+                            .padding(bottom = safeAreaPadding.bottomPadding)
+                    )
+                }
             }
         }
     }
@@ -193,6 +203,7 @@ internal class CurrencyDisplayScreen : Screen {
         isSearching: Boolean,
         modifier: Modifier = Modifier,
     ) {
+        val safeAreaPadding = LocalSafeAreaPadding.current
         val focusManager = LocalFocusManager.current
         val inputFieldFocusRequester = remember { FocusRequester() }
 
@@ -211,6 +222,7 @@ internal class CurrencyDisplayScreen : Screen {
                         bottomEnd = 12.dp,
                     )
                 )
+                .padding(top = safeAreaPadding.topPadding)
                 .padding(12.dp)
                 .fillMaxWidth()
         ) {
@@ -321,6 +333,7 @@ internal class CurrencyDisplayScreen : Screen {
         rates: List<CurrencyRate>,
         stateHandler: ConverterStateHandler,
         onFavouriteToggle: (Symbol, Boolean) -> Unit,
+        shouldShowShadow: Boolean = true,
     ) {
         if (rates.isNotEmpty()) {
             item(
@@ -361,7 +374,7 @@ internal class CurrencyDisplayScreen : Screen {
                     .fillMaxWidth(),
             )
 
-            if (index == rates.lastIndex) {
+            if (index == rates.lastIndex && shouldShowShadow) {
                 Spacer(
                     modifier = Modifier
                         .bottomElevation(10.dp)
