@@ -28,17 +28,17 @@ public sealed class KtColor(
     )
 
     public data object SecondaryLow : KtColor(
-        composeDarkColor = Color(0xFFF78E4C),
+        composeDarkColor = Color(0xFF4273BC),
         composeLightColor = Color(0xFF4273BC),
     )
 
     public data object Secondary : KtColor(
-        composeDarkColor = Color(0xFFEB8F48),
+        composeDarkColor = Color(0xFF355C96),
         composeLightColor = Color(0xFF355C96),
     )
 
     public data object SecondaryHigh : KtColor(
-        composeDarkColor = Color(0xFF2D2D30),
+        composeDarkColor = Color(0xFF2E5184),
         composeLightColor = Color(0xFF2E5184),
     )
 
@@ -58,7 +58,7 @@ public sealed class KtColor(
     )
 
     public data object Surface : KtColor(
-        composeDarkColor = Color(0xFF3E3E42),
+        composeDarkColor = Color(0xFFDBDBDB),
         composeLightColor = Color(0xFFDBDBDB),
     )
 
@@ -68,7 +68,7 @@ public sealed class KtColor(
     )
 
     public data object Background : KtColor(
-        composeDarkColor = Color(0xFF1E1E1E),
+        composeDarkColor = Color(0xFFFAFAFA),
         composeLightColor = Color(0xFFFAFAFA),
     )
 

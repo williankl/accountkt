@@ -2,8 +2,8 @@
 <path d="M2 168V2H30.5V129.5L102.5 30H57.5V2H183C192.5 2 192.5 2 192.5 16.0006C192.5 30.0012 192.5 30.0006 183 30.0006C173.5 30.0006 138 30 138 30L99.5 82.5L171.831 146.001C171.831 146.001 180 153.001 185.5 158.001C192 163.91 191.5 168 185.5 168H165.5H151.5L82 106L37 168H2Z" stroke="url(#paint0_linear_96_418)" stroke-width="3"/>
 <defs>
 <linearGradient id="paint0_linear_96_418" x1="2" y1="2.00061" x2="116.5" y2="117.501" gradientUnits="userSpaceOnUse">
-<stop stop-color="#EB8E47"/>
-<stop offset="1" stop-color="#312046"/>
+<stop stop-color="#E2C35E"/>
+<stop offset="1" stop-color="#355C96"/>
 </linearGradient>
 </defs>
 </svg>

@@ -48,6 +48,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.lifecycle.LifecycleEffect
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.kodein.rememberScreenModel
@@ -249,11 +250,22 @@ internal class CurrencyDisplayScreen : Screen {
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier,
             ) {
-                Image(
-                    painter = painterResource(SharedResources.images.ic_labeled_logo),
-                    contentDescription = null,
-                    modifier = Modifier.size(50.dp)
-                )
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(2.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Image(
+                        painter = painterResource(SharedResources.images.ic_brand_full),
+                        contentDescription = null,
+                        modifier = Modifier.size(36.dp)
+                    )
+
+                    CoreText(
+                        text = "Kash", // fixme - localize if needed
+                        size = 16.sp,
+                        weight = FontWeight.Bold,
+                    )
+                }
 
                 Spacer(
                     modifier = Modifier.weight(1f)
@@ -464,6 +476,7 @@ internal class CurrencyDisplayScreen : Screen {
                         else EvaIcons.Outline.Heart
 
                     Icon(
+                        tint = KtColor.Secondary,
                         iconData = IconData.Vector(
                             imageVector = icon,
                             description = null, // fixme - add localized descriptions

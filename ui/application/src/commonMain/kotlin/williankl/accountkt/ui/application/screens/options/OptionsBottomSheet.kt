@@ -99,9 +99,9 @@ internal object OptionsBottomSheet : Screen {
             CoreText(
                 text = "Version ${BuildKonfig.appVersion}", // fixme - localized string
                 weight = FontWeight.SemiBold,
-                color = KtColor.PrimaryLow,
+                color = KtColor.NeutralLow,
                 modifier = Modifier
-                    .padding(top = 12.dp)
+                    .padding(vertical = 24.dp)
             )
 
             Spacer(
