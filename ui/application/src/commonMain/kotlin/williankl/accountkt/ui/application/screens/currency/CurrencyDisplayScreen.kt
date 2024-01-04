@@ -335,37 +335,47 @@ internal class CurrencyDisplayScreen : Screen {
             mutableStateOf(stateHandler.ratio.toString())
         }
 
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
+        Column(
             modifier = modifier,
         ) {
-            TextInput(
-                modifier = Modifier.weight(2f),
-                value = ratioStringForBaseSymbol,
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Decimal,
-                    imeAction = ImeAction.Done,
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.clearFocus(force = true)
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                TextInput(
+                    modifier = Modifier.weight(2f),
+                    value = ratioStringForBaseSymbol,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Decimal,
+                        imeAction = ImeAction.Done,
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            focusManager.clearFocus(force = true)
+                        }
+                    ),
+                    onValueChange = { newValue ->
+                        newValue.toFloatOrNull()
+                            ?.let { stateHandler.ratio = it }
+
+                        ratioStringForBaseSymbol = newValue
                     }
-                ),
-                onValueChange = { newValue ->
-                    newValue.toFloatOrNull()
-                        ?.let { stateHandler.ratio = it }
+                )
 
-                    ratioStringForBaseSymbol = newValue
-                }
-            )
-
-            Button(
-                label = stateHandler.symbol,
-                onClick = { onSymbolChangeRequested() },
-                modifier = Modifier.weight(1f),
-            )
+                Button(
+                    label = stateHandler.symbol,
+                    onClick = { onSymbolChangeRequested() },
+                    modifier = Modifier.weight(1f),
+                )
+            }
         }
+
+        Spacer(
+            modifier = Modifier
+                .background(KtColor.Border.animatedColor)
+                .fillMaxWidth()
+                .height(1.dp)
+        )
     }
 
     @OptIn(ExperimentalFoundationApi::class)
@@ -418,10 +428,18 @@ internal class CurrencyDisplayScreen : Screen {
             if (index == rates.lastIndex && shouldShowShadow) {
                 Spacer(
                     modifier = Modifier
-                        .bottomElevation(10.dp)
+                        .padding(top = 8.dp)
                         .background(KtColor.Background.animatedColor)
                         .fillMaxWidth()
                         .height(6.dp)
+                )
+
+                Spacer(
+                    modifier = Modifier
+                        .bottomElevation(10.dp)
+                        .background(KtColor.Border.animatedColor)
+                        .fillMaxWidth()
+                        .height(1.dp)
                 )
             }
         }
