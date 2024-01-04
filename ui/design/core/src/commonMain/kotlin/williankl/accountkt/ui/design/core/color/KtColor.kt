@@ -22,6 +22,11 @@ public sealed class KtColor(
         composeLightColor = Color(0xFFC9AE53),
     )
 
+    public data object OnPrimary : KtColor(
+        composeDarkColor = Color(0xFF170F18),
+        composeLightColor = Color(0xFF170F18),
+    )
+
     public data object SecondaryLow : KtColor(
         composeDarkColor = Color(0xFFF78E4C),
         composeLightColor = Color(0xFF4273BC),
