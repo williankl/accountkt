@@ -4,10 +4,10 @@
     android:height="108dp"
     android:viewportWidth="201"
     android:viewportHeight="176">
-  <group android:scaleX="0.43"
-      android:scaleY="0.37651742"
-      android:translateX="57.285"
-      android:translateY="54.866467">
+  <group android:scaleX="0.42"
+      android:scaleY="0.3677612"
+      android:translateX="58.29"
+      android:translateY="55.637016">
     <path
         android:pathData="M5,171V5H33.5V132.5L105.5,33H60.5V5H186C195.5,5 195.5,5 195.5,19C195.5,33 195.5,33 186,33C176.5,33 141,33 141,33L102.5,85.5L174.83,149C174.83,149 183,156 188.5,161C195,166.91 194.5,171 188.5,171H168.5H154.5L85,109L40,171H5Z"
         android:strokeWidth="10"
@@ -19,8 +19,8 @@
             android:endX="119.5"
             android:endY="120.5"
             android:type="linear">
-          <item android:offset="0" android:color="#FFEB8E47"/>
-          <item android:offset="1" android:color="#FF312046"/>
+          <item android:offset="0" android:color="#FFE2C35E"/>
+          <item android:offset="1" android:color="#FF355C96"/>
         </gradient>
       </aapt:attr>
     </path>
