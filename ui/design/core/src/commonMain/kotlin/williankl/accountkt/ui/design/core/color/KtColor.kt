@@ -63,7 +63,7 @@ public sealed class KtColor(
     )
 
     public data object Border : KtColor(
-        composeDarkColor = Color(0xFFF1F1F1),
+        composeDarkColor = Color(0xFF3E3E42),
         composeLightColor = Color(0xFFF1F1F1),
     )
 
