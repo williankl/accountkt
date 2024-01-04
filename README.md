@@ -36,7 +36,7 @@ ui
 ```
 ## How can you test it?
 . For both platform you will need a file called `local.properties` on the base project directory with the following values added:
-1. `apiKey={your-api-key-here}` -> the key should come from this api
+1. `apiKey={your-api-key-here}` -> the key should come [from this api](https://www.exchangerate-api.com/)
 2. `sdk.dir={your-android-sdk-location-here}`
 
 . For Android you can simply clone it into AndroidStudio and run the application under the `:app:android` module. If for some reason your IDE generate a project `build.gradle` file, be sure to delete it.

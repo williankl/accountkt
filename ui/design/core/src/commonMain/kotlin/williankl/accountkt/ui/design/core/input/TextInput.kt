@@ -40,7 +40,7 @@ public fun CoreTextInput(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     readOnly: Boolean = false,
-    color: KtColor = KtColor.PrimaryHigh,
+    color: KtColor = KtColor.OnPrimary,
     size: TextUnit = TextUnit.Unspecified,
     weight: FontWeight = FontWeight.Normal,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -75,7 +75,7 @@ public fun CoreTextInput(
         onTextLayout = onTextLayout,
         interactionSource = interactionSource,
         cursorBrush = Brush.verticalGradient(
-            colors = listOf(KtColor.PrimaryHigh.animatedColor, KtColor.PrimaryLow.animatedColor)
+            colors = listOf(KtColor.SecondaryHigh.animatedColor, KtColor.SecondaryLow.animatedColor)
         ),
         decorationBox = decorationBox,
     )
@@ -90,7 +90,7 @@ public fun TextInput(
     trailingIcon: IconData? = null,
     enabled: Boolean = true,
     readOnly: Boolean = false,
-    color: KtColor = KtColor.PrimaryHigh,
+    color: KtColor = KtColor.OnPrimary,
     size: TextUnit = TextUnit.Unspecified,
     weight: FontWeight = FontWeight.Normal,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -107,7 +107,7 @@ public fun TextInput(
     }
 
     val borderColor =
-        if (isFocused) KtColor.SecondaryHigh
+        if (isFocused) KtColor.PrimaryLow
         else KtColor.Transparent
 
     CoreTextInput(
@@ -138,11 +138,11 @@ public fun TextInput(
                     .border(
                         shape = RoundedCornerShape(8.dp),
                         color = borderColor.animatedColor,
-                        width = 1.dp,
+                        width = 2.dp,
                     )
                     .background(
                         shape = RoundedCornerShape(8.dp),
-                        color = KtColor.Secondary.animatedColor(0.5f)
+                        color = KtColor.Primary.animatedColor,
                     )
                     .padding(
                         vertical = 8.dp,

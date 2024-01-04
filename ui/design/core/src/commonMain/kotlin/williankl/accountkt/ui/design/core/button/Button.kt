@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import williankl.accountkt.ui.design.core.color.KtColor
 import williankl.accountkt.ui.design.core.color.animatedColor
+import williankl.accountkt.ui.design.core.color.composeColor
 import williankl.accountkt.ui.design.core.icons.Icon
 import williankl.accountkt.ui.design.core.text.CoreText
 
@@ -35,7 +36,7 @@ public fun Button(
             .clickable { onClick() }
             .background(
                 shape = RoundedCornerShape(8.dp),
-                color = KtColor.Secondary.animatedColor(0.5f)
+                color = KtColor.Primary.composeColor
             )
             .padding(
                 vertical = 8.dp,
@@ -46,6 +47,7 @@ public fun Button(
             text = label,
             weight = FontWeight.SemiBold,
             align = TextAlign.Center,
+            color = KtColor.OnPrimary,
             modifier = Modifier.weight(1f),
         )
     }

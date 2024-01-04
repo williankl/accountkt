@@ -16,7 +16,7 @@ import williankl.accountkt.ui.design.core.color.animatedColorAsState
 public fun Icon(
     iconData: IconData,
     modifier: Modifier = Modifier,
-    tint: KtColor = KtColor.PrimaryHigh,
+    tint: KtColor = KtColor.NeutralHigh,
 ) {
     when (iconData) {
         is IconData.Vector -> {

@@ -48,6 +48,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.lifecycle.LifecycleEffect
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.kodein.rememberScreenModel
@@ -249,11 +250,22 @@ internal class CurrencyDisplayScreen : Screen {
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier,
             ) {
-                Image(
-                    painter = painterResource(SharedResources.images.ic_labeled_logo),
-                    contentDescription = null,
-                    modifier = Modifier.size(50.dp)
-                )
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(2.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Image(
+                        painter = painterResource(SharedResources.images.ic_brand_full),
+                        contentDescription = null,
+                        modifier = Modifier.size(36.dp)
+                    )
+
+                    CoreText(
+                        text = "Kash", // fixme - localize if needed
+                        size = 16.sp,
+                        weight = FontWeight.Bold,
+                    )
+                }
 
                 Spacer(
                     modifier = Modifier.weight(1f)
@@ -323,37 +335,47 @@ internal class CurrencyDisplayScreen : Screen {
             mutableStateOf(stateHandler.ratio.toString())
         }
 
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
+        Column(
             modifier = modifier,
         ) {
-            TextInput(
-                modifier = Modifier.weight(2f),
-                value = ratioStringForBaseSymbol,
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Decimal,
-                    imeAction = ImeAction.Done,
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.clearFocus(force = true)
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                TextInput(
+                    modifier = Modifier.weight(2f),
+                    value = ratioStringForBaseSymbol,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Decimal,
+                        imeAction = ImeAction.Done,
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            focusManager.clearFocus(force = true)
+                        }
+                    ),
+                    onValueChange = { newValue ->
+                        newValue.toFloatOrNull()
+                            ?.let { stateHandler.ratio = it }
+
+                        ratioStringForBaseSymbol = newValue
                     }
-                ),
-                onValueChange = { newValue ->
-                    newValue.toFloatOrNull()
-                        ?.let { stateHandler.ratio = it }
+                )
 
-                    ratioStringForBaseSymbol = newValue
-                }
-            )
-
-            Button(
-                label = stateHandler.symbol,
-                onClick = { onSymbolChangeRequested() },
-                modifier = Modifier.weight(1f),
-            )
+                Button(
+                    label = stateHandler.symbol,
+                    onClick = { onSymbolChangeRequested() },
+                    modifier = Modifier.weight(1f),
+                )
+            }
         }
+
+        Spacer(
+            modifier = Modifier
+                .background(KtColor.Border.animatedColor)
+                .fillMaxWidth()
+                .height(1.dp)
+        )
     }
 
     @OptIn(ExperimentalFoundationApi::class)
@@ -406,10 +428,18 @@ internal class CurrencyDisplayScreen : Screen {
             if (index == rates.lastIndex && shouldShowShadow) {
                 Spacer(
                     modifier = Modifier
-                        .bottomElevation(10.dp)
+                        .padding(top = 8.dp)
                         .background(KtColor.Background.animatedColor)
                         .fillMaxWidth()
                         .height(6.dp)
+                )
+
+                Spacer(
+                    modifier = Modifier
+                        .bottomElevation(10.dp)
+                        .background(KtColor.Border.animatedColor)
+                        .fillMaxWidth()
+                        .height(1.dp)
                 )
             }
         }
@@ -464,6 +494,7 @@ internal class CurrencyDisplayScreen : Screen {
                         else EvaIcons.Outline.Heart
 
                     Icon(
+                        tint = KtColor.Secondary,
                         iconData = IconData.Vector(
                             imageVector = icon,
                             description = null, // fixme - add localized descriptions

@@ -20,7 +20,7 @@ import williankl.accountkt.ui.design.core.color.animatedColorAsState
 public fun CoreText(
     text: String,
     modifier: Modifier = Modifier,
-    color: KtColor = KtColor.PrimaryHigh,
+    color: KtColor = KtColor.NeutralHigh,
     size: TextUnit = TextUnit.Unspecified,
     weight: FontWeight = FontWeight.Normal,
     align: TextAlign = TextAlign.Start,
@@ -49,7 +49,7 @@ public fun CoreText(
 public fun CoreText(
     text: AnnotatedString,
     modifier: Modifier = Modifier,
-    color: KtColor = KtColor.PrimaryHigh,
+    color: KtColor = KtColor.NeutralHigh,
     size: TextUnit = TextUnit.Unspecified,
     weight: FontWeight = FontWeight.Normal,
     align: TextAlign = TextAlign.Start,
