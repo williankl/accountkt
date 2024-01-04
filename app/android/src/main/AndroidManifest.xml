@@ -6,7 +6,7 @@
 
     <application
         android:name=".AccountKtApplication"
-        android:label="AccountKt">
+        android:label="Kash">
 
         <activity
             android:name=".MainActivity"
