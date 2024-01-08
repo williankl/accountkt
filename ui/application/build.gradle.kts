@@ -1,9 +1,9 @@
 import com.codingfeline.buildkonfig.compiler.FieldSpec
+import williankl.accountkt.buildSrc.helpers.applyCommonMainCodeGeneration
 import williankl.accountkt.buildSrc.helpers.applyMultiModuleKsp
 import williankl.accountkt.buildSrc.helpers.applyNativeWithBaseName
 import williankl.accountkt.buildSrc.helpers.commonMainLyricistImplementation
 import williankl.accountkt.buildSrc.helpers.retrieveVersionFromCatalogs
-import williankl.accountkt.buildSrc.helpers.setupLyricist
 
 plugins {
     id("accoutkt.multiplatform")
@@ -14,8 +14,8 @@ plugins {
 }
 
 applyNativeWithBaseName("KtApplication")
+applyCommonMainCodeGeneration()
 applyMultiModuleKsp("williankl.accountkt.ui.application")
-setupLyricist()
 
 android {
     namespace = "williankl.accountkt.ui.application"

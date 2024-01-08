@@ -25,11 +25,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.outlined.Close
-import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -69,6 +64,7 @@ import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants.cu
 import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.data.currencyService.models.SymbolName
 import williankl.accountkt.feature.currencyFeature.models.CurrencyRate
+import williankl.accountkt.ui.application.LocalApplicationStrings
 import williankl.accountkt.ui.application.screens.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
 import williankl.accountkt.ui.application.safeArea.LocalSafeAreaPadding
 import williankl.accountkt.ui.application.screens.options.OptionsBottomSheet
@@ -137,6 +133,7 @@ internal class CurrencyDisplayScreen : Screen {
         stateHandler: ConverterStateHandler,
         modifier: Modifier = Modifier,
     ) {
+        val currencyStrings = LocalApplicationStrings.current.currencyStrings
         var searchQuery by remember(stateHandler.symbol) {
             mutableStateOf("")
         }
@@ -188,14 +185,14 @@ internal class CurrencyDisplayScreen : Screen {
                 }
 
                 currencyItems(
-                    label = "Favourites", // fixme - add localized label
+                    label = currencyStrings.favouritesLabel,
                     rates = favouriteRates,
                     stateHandler = stateHandler,
                     onFavouriteToggle = onFavouriteToggle,
                 )
 
                 currencyItems(
-                    label = "Currencies", // fixme - add localized label
+                    label = currencyStrings.currenciesLabel,
                     rates = nonFavouriteRates,
                     stateHandler = stateHandler,
                     onFavouriteToggle = onFavouriteToggle,
@@ -221,6 +218,7 @@ internal class CurrencyDisplayScreen : Screen {
         isSearching: Boolean,
         modifier: Modifier = Modifier,
     ) {
+        val currencyStrings = LocalApplicationStrings.current.currencyStrings
         val safeAreaPadding = LocalSafeAreaPadding.current
         val focusManager = LocalFocusManager.current
         val inputFieldFocusRequester = remember { FocusRequester() }
@@ -261,7 +259,7 @@ internal class CurrencyDisplayScreen : Screen {
                     )
 
                     CoreText(
-                        text = "Kash", // fixme - localize if needed
+                        text = currencyStrings.appName,
                         size = 16.sp,
                         weight = FontWeight.Bold,
                     )
@@ -279,7 +277,7 @@ internal class CurrencyDisplayScreen : Screen {
                             modifier = Modifier.size(iconSize),
                             iconData = IconData.Vector(
                                 onClick = { toggleIsSearching(isSearching.not()) },
-                                description = null, // fixme - add localized descriptions
+                                description = currencyStrings.toggleSearchIconDescription(searching),
                                 imageVector =
                                 if (searching) EvaIcons.Outline.Close
                                 else EvaIcons.Outline.Search,
@@ -293,7 +291,7 @@ internal class CurrencyDisplayScreen : Screen {
                     iconData = IconData.Vector(
                         onClick = onOptionsRequested,
                         imageVector = EvaIcons.Outline.Settings,
-                        description = null, // fixme - add localized descriptions
+                        description = currencyStrings.settingsIconDescription,
                     ),
                 )
             }
@@ -306,7 +304,7 @@ internal class CurrencyDisplayScreen : Screen {
                         onValueChange = onQueryChanged,
                         headingIcon = IconData.Vector(
                             imageVector = EvaIcons.Outline.Search,
-                            description = null, // fixme - add localized descriptions
+                            description = currencyStrings.magnifyingGlassesIconDescription,
                         ),
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Search,
@@ -455,6 +453,8 @@ internal class CurrencyDisplayScreen : Screen {
         onFavouriteToggleRequested: () -> Unit,
         modifier: Modifier = Modifier,
     ) {
+        val currencyStrings = LocalApplicationStrings.current.currencyStrings
+
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -468,7 +468,7 @@ internal class CurrencyDisplayScreen : Screen {
             val resource = asyncPainterResource(iconUrl)
             KamelImage(
                 resource = resource,
-                contentDescription = null, // fixme - add localized descriptions
+                contentDescription = currencyStrings.symbolFlagIconDescription(symbol),
                 modifier = Modifier.size(30.dp)
             )
 
@@ -497,7 +497,7 @@ internal class CurrencyDisplayScreen : Screen {
                         tint = KtColor.Secondary,
                         iconData = IconData.Vector(
                             imageVector = icon,
-                            description = null, // fixme - add localized descriptions
+                            description = currencyStrings.favouriteToggleIconDescription(favourite),
                         ),
                         modifier = Modifier
                             .clickable { onFavouriteToggleRequested() }
