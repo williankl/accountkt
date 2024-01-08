@@ -29,6 +29,7 @@ import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
 import compose.icons.evaicons.fill.Github
 import williankl.accountkt.ui.application.BuildKonfig
+import williankl.accountkt.ui.application.LocalApplicationStrings
 import williankl.accountkt.ui.application.safeArea.LocalSafeAreaPadding
 import williankl.accountkt.ui.design.core.color.KtColor
 import williankl.accountkt.ui.design.core.color.animatedColor
@@ -67,6 +68,7 @@ internal object OptionsBottomSheet : Screen {
         onThemeToggle: () -> Unit,
         modifier: Modifier = Modifier,
     ) {
+        val settingsStrings = LocalApplicationStrings.current.settingsStrings
         val safeAreaPadding = LocalSafeAreaPadding.current
         val themeHandler = LocalKtTheme.current
         val isSystemInDarkMode = isSystemInDarkTheme()
@@ -79,25 +81,25 @@ internal object OptionsBottomSheet : Screen {
             modifier = modifier.fillMaxWidth(),
         ) {
             OptionItem(
-                label = "Application Github", // fixme - localized string
+                label = settingsStrings.githubLabel,
                 icon = IconData.Vector(
                     imageVector = EvaIcons.Fill.Github,
-                    description = null, // fixme - localized description
+                    description = settingsStrings.githubIconDescription,
                 ),
                 onClick = onGithubOpeningRequested,
             )
 
             OptionItem(
-                label = "Toggle application theme", // fixme - localized string
+                label = settingsStrings.themeToggleLabel,
                 icon = IconData.Vector(
                     imageVector = currentThemeIcon,
-                    description = null, // fixme - localized description
+                    description = settingsStrings.themeToggleIconDescription,
                 ),
                 onClick = onThemeToggle,
             )
 
             CoreText(
-                text = "Version ${BuildKonfig.appVersion}", // fixme - localized string
+                text = settingsStrings.versionLabel(BuildKonfig.appVersion),
                 weight = FontWeight.SemiBold,
                 color = KtColor.NeutralLow,
                 modifier = Modifier
