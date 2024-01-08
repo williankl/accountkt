@@ -2,6 +2,7 @@ package williankl.accountkt.ui.application.localization
 
 import cafe.adriel.lyricist.LyricistStrings
 import williankl.accountkt.ui.application.localization.ApplicationStrings.CurrencyDisplayStrings
+import williankl.accountkt.ui.application.localization.ApplicationStrings.SettingsStrings
 
 @LyricistStrings(languageTag = "en-US", default = true)
 internal val enUsStrings = ApplicationStrings(
@@ -20,5 +21,12 @@ internal val enUsStrings = ApplicationStrings(
             if (isSearching) "Close symbol search"
             else "Open symbol search"
         },
+    ),
+    settingsStrings = SettingsStrings(
+        githubLabel = "Application Github",
+        githubIconDescription = "Github icon",
+        themeToggleLabel = "Toggle application theme",
+        themeToggleIconDescription = "Toggle theme icon",
+        versionLabel = { version -> "App Version $version" },
     )
 )
