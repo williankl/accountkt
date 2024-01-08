@@ -3,6 +3,7 @@ package williankl.accountkt.ui.application.localization
 import cafe.adriel.lyricist.LyricistStrings
 import williankl.accountkt.ui.application.localization.ApplicationStrings.CurrencyDisplayStrings
 import williankl.accountkt.ui.application.localization.ApplicationStrings.SettingsStrings
+import williankl.accountkt.ui.application.localization.ApplicationStrings.SymbolSelectionStrings
 
 @LyricistStrings(languageTag = "en-US", default = true)
 internal val enUsStrings = ApplicationStrings(
@@ -28,5 +29,10 @@ internal val enUsStrings = ApplicationStrings(
         themeToggleLabel = "Toggle application theme",
         themeToggleIconDescription = "Toggle theme icon",
         versionLabel = { version -> "App Version $version" },
+    ),
+    symbolSelectionStrings = SymbolSelectionStrings(
+        magnifyingGlassesIconDescription = "Search icon",
+        queryClearIconDescription = "Clear the search query",
+        symbolFlagIconDescription = { symbol -> "$symbol flag" },
     )
 )

@@ -5,6 +5,7 @@ import williankl.accountkt.data.currencyService.models.Symbol
 internal data class ApplicationStrings(
     val currencyStrings: CurrencyDisplayStrings,
     val settingsStrings: SettingsStrings,
+    val symbolSelectionStrings: SymbolSelectionStrings,
 ) {
     internal data class CurrencyDisplayStrings(
         val appName: String,
@@ -23,5 +24,11 @@ internal data class ApplicationStrings(
         val themeToggleLabel: String,
         val themeToggleIconDescription: String,
         val versionLabel: (String) -> String,
+    )
+
+    internal data class SymbolSelectionStrings(
+        val magnifyingGlassesIconDescription: String,
+        val queryClearIconDescription: String,
+        val symbolFlagIconDescription: (Symbol) -> String,
     )
 }
