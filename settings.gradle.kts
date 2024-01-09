@@ -20,14 +20,17 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "accountkt"
-include(":app:android")
+include(":app:kash:android")
+include(":app:debter:android")
 
-include(":ui:application")
+include(":ui:application:kash")
+include(":ui:application:debter")
 include(":ui:design:core")
 include(":ui:design:components")
 
 include(":feature:currency-feature")
-include(":feature:shared-preferences")
+include(":feature:shared-preferences:kash")
+include(":feature:shared-preferences:debter")
 
 include(":data:currency-service")
 include(":data:currency-storage")

@@ -1,6 +1,5 @@
 package williankl.accountkt.feature.sharedPreferences
 
-import com.russhwolf.settings.Settings
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
 import org.kodein.di.instance

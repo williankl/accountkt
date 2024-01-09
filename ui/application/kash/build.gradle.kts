@@ -23,7 +23,7 @@ android {
 
 dependencies {
     commonMainImplementation(projects.feature.currencyFeature)
-    commonMainImplementation(projects.feature.sharedPreferences)
+    commonMainImplementation(projects.feature.sharedPreferences.kash)
     commonMainImplementation(projects.data.currencyStorage)
     commonMainImplementation(projects.data.currencyService)
     commonMainImplementation(projects.ui.design.components)

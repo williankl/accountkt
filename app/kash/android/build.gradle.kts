@@ -10,7 +10,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.ui.application)
+    implementation(projects.ui.application.kash)
     implementation(libs.android.compose.activity)
     implementation(libs.kodein.android)
     implementation(libs.kodein.compose)

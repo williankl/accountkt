@@ -2,8 +2,6 @@ package williankl.accountkt.feature.sharedPreferences.internal
 
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
-import williankl.accountkt.feature.sharedPreferences.models.CurrencyPreferences
-import williankl.accountkt.feature.sharedPreferences.services.CurrencyPreferencesService
 import williankl.accountkt.feature.sharedPreferences.services.ThemePreferencesService
 import williankl.accountkt.ui.design.core.color.theme.KtTheme
 
