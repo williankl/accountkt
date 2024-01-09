@@ -29,8 +29,7 @@ include(":ui:design:core")
 include(":ui:design:components")
 
 include(":feature:currency-feature")
-include(":feature:shared-preferences:kash")
-include(":feature:shared-preferences:debter")
+include(":feature:shared-preferences")
 
 include(":data:currency-service")
 include(":data:currency-storage")

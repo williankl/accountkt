@@ -29,7 +29,7 @@ import compose.icons.EvaIcons
 import compose.icons.evaicons.Fill
 import compose.icons.evaicons.fill.Github
 import williankl.accountkt.ui.application.BuildKonfig
-import williankl.accountkt.ui.application.LocalApplicationStrings
+import williankl.accountkt.ui.application.LocalKashStrings
 import williankl.accountkt.ui.application.safeArea.LocalSafeAreaPadding
 import williankl.accountkt.ui.design.core.color.KtColor
 import williankl.accountkt.ui.design.core.color.animatedColor
@@ -68,7 +68,7 @@ internal object OptionsBottomSheet : Screen {
         onThemeToggle: () -> Unit,
         modifier: Modifier = Modifier,
     ) {
-        val settingsStrings = LocalApplicationStrings.current.settingsStrings
+        val settingsStrings = LocalKashStrings.current.settingsStrings
         val safeAreaPadding = LocalSafeAreaPadding.current
         val themeHandler = LocalKtTheme.current
         val isSystemInDarkMode = isSystemInDarkTheme()
@@ -107,7 +107,9 @@ internal object OptionsBottomSheet : Screen {
             )
 
             Spacer(
-                modifier = Modifier.height(safeAreaPadding.bottomPadding)
+                modifier = Modifier.height(
+                    safeAreaPadding.paddingValues.calculateBottomPadding()
+                )
             )
         }
     }

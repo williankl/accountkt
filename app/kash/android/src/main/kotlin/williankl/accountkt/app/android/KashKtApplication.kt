@@ -7,10 +7,10 @@ import org.kodein.di.android.androidCoreModule
 import org.kodein.di.android.x.androidXModule
 import williankl.accountkt.ui.application.DI.applicationDI
 
-internal class AccountKtApplication : Application(), DIAware {
+internal class KashKtApplication : Application(), DIAware {
     override val di: DI = DI {
-        import(androidCoreModule(this@AccountKtApplication))
-        import(androidXModule(this@AccountKtApplication))
+        import(androidCoreModule(this@KashKtApplication))
+        import(androidXModule(this@KashKtApplication))
         import(applicationDI)
     }
 }

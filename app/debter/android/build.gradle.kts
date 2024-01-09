@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "williankl.accountkt.app.android"
+    namespace = "williankl.debter.app.android"
 }
 
 dependencies {
-    implementation(projects.ui.application.kash)
+    implementation(projects.ui.application.debter)
     implementation(libs.android.compose.activity)
     implementation(libs.kodein.android)
     implementation(libs.kodein.compose)

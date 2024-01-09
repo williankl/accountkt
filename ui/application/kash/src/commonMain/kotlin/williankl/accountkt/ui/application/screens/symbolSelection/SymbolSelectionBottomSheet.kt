@@ -43,7 +43,7 @@ import io.kamel.image.asyncPainterResource
 import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants.currencyImageUrl
 import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.feature.currencyFeature.models.CurrencyRate
-import williankl.accountkt.ui.application.LocalApplicationStrings
+import williankl.accountkt.ui.application.LocalKashStrings
 import williankl.accountkt.ui.application.safeArea.LocalSafeAreaPadding
 import williankl.accountkt.ui.application.screens.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
 import williankl.accountkt.ui.design.core.bottomElevation
@@ -76,7 +76,7 @@ internal object SymbolSelectionBottomSheet : Screen {
         supportedRates: List<CurrencyRate>,
         modifier: Modifier = Modifier,
     ) {
-        val symbolSelectionStrings = LocalApplicationStrings.current.symbolSelectionStrings
+        val symbolSelectionStrings = LocalKashStrings.current.symbolSelectionStrings
         val safeAreaPadding = LocalSafeAreaPadding.current
         val focusManager = LocalFocusManager.current
         val inputFieldFocusRequester = remember { FocusRequester() }
@@ -147,7 +147,9 @@ internal object SymbolSelectionBottomSheet : Screen {
 
             item {
                 Spacer(
-                    modifier = Modifier.height(safeAreaPadding.bottomPadding)
+                    modifier = Modifier.height(
+                        safeAreaPadding.paddingValues.calculateBottomPadding()
+                    )
                 )
             }
         }
@@ -177,7 +179,7 @@ internal object SymbolSelectionBottomSheet : Screen {
         rate: CurrencyRate,
         modifier: Modifier = Modifier,
     ) {
-        val symbolSelectionStrings = LocalApplicationStrings.current.symbolSelectionStrings
+        val symbolSelectionStrings = LocalKashStrings.current.symbolSelectionStrings
 
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),

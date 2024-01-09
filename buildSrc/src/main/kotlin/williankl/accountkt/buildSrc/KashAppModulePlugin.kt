@@ -20,7 +20,7 @@ internal class KashAppModulePlugin : Plugin<Project> {
             applyCommonPlugins()
             applyKotlinOptions()
             applyRepositories()
-            setupAndroidApp("kash")
+            setupAndroidApp("accountkt")
             setupAndroid()
         }
     }

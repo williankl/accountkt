@@ -64,7 +64,7 @@ import williankl.accountkt.data.currencyService.api.CurrencyEndpointConstants.cu
 import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.data.currencyService.models.SymbolName
 import williankl.accountkt.feature.currencyFeature.models.CurrencyRate
-import williankl.accountkt.ui.application.LocalApplicationStrings
+import williankl.accountkt.ui.application.LocalKashStrings
 import williankl.accountkt.ui.application.screens.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
 import williankl.accountkt.ui.application.safeArea.LocalSafeAreaPadding
 import williankl.accountkt.ui.application.screens.options.OptionsBottomSheet
@@ -133,7 +133,7 @@ internal class CurrencyDisplayScreen : Screen {
         stateHandler: ConverterStateHandler,
         modifier: Modifier = Modifier,
     ) {
-        val currencyStrings = LocalApplicationStrings.current.currencyStrings
+        val currencyStrings = LocalKashStrings.current.currencyStrings
         var searchQuery by remember(stateHandler.symbol) {
             mutableStateOf("")
         }
@@ -202,7 +202,9 @@ internal class CurrencyDisplayScreen : Screen {
                 item {
                     val safeAreaPadding = LocalSafeAreaPadding.current
                     Spacer(
-                        modifier = Modifier.height(safeAreaPadding.bottomPadding)
+                        modifier = Modifier.height(
+                            safeAreaPadding.paddingValues.calculateBottomPadding()
+                        )
                     )
                 }
             }
@@ -218,7 +220,7 @@ internal class CurrencyDisplayScreen : Screen {
         isSearching: Boolean,
         modifier: Modifier = Modifier,
     ) {
-        val currencyStrings = LocalApplicationStrings.current.currencyStrings
+        val currencyStrings = LocalKashStrings.current.currencyStrings
         val safeAreaPadding = LocalSafeAreaPadding.current
         val focusManager = LocalFocusManager.current
         val inputFieldFocusRequester = remember { FocusRequester() }
@@ -239,7 +241,9 @@ internal class CurrencyDisplayScreen : Screen {
                         bottomEnd = 12.dp,
                     )
                 )
-                .padding(top = safeAreaPadding.topPadding)
+                .padding(
+                    top = safeAreaPadding.paddingValues.calculateTopPadding()
+                )
                 .padding(12.dp)
                 .fillMaxWidth()
         ) {
@@ -453,7 +457,7 @@ internal class CurrencyDisplayScreen : Screen {
         onFavouriteToggleRequested: () -> Unit,
         modifier: Modifier = Modifier,
     ) {
-        val currencyStrings = LocalApplicationStrings.current.currencyStrings
+        val currencyStrings = LocalKashStrings.current.currencyStrings
 
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),

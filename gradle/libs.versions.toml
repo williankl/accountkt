@@ -4,8 +4,8 @@ android-compileSdk = "34"
 android-targetSdk = "34"
 android-minSdk = "21"
 
-versionCode-kash = "000004001"
-versionName-kash = "0.4.1"
+versionCode-accountkt = "000004001"
+versionName-accountkt = "0.4.1"
 
 versionCode-debter = "000000001"
 versionName-debter = "0.0.1"
