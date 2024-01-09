@@ -1,16 +1,14 @@
 plugins {
-    id("accoutkt.android.kash.app")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
+    id("accoutkt.android.debter.app")
     id("org.jetbrains.compose")
 }
 
 android {
-    namespace = "williankl.accountkt.app.android"
+    namespace = "williankl.debter.app.android"
 }
 
 dependencies {
-    implementation(projects.ui.application.kash)
+    implementation(projects.ui.application.debter)
     implementation(libs.android.compose.activity)
     implementation(libs.kodein.android)
     implementation(libs.kodein.compose)

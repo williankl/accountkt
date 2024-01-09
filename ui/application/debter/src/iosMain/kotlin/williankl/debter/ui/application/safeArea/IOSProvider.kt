@@ -1,4 +1,4 @@
-package williankl.accountkt.ui.application.safeArea
+package williankl.debter.ui.application.safeArea
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.unit.dp

@@ -1,4 +1,4 @@
-package williankl.accountkt.ui.application
+package williankl.debter.ui.application
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
@@ -24,19 +23,15 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.bottomSheet.BottomSheetNavigator
 import cafe.adriel.voyager.transitions.SlideTransition
 import org.kodein.di.compose.localDI
-import org.kodein.di.compose.withDI
 import org.kodein.di.instance
 import williankl.accountkt.feature.sharedPreferences.services.ThemePreferencesService
-import williankl.accountkt.ui.application.DI.applicationDI
-import williankl.accountkt.ui.application.screens.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
-import williankl.accountkt.ui.application.screens.currency.ConverterStateHandler.Companion.rememberConverterStateHandler
-import williankl.accountkt.ui.application.screens.currency.CurrencyDisplayScreen
-import williankl.accountkt.ui.application.safeArea.LocalSafeAreaPadding
-import williankl.accountkt.ui.application.safeArea.safeAreaPadding
+import williankl.debter.ui.application.safeArea.LocalSafeAreaPadding
+import williankl.debter.ui.application.safeArea.safeAreaPadding
 import williankl.accountkt.ui.design.core.color.KtColor
 import williankl.accountkt.ui.design.core.color.animatedColor
 import williankl.accountkt.ui.design.core.color.theme.LocalKtTheme
 import williankl.accountkt.ui.design.core.color.theme.ThemeHandler
+import williankl.debter.ui.application.screens.main.MainScreen
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -53,7 +48,6 @@ internal fun CommonApplicationContent() {
 
     MaterialTheme {
         CompositionLocalProvider(
-            LocalConverterStateHandler provides rememberConverterStateHandler(),
             LocalSafeAreaPadding provides safeAreaPadding,
             LocalKtTheme provides themeHandler
         ) {
@@ -87,7 +81,7 @@ internal fun CommonApplicationContent() {
                     }
                 },
                 content = {
-                    Navigator(CurrencyDisplayScreen()) {
+                    Navigator(MainScreen) {
                         SlideTransition(it)
                     }
                 }

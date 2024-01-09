@@ -13,12 +13,12 @@ plugins {
     id("com.google.devtools.ksp")
 }
 
-applyNativeWithBaseName("KtApplication")
+applyNativeWithBaseName("DebterApplication")
 applyCommonMainCodeGeneration()
-applyMultiModuleKsp("williankl.accountkt.ui.application")
+applyMultiModuleKsp("williankl.debter.ui.application")
 
 android {
-    namespace = "williankl.accountkt.ui.application"
+    namespace = "williankl.debter.ui.application"
 }
 
 dependencies {

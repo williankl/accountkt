@@ -27,7 +27,9 @@ buildkonfig {
     packageName = "williankl.accountkt.data.currencyService"
     defaultConfigs {
         buildConfigField(
-            FieldSpec.Type.STRING, "apiKey", fromLocalProperties("apiKey")
+            type = FieldSpec.Type.STRING,
+            name = "apiKey",
+            value = fromLocalProperties("apiKey")
         )
     }
 }
