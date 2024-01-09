@@ -4,10 +4,30 @@ import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
-import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.findByType
-import org.gradle.kotlin.dsl.getByType
+
+internal fun Project.setupAndroidApp(appName: String) {
+    configure<BaseExtension> {
+        buildTypes.getByName("debug").apply {
+            applicationIdSuffix = ".stg"
+        }
+
+        buildTypes.getByName("release").apply {
+            minifyEnabled(true)
+            proguardFiles(
+                getDefaultProguardFile("proguard-android.txt"),
+                "proguard-rules.pro"
+            )
+        }
+
+        defaultConfig {
+            applicationId = "williankl.$appName"
+            versionCode = retrieveVersionFromCatalogs("versionCode-$appName").toInt()
+            versionName = retrieveVersionFromCatalogs("versionName-$appName")
+        }
+    }
+}
 
 internal fun Project.setupAndroid(){
     configure<BaseExtension> {

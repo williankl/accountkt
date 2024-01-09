@@ -47,7 +47,9 @@ buildkonfig {
     packageName = "williankl.accountkt.ui.application"
     defaultConfigs {
         buildConfigField(
-            FieldSpec.Type.STRING, "appVersion", retrieveVersionFromCatalogs("versionName")
+            type = FieldSpec.Type.STRING,
+            name = "appVersion",
+            value = retrieveVersionFromCatalogs("versionName-kash")
         )
     }
 }

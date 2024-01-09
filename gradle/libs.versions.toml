@@ -3,8 +3,12 @@
 android-compileSdk = "34"
 android-targetSdk = "34"
 android-minSdk = "21"
-versionCode = "000004001"
-versionName = "0.4.1"
+
+versionCode-kash = "000004001"
+versionName-kash = "0.4.1"
+
+versionCode-debter = "000000001"
+versionName-debter = "0.0.1"
 
 plugin-ktlint = "3.10.0"
 plugin-detekt = "1.22.0"
@@ -25,8 +29,8 @@ ktor = "2.3.6"
 kodein = "7.20.2"
 slf4j = "1.7.21"
 kamel = "0.9.0"
-kmpSettings="1.1.1"
-composeIcons="1.1.0"
+kmpSettings = "1.1.1"
+composeIcons = "1.1.0"
 
 android-splashScreen = "1.0.1"
 android-compose-activity = "1.8.2"

@@ -1,7 +1,5 @@
 plugins {
-    id("accoutkt.android.kash.app")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
+    id("accoutkt.android.debter.app")
     id("org.jetbrains.compose")
 }
 

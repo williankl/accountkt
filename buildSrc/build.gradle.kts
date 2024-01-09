@@ -14,9 +14,13 @@ gradlePlugin {
         id = "accoutkt.multiplatform"
         implementationClass = "williankl.accountkt.buildSrc.MultiplatformModulePlugin"
     }
-    plugins.register("android-app-module") {
-        id = "accoutkt.android.app"
-        implementationClass = "williankl.accountkt.buildSrc.AndroidAppModulePlugin"
+    plugins.register("android-debter-app-module") {
+        id = "accoutkt.android.debter.app"
+        implementationClass = "williankl.accountkt.buildSrc.DebterAppModulePlugin"
+    }
+    plugins.register("android-kash-app-module") {
+        id = "accoutkt.android.kash.app"
+        implementationClass = "williankl.accountkt.buildSrc.KashAppModulePlugin"
     }
     plugins.register("kotlin-module") {
         id = "accoutkt.kotlin"
