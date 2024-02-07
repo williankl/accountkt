@@ -3,6 +3,9 @@
 This app is a simple solution to checking the currency value against any other currency. These values are updated daily, and use this [Exchange api](https://www.exchangerate-api.com/) as source of truth.  
 The main reason this app was created was to study the Kotlin Multiplatform feature, which builds Kotlin native code into some targets, such as iOS and Android.
 
+![Vectary texture](https://github.com/williankl/accountkt/assets/57682159/5f9e2fbf-d7e5-4010-afb4-18e57b17c00e)
+
+
 ## Multiplatform Tech Stack
 - [Jetpack Compose](https://github.com/JetBrains/compose-multiplatform) -> UI building
 - [Voyager](https://github.com/adrielcafe/voyager) -> Navigation and Bottom sheet handling
@@ -46,4 +49,4 @@ ui
 ## Google play | App store
 You can check the application on the following links:
 1. [Google play](https://play.google.com/store/apps/details?id=williankl.accountkt)
-2. App store - To be published
+2. [App store](https://apps.apple.com/us/app/kash-kt/id6477299485)
