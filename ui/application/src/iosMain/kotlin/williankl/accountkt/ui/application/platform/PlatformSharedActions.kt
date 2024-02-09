@@ -10,8 +10,4 @@ public actual class PlatformSharedActions {
                 UIApplication.sharedApplication.openURL(parsedNSULR)
             }
     }
-
-    public actual fun Float.format(decimal: Int): String {
-        TODO("Not yet implemented")
-    }
 }

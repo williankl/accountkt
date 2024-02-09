@@ -67,6 +67,7 @@ import williankl.accountkt.data.currencyService.models.Symbol
 import williankl.accountkt.data.currencyService.models.SymbolName
 import williankl.accountkt.feature.currencyFeature.models.CurrencyRate
 import williankl.accountkt.ui.application.LocalApplicationStrings
+import williankl.accountkt.ui.application.platform.format
 import williankl.accountkt.ui.application.screens.currency.ConverterStateHandler.Companion.LocalConverterStateHandler
 import williankl.accountkt.ui.application.safeArea.LocalSafeAreaPadding
 import williankl.accountkt.ui.application.screens.options.OptionsBottomSheet
@@ -486,7 +487,7 @@ internal class CurrencyDisplayScreen : Screen {
             )
 
             CoreText(
-                text = parsedValue.parseToFloatingPoint(2),
+                text = parsedValue.format(2),
                 weight = FontWeight.SemiBold,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
@@ -513,17 +514,6 @@ internal class CurrencyDisplayScreen : Screen {
                     )
                 }
             )
-        }
-    }
-
-    private fun Float.parseToFloatingPoint(
-        number: Int,
-        coinSeparator: String = ",",
-    ): String {
-        return with(toString()) {
-            val before = substringBefore(".")
-            val after = substringAfter(".")
-            "$before$coinSeparator${after.take(number)}"
         }
     }
 }
