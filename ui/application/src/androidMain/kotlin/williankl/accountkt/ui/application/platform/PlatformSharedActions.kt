@@ -14,4 +14,8 @@ public actual class PlatformSharedActions(
         intent.flags += FLAG_ACTIVITY_NEW_TASK
         context.startActivity(intent)
     }
+
+    public actual fun Float.format(decimal: Int): String {
+        return String.format("%.2f", decimal)
+    }
 }
